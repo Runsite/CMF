@@ -17,7 +17,12 @@
                       <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.settings.edit', $model->id) }}"><i class="fa fa-cog"></i> {{ trans('runsite::models.Settings') }}</a>
                   </li>
                   <li class="{{ Route::current()->getName() == 'admin.models.methods.edit' ? 'active' : null }}">
-                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.methods.edit', $model->id) }}"><i class="fa fa-window-restore"></i> {{ trans('runsite::models.Methods') }}</a>
+                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.methods.edit', $model->id) }}">
+                        <i class="fa fa-window-restore"></i> {{ trans('runsite::models.Methods') }}
+                        @if($model->methodsCount())
+                          <span class="label label-default">{{ $model->methodsCount() }}</span>
+                        @endif
+                      </a>
                   </li>
                   <li class="{{ str_is('admin.models.fields.*', Route::current()->getName()) ? 'active' : null }}">
                       <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.fields.index', $model->id) }}">

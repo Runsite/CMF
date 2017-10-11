@@ -54,6 +54,21 @@ class Model extends Eloquent
 		return $this->hasOne(Method::class, 'model_id');
 	}
 
+	public function methodsCount()
+	{
+		$methods = $this->methods;
+		$count = 0;
+		foreach(['get', 'post', 'patch', 'delete'] as $method)
+		{
+			if($methods->{$method})
+			{
+				$count++;
+			}
+		}
+
+		return $count;
+	}
+
 	public function dependencies()
 	{
 		return $this->belongsToMany(Model::class, 'rs_model_dependencies', 'model_id', 'depended_model_id')->orderBy('position', 'asc');
