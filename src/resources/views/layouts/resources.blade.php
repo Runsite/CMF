@@ -36,8 +36,8 @@
     <script src="{{ asset('vendor/runsite/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/bower_components/fastclick/lib/fastclick.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/dist/js/adminlte.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/dist/js/demo.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/dist/js/adminlte.js') }}"></script>
+    {{-- <script src="{{ asset('vendor/runsite/dist/js/demo.js') }}"></script> --}}
     <script src="{{ asset('vendor/runsite/plugins/iCheck/icheck.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/plugins/cropper/cropper.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/plugins/bootstrap-toggle/bootstrap-toggle.min.js') }}"></script>
@@ -67,7 +67,7 @@
                 timeout: 1500,
             }).show();
         </script>
-  @endif
+    @endif
 
     @yield('js')
   </body>
