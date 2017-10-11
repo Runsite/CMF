@@ -6,12 +6,12 @@
 	
 	@if(count($node->breadcrumbsBetweenRoot()))
 		<li>
-			<a data-toggle="dropdown" href="#"><small>...</small></a>
+			<a data-toggle="dropdown" class="ripple" href="#"><small>...</small></a>
 			<ul class="dropdown-menu">
 				@foreach($node->breadcrumbsBetweenRoot() as $breadcrumb)
 					<li>
 						<a href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
-							{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 25) }}
+							{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}
 						</a>
 					</li>
 				@endforeach
@@ -23,10 +23,20 @@
 	@foreach($node->breadcrumbs() as $breadcrumb)
 		<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }}">
 			<a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
-				<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 25) }}</small>
+				<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}</small>
 			</a>
 		</li>
 	@endforeach
+
+	<li>
+		<a class="ripple" href="#" data-toggle="dropdown">
+			<small><i class="fa fa-plus"></i></small>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<li><a href="#">Test</a></li>
+			<li><a href="#">Test</a></li>
+		</ul>
+	</li>
 
 </ul>
 @endsection
