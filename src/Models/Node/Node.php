@@ -10,6 +10,7 @@ use Runsite\CMF\Models\User\Group;
 use Runsite\CMF\Models\User\Access\AccessNode;
 use DB;
 use LaravelLocalization;
+use Goszowski\Temp\Temp;
 
 class Node extends Eloquent
 {
@@ -149,7 +150,7 @@ class Node extends Eloquent
 
     public function dynamicCurrentLanguage()
     {
-        $language = Language::where('locale', LaravelLocalization::getCurrentLocale())->first();
+        $language = Temp::get('current-language') ?: Temp::put('current-language', Language::where('locale', LaravelLocalization::getCurrentLocale())->first());
         return $this->dynamic()->where('language_id', $language->id);
     }
 
@@ -199,20 +200,26 @@ class Node extends Eloquent
 
     public function breadcrumbsBetweenRoot()
     {
-        $result = [];
-
-        if($this->parent_id > 1)
+        if(Temp::exists('breadcrumbs-between-root'))
         {
-            $parent = Node::findOrFail($this->parent_id);
-
-            while($parent->parent_id > 1)
-            {
-                $parent = Node::findOrFail($parent->parent_id);
-                $result[] = $parent;
-            }
+            return Temp::get('breadcrumbs-between-root');
         }
-        
+        else
+        {
+            $result = [];
 
-        return $result;
+            if($this->parent_id > 1)
+            {
+                $parent = Node::findOrFail($this->parent_id);
+
+                while($parent->parent_id > 1)
+                {
+                    $parent = Node::findOrFail($parent->parent_id);
+                    $result[] = $parent;
+                }
+            }
+
+            return Temp::put('breadcrumbs-between-root', $result);
+        }
     }
 }

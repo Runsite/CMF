@@ -3,6 +3,7 @@
 use Runsite\CMF\Models\Dynamic\Dynamic;
 use Runsite\CMF\Models\Dynamic\Language;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Goszowski\Temp\Temp;
 
 function M($model_name, $is_active=true, $language_locale=null)
 {
@@ -17,10 +18,12 @@ function M($model_name, $is_active=true, $language_locale=null)
 
     if(!$language_locale)
     {
-        $language_locale = LaravelLocalization::getCurrentLocale();
+        $language = Temp::get('current-language') ?: Temp::put('current-language', Language::where('locale', LaravelLocalization::getCurrentLocale())->first());
     }
-
-    $language = Language::where('locale', $language_locale)->first();
+    else 
+    {
+        $language = Language::where('locale', $language_locale)->first();
+    }
 
     if(!$language)
     {
