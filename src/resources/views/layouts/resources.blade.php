@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/errors/forbidden.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/runsite-checkbox/runsite-checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/noty/noty.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/animate/animate.css') }}">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
