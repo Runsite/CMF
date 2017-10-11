@@ -1,0 +1,19 @@
+{
+    "name": "runsite-cmf/cmf",
+    "require": {
+        "php": ">=7.0.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jaroslaw Goszowski",
+            "email": "goszowski@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+      "psr-4": {
+          "RunsiteCMF\\CMF\\": "src/"
+        }
+    }
+}

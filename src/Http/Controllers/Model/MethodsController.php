@@ -1,0 +1,53 @@
+<?php
+
+namespace Runsite\CMF\Http\Controllers\Model;
+
+use Illuminate\Http\Request;
+use Runsite\CMF\Http\Controllers\BaseAdminController;
+use Runsite\CMF\Models\Model\Model;
+use Runsite\CMF\Validator\Rules\ValidMethod;
+use Runsite\CMF\Traits\Applicable;
+
+class MethodsController extends BaseAdminController
+{
+    use Applicable;
+
+    protected $application_name = 'models';
+
+    public function __boot()
+    {
+        $this->middleware('application-access:models:edit')->only('update');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($model_id)
+    {
+        $model = Model::findOrFail($model_id);
+        $methods = $model->methods;
+        return view('runsite::models.methods.edit', compact('model', 'methods'))->withApplication($this->application);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Model  $model
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $model_id)
+    {
+        $data = $request->validate([
+            'get' => ['nullable', 'string', new ValidMethod],
+            'post' => ['nullable', 'string', new ValidMethod],
+            'patch' => ['nullable', 'string', new ValidMethod],
+            'delete' => ['nullable', 'string', new ValidMethod],
+        ]);
+
+        $methods = Model::findOrFail($model_id)->methods->update($data);
+        return redirect()->route('admin.models.methods.edit', $model_id)->with('success', trans('runsite::models.methods.The model methods are updated'));
+    }
+}

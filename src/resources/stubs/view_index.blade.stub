@@ -1,0 +1,9 @@
+@extends('layouts.app')
+
+@section('app')
+    <ul>
+        @foreach($%_model_name_plural_% as $%_model_name_%)
+            <li>#item {{ $%_model_name_%->is_active }}</li>
+        @endforeach
+    </ul>
+@endsection

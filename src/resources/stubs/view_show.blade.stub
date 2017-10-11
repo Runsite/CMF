@@ -1,0 +1,5 @@
+@extends('layouts.app')
+
+@section('app')
+    <h1>Node: {{ $node->id }}; Is Active: {{ $fields->is_active }}</h1>
+@endsection

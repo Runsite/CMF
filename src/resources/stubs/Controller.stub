@@ -1,0 +1,38 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Runsite\CMF\Http\Controllers\RunsiteCMFBaseController;
+use Illuminate\Http\Request;
+
+class %_controller_name_% extends RunsiteCMFBaseController
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        if(! $request->isMethod('get')) return abort(404);
+
+        $%_model_name_plural_% = M('%_model_name_%')
+            // Only child items of this model
+            ->where('parent_id', $this->node->id)
+            ->paginate();
+
+        return $this->view('%_views_dirname_%.index', compact('%_model_name_plural_%'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function show(Request $request)
+    {
+        if(! $request->isMethod('get')) return abort(404);
+
+        return $this->view('%_views_dirname_%.view');
+    }
+}

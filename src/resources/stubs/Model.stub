@@ -1,0 +1,11 @@
+<?php 
+
+namespace App\Models;
+
+use Runsite\CMF\Models\Dynamic\Dynamic;
+use Runsite\CMF\Traits\Constructable;
+
+class %_model_name_% extends Dynamic
+{
+    use Constructable;
+}

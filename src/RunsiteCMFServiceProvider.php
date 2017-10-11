@@ -1,0 +1,56 @@
+<?php
+
+namespace Runsite\CMF;
+
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
+use View;
+use Validator;
+use Runsite\CMF\Http\ViewComposers\AppComposer;
+use Runsite\CMF\Http\ViewComposers\TreeComposer;
+use Runsite\CMF\Http\Middlewares\Access\Application as ApplicationAccessMiddleware;
+
+class RunsiteCMFServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap the application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        if(config('runsite.cmf.dynamic_routes.enabled'))
+        {
+            $this->loadRoutesFrom(__DIR__ . '/routes/public.php');
+        }
+        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
+        $this->loadViewsFrom(__DIR__ . '/resources/views', 'runsite');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadTranslationsFrom(__DIR__.'/resources/langs', 'runsite');
+
+        $this->publishes([
+            __DIR__.'/config/cmf.php' => config_path('runsite/cmf.php'),
+        ]);
+
+        View::composer('runsite::*', AppComposer::class);
+        View::composer('runsite::layouts.app', TreeComposer::class);
+
+        
+        $this->app['router']->aliasMiddleware('application-access', ApplicationAccessMiddleware::class);
+    }
+
+    /**
+     * Register the application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        require_once __DIR__ . '\Helpers\M.php';
+
+        $this->commands([
+            Console\Commands\Setup\Setup::class,
+        ]);
+
+    }
+}
