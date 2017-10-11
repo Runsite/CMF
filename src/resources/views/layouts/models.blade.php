@@ -1,4 +1,27 @@
 @extends('runsite::layouts.app')
+
+@section('breadcrumbs')
+<ul class="nav navbar-nav navbar-breadcrumbs visible-md visible-lg">
+  <li class="{{ Route::current()->getName() == 'admin.models.index' ? 'active' : null }}"><a class="ripple" href="{{ route('admin.models.index') }}"><i class="fa fa-cogs"></i></a></li>
+
+  @if(isset($model))
+    <li class="{{ Route::current()->getName() == 'admin.models.edit' ? 'active' : null }}">
+      <a class="ripple" href="{{ route('admin.models.edit', $model->id) }}">
+        <small>{{ $model->display_name }}</small>
+      </a>
+    </li>
+  @endif
+
+  @if(isset($field))
+    <li class="{{ str_is('admin.models.fields.*', Route::current()->getName()) ? 'active' : null }}">
+      <a class="ripple" href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->id]) }}">
+        <small>{{ $field->display_name }}</small>
+      </a>
+    </li>
+  @endif
+</ul>
+@endsection
+
 @section('app')
 
     <div class="content">

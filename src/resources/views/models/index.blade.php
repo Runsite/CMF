@@ -14,13 +14,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($models as $model)
+                    @foreach($models as $modelItem)
                         <tr>
-                            <td>{{ $model->id }}</td>
+                            <td>{{ $modelItem->id }}</td>
                             <td>
-                                <a href="{{ route('admin.models.edit', $model->id) }}" style="display: block;"><b>{{ $model->display_name }}</b></a>
+                                <a href="{{ route('admin.models.edit', $modelItem->id) }}" style="display: block;"><b>{{ $modelItem->display_name }}</b></a>
                             </td>
-                            <td><span class="label label-default">{{ $model->name }}</span></td>
+                            <td><span class="label label-default">{{ $modelItem->name }}</span></td>
                         </tr>
                     @endforeach
                 </tbody>
