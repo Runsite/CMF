@@ -150,13 +150,7 @@
 </aside>
 <div class="content-wrapper">
 
-  @if (\Session::has('success'))
-      <div class="xs-p-15 xs-pb-0">
-        <div class="alert alert-success xs-p-5 xs-pl-15 xs-pr-15 xs-mb-0">
-            {!! \Session::get('success') !!}
-        </div>
-      </div>
-  @endif
+  
 
   @yield('app')
 </div>

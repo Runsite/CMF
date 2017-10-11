@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/bootstrap-languages/languages.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/errors/forbidden.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/runsite-checkbox/runsite-checkbox.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/noty/noty.css') }}">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,6 +42,7 @@
     <script src="{{ asset('vendor/runsite/plugins/cropper/cropper.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/plugins/bootstrap-toggle/bootstrap-toggle.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/plugins/ripple/ripple.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/plugins/noty/noty.min.js') }}"></script>
     <script>
     $(document).ready(function () {
       $('.sidebar-menu').tree();
@@ -56,6 +58,16 @@
       });
     })
     </script>
+
+    @if (\Session::has('success'))
+        <script>
+            new Noty({
+                text: '{!! \Session::get('success') !!}',
+                type: 'success',
+                timeout: 1500,
+            }).show();
+        </script>
+  @endif
 
     @yield('js')
   </body>
