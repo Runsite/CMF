@@ -14,12 +14,7 @@
         <span class="icon-bar"></span>
       </a>
 
-      <ul class="nav navbar-nav navbar-breadcrumbs">
-        <li><a href="#"><i class="fa fa-home"></i></a></li>
-        <li><a href="#"><small>...</small></a></li>
-        <li><a href="#"><small>Новини</small></a></li>
-        <li class="active"><a href="#"><small>Как построить мост через реку - тест довгої назви розділу</small></a></li>
-      </ul>
+      @yield('breadcrumbs')
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">

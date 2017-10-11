@@ -1,4 +1,36 @@
 @extends('runsite::layouts.app')
+
+@section('breadcrumbs')
+<ul class="nav navbar-nav navbar-breadcrumbs visible-md visible-lg">
+	<li class="{{ request()->route('id') == 1 ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>1]) }}"><i class="fa fa-home"></i></a></li>
+	
+	@if(count($node->breadcrumbsBetweenRoot()))
+		<li>
+			<a data-toggle="dropdown" href="#"><small>...</small></a>
+			<ul class="dropdown-menu">
+				@foreach($node->breadcrumbsBetweenRoot() as $breadcrumb)
+					<li>
+						<a href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
+							{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 25) }}
+						</a>
+					</li>
+				@endforeach
+			</ul>
+		</li>
+	@endif
+	
+
+	@foreach($node->breadcrumbs() as $breadcrumb)
+		<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }}">
+			<a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
+				<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 25) }}</small>
+			</a>
+		</li>
+	@endforeach
+
+</ul>
+@endsection
+
 @section('app')
 
 		<div class="content">

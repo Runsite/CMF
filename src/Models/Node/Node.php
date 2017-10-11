@@ -177,4 +177,42 @@ class Node extends Eloquent
         Node::where('parent_id', $this->parent_id)->where('model_id', $this->model_id)->where('position', '<', $this->position)->orderBy('position', 'desc')->first()->increment('position');
         $this->decrement('position');
     }
+
+    public function breadcrumbs()
+    {
+        $result = [];
+
+        if($this->id > 1)
+        {
+            $result[1] = $this;
+        }
+
+        if($this->parent_id > 1)
+        {
+            $result[0] = Node::findOrFail($this->parent_id);
+        }
+
+        ksort($result);
+
+        return $result;
+    }
+
+    public function breadcrumbsBetweenRoot()
+    {
+        $result = [];
+
+        if($this->parent_id > 1)
+        {
+            $parent = Node::findOrFail($this->parent_id);
+
+            while($parent->parent_id > 1)
+            {
+                $parent = Node::findOrFail($parent->parent_id);
+                $result[] = $parent;
+            }
+        }
+        
+
+        return $result;
+    }
 }
