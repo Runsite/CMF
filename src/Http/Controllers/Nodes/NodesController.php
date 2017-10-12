@@ -19,9 +19,9 @@ class NodesController extends BaseAdminController
 	public function create($model_id, $parent_id)
 	{
 		$model = Model::findOrFail($model_id);
-		$parentNode = Node::findOrFail($parent_id);
+		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
-		return view('runsite::nodes.create', compact('model', 'parentNode', 'languages'));
+		return view('runsite::nodes.create', compact('model', 'node', 'languages'));
 	}
 
 	/**

@@ -220,4 +220,15 @@ class Field extends Eloquent
         Field::where('model_id', $this->model_id)->where('position', '<', $this->position)->orderBy('position', 'desc')->first()->increment('position');
         return $this->decrement('position');
     }
+
+    public function getValue($dynamic=null, $language=null)
+    {
+        if(!$dynamic or !$language)
+        {
+            // default value
+            return $this->type()::defaultValue();
+        }
+
+        return $dynamic->where('language_id', $language->id)->first()->{$this->name};
+    }
 }

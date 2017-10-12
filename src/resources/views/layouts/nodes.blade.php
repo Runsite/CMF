@@ -28,16 +28,22 @@
 		</li>
 	@endforeach
 
-	<li>
-		<a class="ripple" href="#" data-toggle="dropdown">
-			<small><i class="fa fa-plus"></i></small>
-		</a>
-		<ul class="dropdown-menu dropdown-menu-right">
-			@foreach($depended_models as $depended_model)
-				<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_model->id, 'parent_id'=>$node->id]) }}">{{ $depended_model->display_name }}</a></li>
-			@endforeach
-		</ul>
-	</li>
+	@if(isset($depended_models) and $depended_models)
+		<li>
+			<a class="ripple" href="#" data-toggle="dropdown">
+				<small><i class="fa fa-plus"></i></small>
+			</a>
+			<ul class="dropdown-menu dropdown-menu-right">
+				@foreach($depended_models as $depended_model)
+					<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_model->id, 'parent_id'=>$node->id]) }}">{{ $depended_model->display_name }}</a></li>
+				@endforeach
+			</ul>
+		</li>
+	@endif
+	
+	@if(Route::current()->getName() == 'admin.nodes.create')
+		<li><a href="{{ route('admin.nodes.edit', ['node_id'=>$node->id]) }}"><small><i class="fa fa-times"></i></small></a></li>
+	@endif
 
 </ul>
 @endsection
@@ -64,7 +70,7 @@
 				</div>
 			{!! Form::close() !!}
 
-			@if($depended_models)
+			@if(isset($depended_models) and $depended_models)
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs">
 						@foreach($depended_models as $depended_model_item)

@@ -3,9 +3,9 @@
 
 		<div class="xs-pb-15">
 			<div class="btn-group">
-				<a href="#" class="btn btn-primary btn-xs ripple">Group</a>
+				<a href="#" class="btn btn-primary btn-sm ripple">Group</a>
 				@foreach($model->groups as $group)
-					<a href="#" class="btn btn-default btn-xs ripple">{{ $group->name }}</a>
+					<a href="#" class="btn btn-default btn-sm ripple">{{ $group->name }}</a>
 				@endforeach
 			</div>
 		</div>
@@ -13,24 +13,26 @@
 		@foreach($model->groups as $group)
 			@foreach($model->fields as $field)
 				@if(! $field->group_id)
-					@include('runsite::models.fields.field_types.'.$field->getControlPath())
+					@include('runsite::models.fields.field_types.'.$field->getControlPath(), ['value'=>$field->getValue((isset($dynamic) ? $dynamic : null), (isset($language) ? $language : null))])
 				@endif
 			@endforeach
 		@endforeach
 		
-
-		<div class="form-group sm-mb-0">
-			<div class="col-sm-2 text-sm-right"><small class="text-muted">Created at</small></div>
-			<div class="col-sm-10">
-				<small class="text-muted">{{ $dynamic->where('language_id', $language->id)->first()->created_at->format('d.m.Y H:i') }}</small>
+		@if(isset($dynamic))
+			<div class="form-group sm-mb-0">
+				<div class="col-sm-2 text-sm-right"><small class="text-muted">Created at</small></div>
+				<div class="col-sm-10">
+					<small class="text-muted">{{ $dynamic->where('language_id', $language->id)->first()->created_at->format('d.m.Y H:i') }}</small>
+				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-2 text-sm-right"><small class="text-muted">Updated at</small></div>
-			<div class="col-sm-10">
-				<small class="text-muted">{{ $dynamic->where('language_id', $language->id)->first()->updated_at->format('d.m.Y H:i') }}</small>
+			<div class="form-group">
+				<div class="col-sm-2 text-sm-right"><small class="text-muted">Updated at</small></div>
+				<div class="col-sm-10">
+					<small class="text-muted">{{ $dynamic->where('language_id', $language->id)->first()->updated_at->format('d.m.Y H:i') }}</small>
+				</div>
 			</div>
-		</div>
+		@endif
+		
 	</div>
 @endforeach
 

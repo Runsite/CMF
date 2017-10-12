@@ -8,7 +8,7 @@
 				value="1"
 				id="{{ $field->name }}-{{ $language->id }}"
 				name="{{ $field->name }}[{{ $language->id }}]"
-				{{ (old($field->name[$language->id]) or $dynamic->where('language_id', $language->id)->first()->{$field->name}) ? 'checked' : null }}
+				{{ (old($field->name[$language->id]) or $value) ? 'checked' : null }}
 				>
 				<label for="{{ $field->name }}-{{ $language->id }}"></label>
 		</div>

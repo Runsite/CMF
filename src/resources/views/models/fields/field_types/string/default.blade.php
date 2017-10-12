@@ -6,7 +6,7 @@
 			class="form-control input-sm"
 			name="{{ $field->name }}[{{ $language->id }}]"
 			id="{{ $field->name }}-{{ $language->id }}"
-			value="{{ old($field->name.'['.$language->id.']') ?: $dynamic->where('language_id', $language->id)->first()->{$field->name} }}">
+			value="{{ old($field->name.'['.$language->id.']') ?: $value }}">
 
 		@if($field->hint)
 			<div class="text-muted"><small>{{ $field->hint }}</small></div>
