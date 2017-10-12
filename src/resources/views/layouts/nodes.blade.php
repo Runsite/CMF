@@ -1,11 +1,11 @@
 @extends('runsite::layouts.app')
 
 @section('breadcrumbs')
-<ul class="nav navbar-nav navbar-breadcrumbs visible-md visible-lg">
-	<li class="{{ request()->route('id') == 1 ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>1]) }}"><i class="fa fa-home"></i></a></li>
+<ul class="nav navbar-nav navbar-breadcrumbs">
+	<li class="{{ request()->route('id') == 1 ? 'active' : null }} visible-md visible-lg"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>1]) }}"><i class="fa fa-home"></i></a></li>
 	
 	@if(count($node->breadcrumbsBetweenRoot()))
-		<li>
+		<li class="visible-md visible-lg">
 			<a data-toggle="dropdown" class="ripple" href="#"><small>...</small></a>
 			<ul class="dropdown-menu">
 				@foreach($node->breadcrumbsBetweenRoot() as $breadcrumb)
@@ -21,7 +21,7 @@
 	
 
 	@foreach($node->breadcrumbs() as $breadcrumb)
-		<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }}">
+		<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }} visible-md visible-lg">
 			<a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
 				<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}</small>
 			</a>
@@ -43,7 +43,7 @@
 	
 	@if(Route::current()->getName() == 'admin.nodes.create')
 		<li>
-			<a href="{{ route('admin.nodes.edit', ['node_id'=>$node->id]) }}">
+			<a href="{{ route('admin.nodes.edit', ['node_id'=>$node->id]) }}" class="ripple">
 				<small>
 					<i class="fa fa-plus animated fadeOutDown" style="position: absolute;"></i>
 					<i class="fa fa-times animated fadeInDown"></i>
