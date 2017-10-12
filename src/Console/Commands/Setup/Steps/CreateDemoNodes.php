@@ -50,6 +50,19 @@ class CreateDemoNodes
                         $node3->{$language->locale}->name = 'Demo second child '.$b;
                         $node3->{$language->locale}->save();
                     }
+
+                    for($c=0; $c<2; $c++)
+                    {
+                        $node4 = Node::create(['parent_id'=>$node3->baseNode->id, 'model_id'=>$model->id], 'Demo second child '.$c);
+
+                        // saving node
+                        foreach(Language::get() as $language)
+                        {
+                            $node4->{$language->locale}->is_active = true;
+                            $node4->{$language->locale}->name = 'Demo second child '.$c;
+                            $node4->{$language->locale}->save();
+                        }
+                    }
                 }
             }
         }
