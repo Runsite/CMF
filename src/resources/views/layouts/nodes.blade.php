@@ -42,7 +42,14 @@
 	@endif
 	
 	@if(Route::current()->getName() == 'admin.nodes.create')
-		<li><a href="{{ route('admin.nodes.edit', ['node_id'=>$node->id]) }}"><small><i class="fa fa-times"></i></small></a></li>
+		<li>
+			<a href="{{ route('admin.nodes.edit', ['node_id'=>$node->id]) }}">
+				<small>
+					<i class="fa fa-plus animated fadeOutDown" style="position: absolute;"></i>
+					<i class="fa fa-times animated fadeInDown"></i>
+				</small>
+			</a>
+		</li>
 	@endif
 
 </ul>
