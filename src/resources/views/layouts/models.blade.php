@@ -101,6 +101,26 @@
                           <i class="fa fa-lock"></i> {{ trans('runsite::models.fields.Access') }}
                         </a>
                       </div>
+
+                      <div class="pull-right hidden-xs">
+                        <div class="btn-group">
+                          <a 
+                            href="{{ $field->prevField() ? route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->prevField()->id]) : null }}" 
+                            class="btn btn-default btn-sm ripple" data-ripple-color="#898989"
+                            @if(!$field->prevField()) disabled @endif
+                            >
+                              <i class="fa fa-caret-left"></i>
+                          </a>
+                          
+                          <a 
+                            href="{{ $field->nextField() ? route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->nextField()->id]) : null }}" 
+                            class="btn btn-default btn-sm ripple" data-ripple-color="#898989"
+                            @if(!$field->nextField()) disabled @endif
+                            >
+                              <i class="fa fa-caret-right"></i>
+                          </a>
+                        </div>
+                      </div>
                   </div>
                 @endif
 

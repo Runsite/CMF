@@ -231,4 +231,20 @@ class Field extends Eloquent
 
         return $dynamic->where('language_id', $language->id)->first()->{$this->name};
     }
+
+    public function prevField()
+    {
+        return Field::where('model_id', $this->model_id)
+            ->where('position', '<', $this->position)
+            ->orderBy('position', 'desc')
+            ->first();
+    }
+
+    public function nextField()
+    {
+        return Field::where('model_id', $this->model_id)
+            ->where('position', '>', $this->position)
+            ->orderBy('position', 'asc')
+            ->first();
+    }
 }
