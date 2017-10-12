@@ -28,51 +28,75 @@
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs nav-tabs-autochange">
               <li class="{{ Route::current()->getName() == 'admin.models.index' ? 'active' : null }}">
-                  <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.index') }}"><i class="fa fa-cogs"></i> {{ trans('runsite::models.Models') }}</a>
+                  <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.index') }}">
+                    <i class="fa fa-cogs"></i>
+                    <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Models'), 3, '.') }}</span>
+                    <span class="visible-lg-inline">{{ trans('runsite::models.Models') }}</span>
+                  </a>
               </li>
 
               @if(Route::current()->getName() != 'admin.models.index' and Route::current()->getName() != 'admin.models.create' and isset($model))
 
                   <li class="{{ Route::current()->getName() == 'admin.models.edit' ? 'active' : null }}">
-                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.edit', $model->id) }}"><i class="fa fa-pencil-square-o"></i> {{ trans('runsite::models.Edit') }}</a>
+                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.edit', $model->id) }}">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Edit'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Edit') }}</span>
+                      </a>
                   </li>
                   <li class="{{ Route::current()->getName() == 'admin.models.settings.edit' ? 'active' : null }}">
-                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.settings.edit', $model->id) }}"><i class="fa fa-cog"></i> {{ trans('runsite::models.Settings') }}</a>
+                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.settings.edit', $model->id) }}">
+                        <i class="fa fa-cog"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Settings'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Settings') }}</span>
+                      </a>
                   </li>
                   <li class="{{ Route::current()->getName() == 'admin.models.methods.edit' ? 'active' : null }}">
                       <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.methods.edit', $model->id) }}">
-                        <i class="fa fa-window-restore"></i> {{ trans('runsite::models.Methods') }}
+                        <i class="fa fa-window-restore"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Methods'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Methods') }}</span>
                         @if($model->methodsCount())
-                          <span class="label label-default">{{ $model->methodsCount() }}</span>
+                          <span class="label label-default visible-lg-inline">{{ $model->methodsCount() }}</span>
                         @endif
                       </a>
                   </li>
                   <li class="{{ str_is('admin.models.fields.*', Route::current()->getName()) ? 'active' : null }}">
                       <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.fields.index', $model->id) }}">
-                        <i class="fa fa-th-list"></i> {{ trans('runsite::models.Fields') }}
+                        <i class="fa fa-th-list"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Fields'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Fields') }}</span>
                         @if($model->fields->count())
-                          <span class="label label-default">{{ $model->fields->count() }}</span>
+                          <span class="label label-default visible-lg-inline">{{ $model->fields->count() }}</span>
                         @endif
                       </a>
                   </li>
                   <li class="{{ str_is('admin.models.groups.*', Route::current()->getName()) ? 'active' : null }}">
                       <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.groups.index', $model->id) }}">
-                        <i class="fa fa-object-group"></i> {{ trans('runsite::models.Groups') }}
+                        <i class="fa fa-object-group"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Groups'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Groups') }}</span>
                         @if($model->groups->count())
-                          <span class="label label-default">{{ $model->groups->count() }}</span>
+                          <span class="label label-default visible-lg-inline">{{ $model->groups->count() }}</span>
                         @endif
                       </a>
                   </li>
                   <li class="{{ str_is('admin.models.dependencies.*', Route::current()->getName()) ? 'active' : null }}">
                       <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.dependencies.index', $model->id) }}">
-                        <i class="fa fa-sitemap"></i> {{ trans('runsite::models.Dependencies') }}
+                        <i class="fa fa-sitemap"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Dependencies'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Dependencies') }}</span>
                         @if($model->dependencies->count())
-                          <span class="label label-default">{{ $model->dependencies->count() }}</span>
+                          <span class="label label-default visible-lg-inline">{{ $model->dependencies->count() }}</span>
                         @endif
                       </a>
                   </li>
                   <li class="{{ str_is('admin.models.access.*', Route::current()->getName()) ? 'active' : null }}">
-                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.access.edit', $model->id) }}"><i class="fa fa-lock"></i> {{ trans('runsite::models.Access') }}</a>
+                      <a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.models.access.edit', $model->id) }}">
+                        <i class="fa fa-lock"></i>
+                        <span class="visible-md-inline">{{ str_limit(trans('runsite::models.Access'), 3, '.') }}</span>
+                        <span class="visible-lg-inline">{{ trans('runsite::models.Access') }}</span>
+                      </a>
                   </li>
                   
                   
