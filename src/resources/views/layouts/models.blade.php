@@ -12,7 +12,7 @@
     </li>
   @endif
 
-  @if(isset($field))
+  @if(isset($field) and isset($field->display_name))
     <li class="{{ str_is('admin.models.fields.*', Route::current()->getName()) ? 'active' : null }}">
       <a class="ripple" href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->id]) }}">
         <small>{{ $field->display_name }}</small>
