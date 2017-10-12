@@ -219,6 +219,8 @@ class Node extends Eloquent
                 }
             }
 
+            krsort($result);
+
             return Temp::put('breadcrumbs-between-root', $result);
         }
     }
