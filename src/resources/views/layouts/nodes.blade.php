@@ -57,19 +57,30 @@
 @endsection
 
 @section('app')
-
+	{!! Form::open(['url'=>route('admin.nodes.destroy', $node->id), 'method'=>'delete', 'style'=>'display: none;', 'id'=>'deleting-node-'.$node->id]) !!}
+	{!! Form::close() !!}
 		<div class="content">
-
-			
-
 			@yield('form-open')
 				<div class="nav-tabs-custom">
 						<ul class="nav nav-tabs">
 							@foreach($languages as $k=>$language)
 								<li class="{{ !$k ? 'active' : null }}">
-										<a href="#lang-{{ $language->id }}" data-toggle="tab"><span class="lang-xs" lang="{{ $language->locale }}"></span> {{ $language->display_name }}</a>
+									<a href="#lang-{{ $language->id }}" data-toggle="tab"><span class="lang-xs" lang="{{ $language->locale }}"></span> {{ $language->display_name }}</a>
 								</li>
 							@endforeach
+							<li class="pull-right">
+								<a href="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+								<ul class="dropdown-menu">
+									<li>
+										
+										<a href="javascript: void(0);" onclick="return confirm('Yes?') ? $('#deleting-node-{{ $node->id }}').submit() : false;">
+											<span class="text-danger">
+												<i class="fa fa-trash"></i> {{ trans('runsite::nodes.Delete') }}
+											</span>
+										</a>
+									</li>
+								</ul>
+							</li>
 						</ul>
 						<div class="tab-content">
 							@yield('node')
