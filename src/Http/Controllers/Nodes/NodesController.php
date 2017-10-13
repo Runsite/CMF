@@ -21,7 +21,8 @@ class NodesController extends BaseAdminController
 		$model = Model::findOrFail($model_id);
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
-		return view('runsite::nodes.create', compact('model', 'node', 'languages'));
+		$breadcrumbs = $node->breadcrumbs();
+		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs'));
 	}
 
 	/**
@@ -53,6 +54,7 @@ class NodesController extends BaseAdminController
 		$dynamic = $node->dynamic()->get();
 		$model = $node->model;
 		$languages = Language::get();
+		$breadcrumbs = $node->breadcrumbs();
 
 		$depended_models = [];
 
@@ -70,7 +72,7 @@ class NodesController extends BaseAdminController
 
 		// debug($children);
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'depended_models', 'children'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children'));
 	}
 
 	/**

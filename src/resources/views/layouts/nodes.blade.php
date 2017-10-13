@@ -1,15 +1,15 @@
 @extends('runsite::layouts.app')
 
 @section('breadcrumbs')
-<ul class="nav navbar-nav navbar-breadcrumbs">
-	<li class="{{ request()->route('id') == 1 ? 'active' : null }} visible-md visible-lg"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>1]) }}"><i class="fa fa-home"></i></a></li>
+<ul class="nav navbar-nav navbar-breadcrumbs hidden-xs">
+	<li class="{{ request()->route('id') == 1 ? 'active' : null }} "><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>1]) }}"><i class="fa fa-home"></i></a></li>
 	
-	@if(count($node->breadcrumbsBetweenRoot()))
-		<li class="visible-md visible-lg">
+	@if(count($breadcrumbs) > 2)
+		<li>
 			<a data-toggle="dropdown" class="ripple" href="#"><small>...</small></a>
 			<ul class="dropdown-menu">
-				@foreach($node->breadcrumbsBetweenRoot() as $breadcrumb)
-					<li>
+				@foreach($breadcrumbs as $k=>$breadcrumb)
+					<li class="{{ (++$k) > (count($breadcrumbs) - 2) ? 'visible-xs visible-sm' : null }}">
 						<a href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
 							{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}
 						</a>
@@ -19,13 +19,14 @@
 		</li>
 	@endif
 	
-
-	@foreach($node->breadcrumbs() as $breadcrumb)
-		<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }} visible-md visible-lg">
-			<a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
-				<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}</small>
-			</a>
-		</li>
+	@foreach($breadcrumbs as $k=>$breadcrumb)
+		@if((++$k) > (count($breadcrumbs) - 2))
+			<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }} visible-md visible-lg">
+				<a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
+					<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}</small>
+				</a>
+			</li>
+		@endif
 	@endforeach
 
 	@if(isset($depended_models) and $depended_models)

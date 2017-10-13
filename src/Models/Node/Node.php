@@ -183,45 +183,19 @@ class Node extends Eloquent
     {
         $result = [];
 
-        if($this->id > 1)
+
+        $parent = Node::findOrFail($this->id);
+        $result[] = $parent;
+
+        while($parent->parent_id > 1)
         {
-            $result[1] = $this;
+            $parent = Node::findOrFail($parent->parent_id);
+            $result[] = $parent;
         }
 
-        if($this->parent_id > 1)
-        {
-            $result[0] = Node::findOrFail($this->parent_id);
-        }
+        
 
-        ksort($result);
-
-        return $result;
+        return array_reverse($result);
     }
 
-    public function breadcrumbsBetweenRoot()
-    {
-        if(Temp::exists('breadcrumbs-between-root'))
-        {
-            return Temp::get('breadcrumbs-between-root');
-        }
-        else
-        {
-            $result = [];
-
-            if($this->parent_id > 1)
-            {
-                $parent = Node::findOrFail($this->parent_id);
-
-                while($parent->parent_id > 1)
-                {
-                    $parent = Node::findOrFail($parent->parent_id);
-                    $result[] = $parent;
-                }
-            }
-
-            krsort($result);
-
-            return Temp::put('breadcrumbs-between-root', $result);
-        }
-    }
 }
