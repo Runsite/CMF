@@ -64,7 +64,7 @@
 				<div class="nav-tabs-custom">
 						<ul class="nav nav-tabs">
 							@foreach($languages as $k=>$language)
-								<li class="{{ !$k ? 'active' : null }}">
+								<li class="{{ $active_language_tab == $language->locale ? 'active' : null }}">
 									<a href="#lang-{{ $language->id }}" data-toggle="tab"><span class="lang-xs" lang="{{ $language->locale }}"></span> {{ $language->display_name }}</a>
 								</li>
 							@endforeach
