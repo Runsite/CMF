@@ -36,7 +36,7 @@ class ModelsController extends BaseAdminController
      */
     public function create()
     {
-        return view('runsite::models.create');
+        return view('runsite::models.create')->withApplication($this->application);
     }
 
     /**
