@@ -26,10 +26,9 @@ class UsersController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
         $groups = Group::orderBy('id', 'desc')->get();
-        $user = new User;
         return view('runsite::users.create', compact('groups', 'user'));
     }
 
@@ -82,10 +81,9 @@ class UsersController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
         $groups = Group::orderBy('id', 'desc')->get();
-        $user = User::findOrFail($id);
         return view('runsite::users.edit', compact('groups', 'user'));
     }
 
@@ -96,7 +94,7 @@ class UsersController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -114,7 +112,6 @@ class UsersController extends BaseAdminController
             unset($data['password']);
         }
 
-        $user = User::findOrFail($id);
         $user->update($data);
 
         UserGroup::where('user_id', $id)->delete();
@@ -128,7 +125,7 @@ class UsersController extends BaseAdminController
             }
         }
 
-        return redirect()->route('admin.users.edit', $user->id)->with('success', trans('runsite::users.User is updated'));
+        return redirect()->route('admin.users.edit', $user)->with('success', trans('runsite::users.User is updated'));
     }
 
     /**
@@ -137,9 +134,9 @@ class UsersController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(user $user)
     {
-        User::findOrFail($id)->delete();
+        $user->delete();
         return redirect()->route('admin.users.index')->with('success', trans('runsite::users.User is deleted'));
     }
 }
