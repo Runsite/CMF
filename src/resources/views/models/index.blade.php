@@ -18,7 +18,7 @@
                         <tr>
                             <td>{{ $modelItem->id }}</td>
                             <td>
-                                <a href="{{ route('admin.models.edit', $modelItem->id) }}" style="display: block;"><b>{{ $modelItem->display_name }}</b></a>
+                                <a class="ripple" data-ripple-color="#333" href="{{ route('admin.models.edit', $modelItem->id) }}" style="display: block;"><b>{{ $modelItem->display_name }}</b></a>
                             </td>
                             <td><span class="label label-default">{{ $modelItem->name }}</span></td>
                         </tr>

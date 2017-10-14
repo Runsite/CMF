@@ -15,5 +15,5 @@
             <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
-    <env name="DB_CONNECTION" value="mysql"/>
+    <env name="DB_CONNECTION" value="sqllite"/>
 </phpunit>

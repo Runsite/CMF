@@ -19,7 +19,6 @@ use Runsite\CMF\Console\Commands\Setup\Steps\GivePermissions;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateAdminSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateDependencies;
-use Runsite\CMF\Console\Commands\Setup\Steps\CreateDemoNodes;
 
 class Setup extends Command
 {
@@ -43,7 +42,6 @@ class Setup extends Command
         CreateSectionModel::class,
         CreateAdminSectionModel::class,
         CreateDependencies::class,
-        CreateDemoNodes::class,
     ];
 
     public function __construct()
@@ -59,14 +57,15 @@ class Setup extends Command
 
         if($this->tablesExists())
         {
-          if ($this->confirm('Database "'.$this->database.'" is not empty. Do you want to remove all tables in this database?')) {
-              $this->dropAllTablesInDb();
-          }
-          else
-          {
-            $this->comment('Instalation canceled');
-            return false;
-          }
+          // if ($this->confirm('Database "'.$this->database.'" is not empty. Do you want to remove all tables in this database?')) {
+          //     $this->dropAllTablesInDb();
+          // }
+          // else
+          // {
+          //   $this->comment('Instalation canceled');
+          //   return false;
+          // }
+          $this->dropAllTablesInDb();
         }
 
 
