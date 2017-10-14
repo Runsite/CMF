@@ -16,9 +16,8 @@ class AccessController extends BaseAdminController
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($model_id)
+	public function edit(Model $model)
 	{
-		$model = Model::findOrFail($model_id);
 		$groups = Group::get();
 
 		return view('runsite::models.access.edit', compact('model', 'groups'));
@@ -31,9 +30,9 @@ class AccessController extends BaseAdminController
 	 * @param  \App\Model  $model
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $model_id)
+	public function update(Request $request, Model $model)
 	{
-		AccessModel::where('model_id', $model_id)->update([
+		AccessModel::where('model_id', $model->id)->update([
 			'access' => 0,
 		]);
 
@@ -52,13 +51,13 @@ class AccessController extends BaseAdminController
 					$totalAccess = 2;
 				}
 
-				AccessModel::where('model_id', $model_id)->where('group_id', $group_id)->update([
+				AccessModel::where('model_id', $model->id)->where('group_id', $group_id)->update([
 					'access' => $totalAccess,
 				]);
 			}
 		}
 
-		return redirect()->route('admin.models.access.edit', ['model_id'=>$model_id])
+		return redirect()->route('admin.models.access.edit', ['model'=>$model])
 				->with('success', trans('runsite::models.access.Access is updated'));
 	}
 }
