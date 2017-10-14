@@ -36,13 +36,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
                 Route::patch('{model}/settings', ['as'=>'settings.update', 'uses'=>'SettingsController@update'])->middleware('application-access:models:edit');
 
                 Route::group(['as'=>'dependencies.'], function() {
-                    Route::get('{model_id}/dependencies', ['as'=>'index', 'uses'=>'DependenciesController@index']);
-                    Route::post('{model_id}/dependencies', ['as'=>'store', 'uses'=>'DependenciesController@store'])->middleware('application-access:models:edit');
-                    Route::delete('{model_id}/dependencies', ['as'=>'delete', 'uses'=>'DependenciesController@destroy'])->middleware('application-access:models:delete');
+                    Route::get('{model}/dependencies', ['as'=>'index', 'uses'=>'DependenciesController@index']);
+                    Route::post('{model}/dependencies', ['as'=>'store', 'uses'=>'DependenciesController@store'])->middleware('application-access:models:edit');
+                    Route::delete('{model}/dependencies', ['as'=>'delete', 'uses'=>'DependenciesController@destroy'])->middleware('application-access:models:delete');
 
                     Route::group(['prefix'=>'move', 'as'=>'move.'], function() {
-                        Route::patch('{model_id}/dependencies/{dependent_model_id}/up', ['as'=>'up', 'uses'=>'DependenciesController@moveUp'])->middleware('application-access:models:edit');
-                        Route::patch('{model_id}/dependencies/{dependent_model_id}/down', ['as'=>'down', 'uses'=>'DependenciesController@moveDown'])->middleware('application-access:models:edit');
+                        Route::patch('{model}/dependencies/{depended_model_id}/up', ['as'=>'up', 'uses'=>'DependenciesController@moveUp'])->middleware('application-access:models:edit');
+                        Route::patch('{model}/dependencies/{depended_model_id}/down', ['as'=>'down', 'uses'=>'DependenciesController@moveDown'])->middleware('application-access:models:edit');
                     });
                 });
 

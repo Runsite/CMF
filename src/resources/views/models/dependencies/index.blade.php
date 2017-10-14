@@ -57,13 +57,13 @@
                                         </div>
 
                                         <div class="btn-group">
-                                            {!! Form::open(['url'=>route('admin.models.dependencies.move.up', ['model_id'=>$model->id, 'id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display:inline;']) !!}
+                                            {!! Form::open(['url'=>route('admin.models.dependencies.move.up', ['model'=>$model, 'id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display:inline;']) !!}
                                                     <button type="submit" {{ $depended_model->position == 1 ? 'disabled' : null }} class="btn btn-default btn-sm"><i class="fa fa-caret-up"></i></button>
                                             {!! Form::close() !!}
                                         </div>
 
                                         <div class="btn-group">
-                                            {!! Form::open(['url'=>route('admin.models.dependencies.move.down', ['model_id'=>$model->id, 'id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display:inline;']) !!}
+                                            {!! Form::open(['url'=>route('admin.models.dependencies.move.down', ['model'=>$model, 'id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display:inline;']) !!}
                                                     <button type="submit" {{ $depended_model->position == count($depended_models) ? 'disabled' : null }} class="btn btn-default btn-sm"><i class="fa fa-caret-down"></i></button>
                                             {!! Form::close() !!}
                                         </div>

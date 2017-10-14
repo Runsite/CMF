@@ -14,10 +14,9 @@ class DependenciesController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($model_id)
+    public function index(Model $model)
     {
-        $model = Model::findOrFail($model_id);
-        $depended_models = Dependency::where('model_id', $model_id)->with('model')->orderBy('position', 'asc')->get();
+        $depended_models = Dependency::where('model_id', $model->id)->with('model')->orderBy('position', 'asc')->get();
         $available_models = Model::whereNotIn('id', $depended_models->pluck('depended_model_id'))->latest()->get();
         return view('runsite::models.dependencies.index', compact('available_models', 'depended_models', 'model'));
     }
@@ -28,16 +27,16 @@ class DependenciesController extends BaseAdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $model_id)
+    public function store(Request $request, Model $model)
     {
         $data = $request->validate([
             'depended_model_id' => 'required|integer|exists:rs_models,id',
         ]);
 
-        $data['model_id'] = $model_id;
+        $data['model_id'] = $model->id;
 
         Dependency::create($data);
-        return redirect()->route('admin.models.dependencies.index', $model_id)->with('success', trans('runsite::models.dependencies.The model dependency is created'));
+        return redirect()->route('admin.models.dependencies.index', $model)->with('success', trans('runsite::models.dependencies.The model dependency is created'));
     }
 
     /**
@@ -46,16 +45,16 @@ class DependenciesController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $model_id)
+    public function destroy(Request $request, Model $model)
     {
         $request->validate([
             'depended_model_id' => 'required|integer|exists:rs_models,id',
         ]);
 
-        $dependency = Dependency::where('model_id', $model_id)->where('depended_model_id', $request->depended_model_id)->first();
+        $dependency = Dependency::where('model_id', $model->id)->where('depended_model_id', $request->depended_model_id)->first();
 
         $dependency->delete();
-        return redirect()->route('admin.models.dependencies.index', $model_id)->with('success', trans('runsite::models.dependencies.The model dependency is deleted'));
+        return redirect()->route('admin.models.dependencies.index', $model)->with('success', trans('runsite::models.dependencies.The model dependency is deleted'));
     }
 
     /**
@@ -63,10 +62,10 @@ class DependenciesController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function moveUp($model_id, $dependent_model_id)
+    public function moveUp(Model $model, $id)
     {
-        Dependency::findOrFail($dependent_model_id)->moveUp();
-        return redirect()->route('admin.models.dependencies.index', $model_id)->with('highlight', $dependent_model_id);
+        Dependency::findOrFail($id)->moveUp();
+        return redirect()->route('admin.models.dependencies.index', $model)->with('highlight', $id);
     }
 
     /**
@@ -74,9 +73,9 @@ class DependenciesController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function moveDown($model_id, $dependent_model_id)
+    public function moveDown(Model $model, $id)
     {
-        Dependency::findOrFail($dependent_model_id)->moveDown();
-        return redirect()->route('admin.models.dependencies.index', $model_id)->with('highlight', $dependent_model_id);
+        Dependency::findOrFail($id)->moveDown();
+        return redirect()->route('admin.models.dependencies.index', $model)->with('highlight', $id);
     }
 }
