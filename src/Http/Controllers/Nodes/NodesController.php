@@ -8,7 +8,6 @@ use Runsite\CMF\Models\Node\Node;
 use Runsite\CMF\Models\Model\Model;
 use Runsite\CMF\Models\Dynamic\Language;
 use Auth;
-use LaravelLocalization;
 
 class NodesController extends BaseAdminController
 {
@@ -23,8 +22,7 @@ class NodesController extends BaseAdminController
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
-		$active_language_tab = LaravelLocalization::setLocale();
-		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab'));
+		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs'));
 	}
 
 	/**
@@ -58,8 +56,6 @@ class NodesController extends BaseAdminController
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
 
-		$active_language_tab = LaravelLocalization::setLocale();
-
 		$depended_models = [];
 
 		foreach($model->dependencies as $k=>$dependency)
@@ -76,7 +72,7 @@ class NodesController extends BaseAdminController
 
 		// debug($children);
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children'));
 	}
 
 	/**

@@ -1,5 +1,5 @@
 @foreach($languages as $k=>$language)
-	<div class="tab-pane {{ $active_language_tab == $language->locale ? 'active' : null }}" id="lang-{{ $language->id }}">
+	<div class="tab-pane {{ !$k ? 'active' : null }}" id="lang-{{ $language->id }}">
 
 		@if($model->groups)
 			<div class="xs-pb-15">
