@@ -73,9 +73,8 @@ class ModelsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Model $model)
     {
-        $model = Model::findOrFail($id);
         return view('runsite::models.edit', compact('model'))->withApplication($this->application);
     }
 
@@ -86,16 +85,16 @@ class ModelsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Model $model)
     {
         $data = $request->validate([
-            'name' => 'required|string|max:255|unique:rs_models,name,'.$id.',id',
+            'name' => 'required|string|max:255|unique:rs_models,name,'.$model->id.',id',
             'display_name' => 'required|string|max:255',
             'display_name_plural' => 'required|string|max:255',
         ]);
 
-        $model = Model::findOrFail($id)->update($data);
-        return redirect()->route('admin.models.edit', $id)->with('success', trans('runsite::models.The model is updated'));
+        $model->update($data);
+        return redirect()->route('admin.models.edit', $model->id)->with('success', trans('runsite::models.The model is updated'));
     }
 
     /**
