@@ -32,8 +32,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
             Route::resource('models', 'ModelsController');
             Route::group(['prefix'=>'models', 'as'=>'models.'], function() {
 
-                Route::get('{model_id}/settings', ['as'=>'settings.edit', 'uses'=>'SettingsController@edit']);
-                Route::patch('{model_id}/settings', ['as'=>'settings.update', 'uses'=>'SettingsController@update'])->middleware('application-access:models:edit');
+                Route::get('{model}/settings', ['as'=>'settings.edit', 'uses'=>'SettingsController@edit']);
+                Route::patch('{model}/settings', ['as'=>'settings.update', 'uses'=>'SettingsController@update'])->middleware('application-access:models:edit');
 
                 Route::group(['as'=>'dependencies.'], function() {
                     Route::get('{model_id}/dependencies', ['as'=>'index', 'uses'=>'DependenciesController@index']);
@@ -52,16 +52,16 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
                 });
                 
 
-                Route::get('{model_id}/methods', ['as'=>'methods.edit', 'uses'=>'MethodsController@edit']);
-                Route::patch('{model_id}/methods', ['as'=>'methods.update', 'uses'=>'MethodsController@update'])->middleware('application-access:models:edit');
+                Route::get('{model}/methods', ['as'=>'methods.edit', 'uses'=>'MethodsController@edit']);
+                Route::patch('{model}/methods', ['as'=>'methods.update', 'uses'=>'MethodsController@update'])->middleware('application-access:models:edit');
 
                 Route::group(['as'=>'fields.', 'namespace'=>'Fields'], function() {
-                    Route::get('{model_id}/fields', ['as'=>'index', 'uses'=>'FieldsController@index']);
-                    Route::get('{model_id}/fields/create', ['as'=>'create', 'uses'=>'FieldsController@create'])->middleware('application-access:models:edit');
-                    Route::get('{model_id}/fields/{id}/edit', ['as'=>'edit', 'uses'=>'FieldsController@edit']);
-                    Route::post('{model_id}/fields/', ['as'=>'store', 'uses'=>'FieldsController@store'])->middleware('application-access:models:edit');
-                    Route::patch('{model_id}/fields/{id}/update', ['as'=>'update', 'uses'=>'FieldsController@update'])->middleware('application-access:models:edit');
-                    Route::delete('{model_id}/fields/{id}/destroy', ['as'=>'destroy', 'uses'=>'FieldsController@destroy'])->middleware('application-access:models:delete');
+                    Route::get('{model}/fields', ['as'=>'index', 'uses'=>'FieldsController@index']);
+                    Route::get('{model}/fields/create', ['as'=>'create', 'uses'=>'FieldsController@create'])->middleware('application-access:models:edit');
+                    Route::get('{model}/fields/{field}/edit', ['as'=>'edit', 'uses'=>'FieldsController@edit']);
+                    Route::post('{model}/fields/', ['as'=>'store', 'uses'=>'FieldsController@store'])->middleware('application-access:models:edit');
+                    Route::patch('{model}/fields/{field}/update', ['as'=>'update', 'uses'=>'FieldsController@update'])->middleware('application-access:models:edit');
+                    Route::delete('{model}/fields/{field}/destroy', ['as'=>'destroy', 'uses'=>'FieldsController@destroy'])->middleware('application-access:models:delete');
 
                     Route::group(['as'=>'settings.'], function() {
                         Route::get('{model_id}/fields/{field_id}/settings', ['as'=>'edit', 'uses'=>'SettingsController@edit']);
@@ -74,22 +74,22 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
                     });
 
                     Route::group(['prefix'=>'move', 'as'=>'move.'], function() {
-                        Route::patch('{model_id}/fields/{field_id}/up', ['as'=>'up', 'uses'=>'FieldsController@moveUp'])->middleware('application-access:models:edit');
-                        Route::patch('{model_id}/fields/{field_id}/down', ['as'=>'down', 'uses'=>'FieldsController@moveDown'])->middleware('application-access:models:edit');
+                        Route::patch('{model}/fields/{field}/up', ['as'=>'up', 'uses'=>'FieldsController@moveUp'])->middleware('application-access:models:edit');
+                        Route::patch('{model}/fields/{field}/down', ['as'=>'down', 'uses'=>'FieldsController@moveDown'])->middleware('application-access:models:edit');
                     });
                 });
 
                 Route::group(['as'=>'groups.', 'namespace'=>'Fields'], function() {
-                    Route::get('{model_id}/groups', ['as'=>'index', 'uses'=>'FieldGroupsController@index']);
-                    Route::get('{model_id}/groups/create', ['as'=>'create', 'uses'=>'FieldGroupsController@create'])->middleware('application-access:models:edit');
-                    Route::get('{model_id}/groups/{id}/edit', ['as'=>'edit', 'uses'=>'FieldGroupsController@edit'])->middleware('application-access:models:edit');
-                    Route::post('{model_id}/groups/', ['as'=>'store', 'uses'=>'FieldGroupsController@store'])->middleware('application-access:models:edit');
-                    Route::patch('{model_id}/groups/{id}/update', ['as'=>'update', 'uses'=>'FieldGroupsController@update'])->middleware('application-access:models:edit');
-                    Route::delete('{model_id}/groups/{id}/destroy', ['as'=>'destroy', 'uses'=>'FieldGroupsController@destroy'])->middleware('application-access:models:delete');
+                    Route::get('{model}/groups', ['as'=>'index', 'uses'=>'FieldGroupsController@index']);
+                    Route::get('{model}/groups/create', ['as'=>'create', 'uses'=>'FieldGroupsController@create'])->middleware('application-access:models:edit');
+                    Route::get('{model}/groups/{group}/edit', ['as'=>'edit', 'uses'=>'FieldGroupsController@edit'])->middleware('application-access:models:edit');
+                    Route::post('{model}/groups/', ['as'=>'store', 'uses'=>'FieldGroupsController@store'])->middleware('application-access:models:edit');
+                    Route::patch('{model}/groups/{group}/update', ['as'=>'update', 'uses'=>'FieldGroupsController@update'])->middleware('application-access:models:edit');
+                    Route::delete('{model}/groups/{group}/destroy', ['as'=>'destroy', 'uses'=>'FieldGroupsController@destroy'])->middleware('application-access:models:delete');
 
                     Route::group(['prefix'=>'move', 'as'=>'move.'], function() {
-                        Route::patch('{model_id}/groups/{group_id}/up', ['as'=>'up', 'uses'=>'FieldGroupsController@moveUp'])->middleware('application-access:models:edit');
-                        Route::patch('{model_id}/groups/{group_id}/down', ['as'=>'down', 'uses'=>'FieldGroupsController@moveDown'])->middleware('application-access:models:edit');
+                        Route::patch('{model}/groups/{group}/up', ['as'=>'up', 'uses'=>'FieldGroupsController@moveUp'])->middleware('application-access:models:edit');
+                        Route::patch('{model}/groups/{group}/down', ['as'=>'down', 'uses'=>'FieldGroupsController@moveDown'])->middleware('application-access:models:edit');
                     });
                 });
 

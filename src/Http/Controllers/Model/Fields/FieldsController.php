@@ -26,9 +26,8 @@ class FieldsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($model_id)
+    public function index(Model $model)
     {
-        $model = Model::findOrFail($model_id);
         $fields = $model->fields()->orderBy('position', 'asc')->get();
         return view('runsite::models.fields.index', compact('model', 'fields'))->withApplication($this->application);
     }
@@ -38,10 +37,8 @@ class FieldsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($model_id)
+    public function create(Model $model, Field $field)
     {
-        $field = new Field;
-        $model = Model::findOrFail($model_id);
         return view('runsite::models.fields.create', compact('model', 'field'))->withApplication($this->application);
     }
 
@@ -51,7 +48,7 @@ class FieldsController extends BaseAdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $model_id)
+    public function store(Request $request, Model $model)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -65,7 +62,7 @@ class FieldsController extends BaseAdminController
         ]);
 
         Field::create($data);
-        return redirect()->route('admin.models.fields.index', $model_id)->with('success', trans('runsite::models.The model field is created'));
+        return redirect()->route('admin.models.fields.index', $model->id)->with('success', trans('runsite::models.The model field is created'));
     }
 
     /**
@@ -84,10 +81,8 @@ class FieldsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($model_id, $id)
+    public function edit(Model $model, Field $field)
     {
-        $model = Model::findOrFail($model_id);
-        $field = $model->fields()->where('id', $id)->first();
         return view('runsite::models.fields.edit', compact('model', 'field'))->withApplication($this->application);
     }
 
@@ -98,7 +93,7 @@ class FieldsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $model_id, $field_id)
+    public function update(Request $request, Model $model, Field $field)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -110,8 +105,8 @@ class FieldsController extends BaseAdminController
             'is_visible_in_nodes_list' => '',
         ]);
 
-        $field = Field::findOrFail($field_id)->update($data);
-        return redirect()->route('admin.models.fields.edit', ['model_id'=>$model_id, 'field_id'=>$field_id])->with('success', trans('runsite::models.fields.The field is updated'));
+        $field->update($data);
+        return redirect()->route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->id])->with('success', trans('runsite::models.fields.The field is updated'));
     }
 
     /**
@@ -120,12 +115,11 @@ class FieldsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy($model_id, $field_id)
+    public function destroy(Model $model, Field $field)
     {
-        $field = Field::findOrFail($field_id);
         $field->delete();
 
-        return redirect()->route('admin.models.fields.index', $model_id)->with('success', trans('runsite::models.fields.The field is removed'));
+        return redirect()->route('admin.models.fields.index', $model->id)->with('success', trans('runsite::models.fields.The field is removed'));
     }
 
     /**
@@ -133,10 +127,10 @@ class FieldsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function moveUp($model_id, $field_id)
+    public function moveUp(Model $model, Field $field)
     {
-        Field::findOrFail($field_id)->moveUp();
-        return redirect()->route('admin.models.fields.index', $model_id)->with('highlight', $field_id);
+        $field->moveUp();
+        return redirect()->route('admin.models.fields.index', $model->id)->with('highlight', $field->id);
     }
 
     /**
@@ -144,9 +138,9 @@ class FieldsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function moveDown($model_id, $field_id)
+    public function moveDown(Model $model, Field $field)
     {
-        Field::findOrFail($field_id)->moveDown();
-        return redirect()->route('admin.models.fields.index', $model_id)->with('highlight', $field_id);
+        $field->moveDown();
+        return redirect()->route('admin.models.fields.index', $model->id)->with('highlight', $field->id);
     }
 }

@@ -24,9 +24,8 @@ class MethodsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($model_id)
+    public function edit(Model $model)
     {
-        $model = Model::findOrFail($model_id);
         $methods = $model->methods;
         return view('runsite::models.methods.edit', compact('model', 'methods'))->withApplication($this->application);
     }
@@ -38,7 +37,7 @@ class MethodsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $model_id)
+    public function update(Request $request, Model $model)
     {
         $data = $request->validate([
             'get' => ['nullable', 'string', new ValidMethod],
@@ -47,7 +46,7 @@ class MethodsController extends BaseAdminController
             'delete' => ['nullable', 'string', new ValidMethod],
         ]);
 
-        $methods = Model::findOrFail($model_id)->methods->update($data);
-        return redirect()->route('admin.models.methods.edit', $model_id)->with('success', trans('runsite::models.methods.The model methods are updated'));
+        $methods = $model->methods->update($data);
+        return redirect()->route('admin.models.methods.edit', $model)->with('success', trans('runsite::models.methods.The model methods are updated'));
     }
 }

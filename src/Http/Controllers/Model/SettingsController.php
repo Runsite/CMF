@@ -23,9 +23,8 @@ class SettingsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($model_id)
+    public function edit(Model $model)
     {
-        $model = Model::findOrFail($model_id);
         $settings = $model->settings;
         return view('runsite::models.settings.edit', compact('model', 'settings'))->withApplication($this->application);
     }
@@ -37,15 +36,15 @@ class SettingsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $model_id)
+    public function update(Request $request, Model $model)
     {
         $data = $request->validate([
-            'show_in_admin_tree' => 'nullable|integer',
+            'show_in_admin_tree' => 'nullable|boolean',
             'nodes_ordering' => 'required|string|max:255',
             'dynamic_model' => 'required|string|max:255',
         ]);
 
-        $model = Model::findOrFail($model_id)->settings->update($data);
-        return redirect()->route('admin.models.settings.edit', $model_id)->with('success', trans('runsite::models.settings.The model settings is updated'));
+        $model->settings->update($data);
+        return redirect()->route('admin.models.settings.edit', $model)->with('success', trans('runsite::models.settings.The model settings is updated'));
     }
 }

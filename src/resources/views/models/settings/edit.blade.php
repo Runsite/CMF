@@ -5,7 +5,7 @@
         {!! Form::model($settings, ['url'=>route('admin.models.settings.update', $settings->model->id), 'method'=>'patch']) !!}
             <div class="form-group {{ $errors->has('show_in_admin_tree') ? ' has-error' : '' }}">
                 {{ Form::hidden('show_in_admin_tree', 0) }}
-                {{ Form::checkbox('show_in_admin_tree', null, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+                {{ Form::checkbox('show_in_admin_tree', 1, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
                 {{ Form::label('show_in_admin_tree', trans('runsite::models.settings.Show in admin tree')) }}
                 @if ($errors->has('show_in_admin_tree'))
                     <span class="help-block">

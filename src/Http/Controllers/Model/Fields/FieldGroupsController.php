@@ -14,9 +14,8 @@ class FieldGroupsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($model_id)
+    public function index(Model $model)
     {
-        $model = Model::findOrFail($model_id);
         $groups = $model->groups()->orderBy('position', 'asc')->get();
         return view('runsite::models.groups.index', compact('model', 'groups'));
     }
@@ -26,9 +25,8 @@ class FieldGroupsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($model_id)
+    public function create(Model $model)
     {
-        $model = Model::findOrFail($model_id);
         $group = new FieldGroup;
         return view('runsite::models.groups.create', compact('model', 'group'));
     }
@@ -39,7 +37,7 @@ class FieldGroupsController extends BaseAdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $model_id)
+    public function store(Request $request, Model $model)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
@@ -47,7 +45,7 @@ class FieldGroupsController extends BaseAdminController
         ]);
 
         FieldGroup::create($data);
-        return redirect()->route('admin.models.groups.index', $model_id)->with('success', trans('runsite::models.The model group is created'));
+        return redirect()->route('admin.models.groups.index', $model)->with('success', trans('runsite::models.The model group is created'));
     }
 
     /**
@@ -66,10 +64,8 @@ class FieldGroupsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($model_id, $id)
+    public function edit(Model $model, FieldGroup $group)
     {
-        $model = Model::findOrFail($model_id);
-        $group = $model->groups()->where('id', $id)->first();
         return view('runsite::models.groups.edit', compact('model', 'group'));
     }
 
@@ -80,14 +76,14 @@ class FieldGroupsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $model_id, $group_id)
+    public function update(Request $request, Model $model, FieldGroup $group)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
         ]);
 
-        $group = FieldGroup::findOrFail($group_id)->update($data);
-        return redirect()->route('admin.models.groups.edit', ['model_id'=>$model_id, 'group_id'=>$group_id])->with('success', trans('runsite::models.groups.The group is updated'));
+        $group->update($data);
+        return redirect()->route('admin.models.groups.edit', ['model'=>$model, 'group'=>$group])->with('success', trans('runsite::models.groups.The group is updated'));
     }
 
     /**
@@ -96,10 +92,10 @@ class FieldGroupsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Model $model, $model_id, $id)
+    public function destroy(Model $model, FieldGroup $group)
     {
-        FieldGroup::findOrFail($id)->delete();
-        return redirect()->route('admin.models.groups.index', $model_id)->with('success', trans('runsite::models.groups.The group is deleted'));
+        $group->delete();
+        return redirect()->route('admin.models.groups.index', $model)->with('success', trans('runsite::models.groups.The group is deleted'));
     }
 
     /**
@@ -107,10 +103,10 @@ class FieldGroupsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function moveUp($model_id, $group_id)
+    public function moveUp(Model $model, FieldGroup $group)
     {
-        FieldGroup::findOrFail($group_id)->moveUp();
-        return redirect()->route('admin.models.groups.index', $model_id)->with('highlight', $group_id);
+        $group->moveUp();
+        return redirect()->route('admin.models.groups.index', $model)->with('highlight', $group->id);
     }
 
     /**
@@ -118,9 +114,9 @@ class FieldGroupsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function moveDown($model_id, $group_id)
+    public function moveDown(Model $model, FieldGroup $group)
     {
-        FieldGroup::findOrFail($group_id)->moveDown();
-        return redirect()->route('admin.models.groups.index', $model_id)->with('highlight', $group_id);
+        $group->moveDown();
+        return redirect()->route('admin.models.groups.index', $model)->with('highlight', $group->id);
     }
 }
