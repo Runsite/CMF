@@ -64,8 +64,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
 
                 Route::group(['as'=>'methods.'], function() {
                     // MODEL METHODS
-                    Route::get('{model}/methods',   ['as'=>'methods.edit',   'uses'=>'MethodsController@edit']);
-                    Route::patch('{model}/methods', ['as'=>'methods.update', 'uses'=>'MethodsController@update'])
+                    Route::get('{model}/methods',   ['as'=>'edit',   'uses'=>'MethodsController@edit']);
+                    Route::patch('{model}/methods', ['as'=>'update', 'uses'=>'MethodsController@update'])
                         ->middleware('application-access:models:edit');
                 });
 
