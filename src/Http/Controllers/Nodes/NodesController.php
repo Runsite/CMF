@@ -16,9 +16,8 @@ class NodesController extends BaseAdminController
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create($model_id, $parent_id)
+	public function create(Model $model, $parent_id)
 	{
-		$model = Model::findOrFail($model_id);
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
@@ -42,10 +41,8 @@ class NodesController extends BaseAdminController
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id, $depended_model_id=null)
+	public function edit(Node $node, $depended_model_id=null)
 	{
-		$node = Node::findOrFail($id);
-
 		if(! Auth::user()->access()->node($node)->read)
 		{
 			return view('runsite::errors.forbidden');
@@ -82,10 +79,8 @@ class NodesController extends BaseAdminController
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, Node $node)
 	{
-		$node = Node::findOrFail($id);
-
 		if(! Auth::user()->access()->node($node)->edit)
 		{
 			return view('runsite::errors.forbidden');
@@ -117,7 +112,7 @@ class NodesController extends BaseAdminController
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Node $node)
 	{
 		//
 	}

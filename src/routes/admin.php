@@ -137,11 +137,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
         });
 
         Route::group(['prefix'=>'nodes', 'namespace'=>'Nodes', 'as'=>'nodes.', 'middleware'=>['application-access:nodes:read']], function() {
-            Route::get('{model_id}/{parent_id}/create', ['as'=>'create', 'uses'=>'NodesController@create']);
-            Route::post('{model_id}/{parent_id}/store', ['as'=>'store', 'uses'=>'NodesController@store'])->middleware('application-access:nodes:edit');
-            Route::get('{id}/edit/{depended_model_id?}', ['as'=>'edit', 'uses'=>'NodesController@edit']);
-            Route::patch('{id}/update', ['as'=>'update', 'uses'=>'NodesController@update'])->middleware('application-access:nodes:edit');
-            Route::delete('{id}/destroy', ['as'=>'destroy', 'uses'=>'NodesController@destroy'])->middleware('application-access:nodes:delete');
+            Route::get('{model}/{parent_id}/create', ['as'=>'create', 'uses'=>'NodesController@create']);
+            Route::post('{model}/{parent_id}/store', ['as'=>'store', 'uses'=>'NodesController@store'])->middleware('application-access:nodes:edit');
+            Route::get('{node}/edit/{depended_model_id?}', ['as'=>'edit', 'uses'=>'NodesController@edit']);
+            Route::patch('{node}/update', ['as'=>'update', 'uses'=>'NodesController@update'])->middleware('application-access:nodes:edit');
+            Route::delete('{node}/destroy', ['as'=>'destroy', 'uses'=>'NodesController@destroy'])->middleware('application-access:nodes:delete');
         });
 
 
