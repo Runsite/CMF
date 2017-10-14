@@ -29,11 +29,9 @@ class AccessController extends BaseAdminController
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($model_id, $field_id)
+	public function edit(Model $model, Field $field)
 	{
-		$field = Field::findOrFail($field_id);
 		$access = $field->access;
-		$model = $field->model;
 		$groups = Group::get();
 
 		return view('runsite::models.fields.access.edit', compact('field', 'access', 'model', 'groups'))->withApplication($this->application);
@@ -46,9 +44,9 @@ class AccessController extends BaseAdminController
 	 * @param  \App\Model  $model
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, $model_id, $field_id)
+	public function update(Request $request, Model $model, Field $field)
 	{
-		AccessField::where('field_id', $field_id)->update([
+		AccessField::where('field_id', $field->id)->update([
 			'access' => 0,
 		]);
 
@@ -67,13 +65,13 @@ class AccessController extends BaseAdminController
 					$totalAccess = 2;
 				}
 
-				AccessField::where('field_id', $field_id)->where('group_id', $group_id)->update([
+				AccessField::where('field_id', $field->id)->where('group_id', $group_id)->update([
 					'access' => $totalAccess,
 				]);
 			}
 		}
 
-		return redirect()->route('admin.models.fields.access.edit', ['model_id'=>$model_id, 'field_id'=>$field_id])
+		return redirect()->route('admin.models.fields.access.edit', ['model'=>$model, 'field'=>$field])
 				->with('success', trans('runsite::models.fields.access.Access is updated'));
 	}
 }

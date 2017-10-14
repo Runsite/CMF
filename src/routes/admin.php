@@ -69,8 +69,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
                     });
 
                     Route::group(['as'=>'access.'], function() {
-                        Route::get('{model_id}/fields/{field_id}/access', ['as'=>'edit', 'uses'=>'AccessController@edit']);
-                        Route::patch('{model_id}/fields/{field_id}/access', ['as'=>'update', 'uses'=>'AccessController@update'])->middleware('application-access:models:edit');
+                        Route::get('{model}/fields/{field}/access', ['as'=>'edit', 'uses'=>'AccessController@edit']);
+                        Route::patch('{model}/fields/{field}/access', ['as'=>'update', 'uses'=>'AccessController@update'])->middleware('application-access:models:edit');
                     });
 
                     Route::group(['prefix'=>'move', 'as'=>'move.'], function() {
