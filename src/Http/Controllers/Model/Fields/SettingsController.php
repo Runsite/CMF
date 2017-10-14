@@ -38,12 +38,9 @@ class SettingsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($model_id, $field_id)
+    public function edit(Model $model, Field $field)
     {
-        $field = Field::findOrFail($field_id);
         $settings = $field->settings;
-        $model = $field->model;
-
         $column = $this->getColumn($model->tableName(), $field->name);
 
         return view('runsite::models.fields.settings.edit', compact('field', 'settings', 'model', 'column'))->withApplication($this->application);
@@ -56,18 +53,15 @@ class SettingsController extends BaseAdminController
      * @param  \App\Model  $model
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $model_id, $field_id)
+    public function update(Request $request, Model $model, Field $field)
     {
         $data = $request->except(['_method', '_token', 'field_length']);
-        Setting::where('field_id', $field_id)->delete();
+        Setting::where('field_id', $field->id)->delete();
 
         foreach($data as $parameter=>$value)
         {
-            Setting::create(['field_id'=>$field_id, 'parameter'=>$parameter, 'value'=>$value]);
+            Setting::create(['field_id'=>$field->id, 'parameter'=>$parameter, 'value'=>$value]);
         }
-
-        $field = Field::findOrFail($field_id);
-        $model = $field->model;
 
         // Change column size
         $column = $this->getColumn($model->tableName(), $field->name);
@@ -95,6 +89,6 @@ class SettingsController extends BaseAdminController
             });
         }
 
-        return redirect()->route('admin.models.fields.settings.edit', ['model_id'=>$model_id, 'field_id'=>$field_id])->with('success', trans('runsite::models.fields.settings.The model field settings are updated'));
+        return redirect()->route('admin.models.fields.settings.edit', ['model'=>$model, 'field'=>$field])->with('success', trans('runsite::models.fields.settings.The model field settings are updated'));
     }
 }

@@ -64,8 +64,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale().'/admin', 'namespace'
                     Route::delete('{model}/fields/{field}/destroy', ['as'=>'destroy', 'uses'=>'FieldsController@destroy'])->middleware('application-access:models:delete');
 
                     Route::group(['as'=>'settings.'], function() {
-                        Route::get('{model_id}/fields/{field_id}/settings', ['as'=>'edit', 'uses'=>'SettingsController@edit']);
-                        Route::patch('{model_id}/fields/{field_id}/settings', ['as'=>'update', 'uses'=>'SettingsController@update'])->middleware('application-access:models:edit');
+                        Route::get('{model}/fields/{field}/settings', ['as'=>'edit', 'uses'=>'SettingsController@edit']);
+                        Route::patch('{model}/fields/{field}/settings', ['as'=>'update', 'uses'=>'SettingsController@update'])->middleware('application-access:models:edit');
                     });
 
                     Route::group(['as'=>'access.'], function() {
