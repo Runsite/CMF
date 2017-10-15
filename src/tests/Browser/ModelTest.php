@@ -70,4 +70,39 @@ class ModelTest extends DuskTestCase
         });
     }
 
+    public function test_model_methods()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(route('admin.models.methods.edit', 4))
+                    ->type('get', 'SectionsController@show')
+                    ->type('post', 'SectionsController@store')
+                    ->type('patch', 'SectionsController@update')
+                    ->type('delete', 'SectionsController@destroy')
+                    ->press('Update')
+                    ->assertRouteIs('admin.models.methods.edit', 4)
+                    ->assertInputValue('get', 'SectionsController@show')
+                    ->assertInputValue('post', 'SectionsController@store')
+                    ->assertInputValue('patch', 'SectionsController@update')
+                    ->assertInputValue('delete', 'SectionsController@destroy');
+        });
+    }
+
+    public function test_model_methods_validator()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(route('admin.models.methods.edit', 4))
+                    ->type('get', 'string')
+                    ->type('post', 'string')
+                    ->type('patch', 'string')
+                    ->type('delete', 'string')
+                    ->press('Update')
+                    ->assertRouteIs('admin.models.methods.edit', 4)
+                    ->assertInputValue('get', 'string')
+                    ->assertInputValue('post', 'string')
+                    ->assertInputValue('patch', 'string')
+                    ->assertInputValue('delete', 'string')
+                    ->assertSee('Controller@method');
+        });
+    }
+
 }
