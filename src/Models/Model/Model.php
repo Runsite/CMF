@@ -166,10 +166,14 @@ class Model extends Eloquent
 			Schema::rename($model->tableName(), $this->tableName());
 
 			// renamig model file
-			$class = file_get_contents(app_path('Models\\'.$model->className().'.php'));
-			$class = str_replace('class ' . $model->className() . ' extends', 'class ' . $this->className() . ' extends', $class);
-			file_put_contents(app_path('Models\\'.$this->className().'.php'), $class);
-			unlink(app_path('Models\\'.$model->className().'.php'));
+			$model_file_path = app_path('Models\\'.$model->className().'.php');
+			if(file_exists($model_file_path))
+			{
+				$class = file_get_contents();
+				$class = str_replace('class ' . $model->className() . ' extends', 'class ' . $this->className() . ' extends', $class);
+				file_put_contents(app_path('Models\\'.$this->className().'.php'), $class);
+				unlink($model_file_path);
+			}
 		}
 	}
 

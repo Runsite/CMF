@@ -8,12 +8,6 @@ use Illuminate\Support\Facades\Artisan;
 
 class UserTest extends DuskTestCase
 {
-    public function setUp()
-    {
-        parent::setUp();
-        Artisan::call('runsite:setup');
-    }
-
     /**
      * A basic browser test example.
      *
@@ -21,6 +15,7 @@ class UserTest extends DuskTestCase
      */
     public function test_is_redirected_to_auth()
     {
+        Artisan::call('runsite:setup');
         $this->browse(function (Browser $browser) {
             $browser->maximize()
                     ->visit(route('admin.boot'))

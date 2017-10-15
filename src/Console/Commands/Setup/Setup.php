@@ -57,16 +57,23 @@ class Setup extends Command
 
         if($this->tablesExists())
         {
-          // if ($this->confirm('Database "'.$this->database.'" is not empty. Do you want to remove all tables in this database?')) {
-          //     $this->dropAllTablesInDb();
-          // }
-          // else
-          // {
-          //   $this->comment('Instalation canceled');
-          //   return false;
-          // }
-          $this->dropAllTablesInDb();
+          if(config('app.env') != 'testing')
+          {
+            if ($this->confirm('Database "'.$this->database.'" is not empty. Do you want to remove all tables in this database?')) {
+                $this->dropAllTablesInDb();
+            }
+            else
+            {
+              $this->comment('Instalation canceled');
+              return false;
+            }
+          }
+          else 
+          {
+            $this->dropAllTablesInDb();
+          }
         }
+        
 
 
         $this->comment('Instalation...');

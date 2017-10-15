@@ -37,7 +37,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
 
         
         $this->app['router']->aliasMiddleware('application-access', ApplicationAccessMiddleware::class);
-        $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/database/factories');
+        // $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/database/factories');
     }
 
     /**

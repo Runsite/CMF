@@ -52,7 +52,21 @@ class ModelTest extends DuskTestCase
                     ->type('name', 'second_test')
                     ->type('display_name', 'Second test')
                     ->type('display_name_plural', 'Second tests')
-                    ->press('Update');
+                    ->press('Update')
+                    ->assertInputValue('name', 'second_test');
+        });
+    }
+
+    public function test_model_settings()
+    {
+        $this->browse(function (Browser $browser) {
+            $browser->visit(route('admin.models.settings.edit', 4))
+                    ->type('nodes_ordering', 'position desc')
+                    ->type('dynamic_model', 'TestModel')
+                    ->press('Update')
+                    ->assertRouteIs('admin.models.settings.edit', 4)
+                    ->assertInputValue('nodes_ordering', 'position desc')
+                    ->assertInputValue('dynamic_model', 'TestModel');
         });
     }
 

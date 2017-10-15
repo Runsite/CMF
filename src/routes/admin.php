@@ -1,6 +1,6 @@
 <?php 
 
-Route::group(['prefix' => (env('APP_ENV') === 'test' ? 'en' : LaravelLocalization::setLocale()).'/admin', 'namespace' => 'Runsite\CMF\Http\Controllers', 'middleware'=>['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']], function() {
+Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.locale') : LaravelLocalization::setLocale()).'/admin', 'namespace' => 'Runsite\CMF\Http\Controllers', 'middleware'=>['localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']], function() {
 
     Auth::routes();
 
