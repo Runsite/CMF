@@ -15,6 +15,7 @@ use Runsite\CMF\Console\Commands\Setup\Steps\CreateDeveloperUser;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateRootModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateFirstLanguage;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateRootNode;
+use Runsite\CMF\Console\Commands\Setup\Steps\CreateSettingsNode;
 use Runsite\CMF\Console\Commands\Setup\Steps\GivePermissions;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateAdminSectionModel;
@@ -42,6 +43,7 @@ class Setup extends Command
         CreateSectionModel::class,
         CreateAdminSectionModel::class,
         CreateDependencies::class,
+        CreateSettingsNode::class,
     ];
 
     public function __construct()

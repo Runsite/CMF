@@ -68,7 +68,12 @@ class NodesController extends BaseAdminController
 		}
 
 		$depended_model = $model->dependencies->where('id', $depended_model_id)->first();
-		$children = M($depended_model->tableName())->where('parent_id', $node->id)->paginate();
+		$children = [];
+		if($depended_model)
+		{
+			$children = M($depended_model->tableName())->where('parent_id', $node->id)->paginate();
+		}
+		
 
 		// debug($children);
 

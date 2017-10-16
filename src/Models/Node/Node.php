@@ -144,7 +144,8 @@ class Node extends Eloquent
 
     public function dynamic()
     {
-        $modelName = 'App\Models\\'. $this->model->className();
+        $settings = $this->model->settings;
+        $modelName = $settings->dynamic_model ? 'App\Models\\'. $settings->dynamic_model : 'Runsite\CMF\Models\Dynamic\Dynamic';
         return (new $modelName($this->model->tableName()))->where('node_id', $this->id);
     }
 
