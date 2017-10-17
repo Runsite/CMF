@@ -14,10 +14,8 @@ class %_controller_name_% extends RunsiteCMFBaseController
      */
     public function index(Request $request)
     {
-        if(! $request->isMethod('get')) return abort(404);
-
         $%_model_name_plural_% = M('%_model_name_%')
-            // Only child items of this model
+            // Only child items of this node
             ->where('parent_id', $this->node->id)
             ->paginate();
 
@@ -31,8 +29,6 @@ class %_controller_name_% extends RunsiteCMFBaseController
      */
     public function show(Request $request)
     {
-        if(! $request->isMethod('get')) return abort(404);
-
         return $this->view('%_views_dirname_%.view');
     }
 }
