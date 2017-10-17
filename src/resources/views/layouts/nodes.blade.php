@@ -35,8 +35,8 @@
 				<small><i class="fa fa-plus"></i></small>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-right">
-				@foreach($depended_models as $depended_model)
-					<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_model->id, 'parent_id'=>$node->id]) }}">{{ $depended_model->display_name }}</a></li>
+				@foreach($depended_models as $depended_model_item)
+					<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_model_item->id, 'parent_id'=>$node->id]) }}">{{ $depended_model_item->display_name }}</a></li>
 				@endforeach
 			</ul>
 		</li>
