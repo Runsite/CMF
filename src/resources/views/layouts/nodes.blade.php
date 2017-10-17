@@ -71,7 +71,7 @@
 										{{ $language->display_name }}
 										@foreach($model->fields as $field)
 											@if($errors->has($field->name . '.' . $language->id))
-												<i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+												<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
 												@break
 											@endif
 										@endforeach
