@@ -20,6 +20,7 @@ use Runsite\CMF\Console\Commands\Setup\Steps\GivePermissions;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateAdminSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateDependencies;
+use Runsite\CMF\Console\Commands\Setup\Steps\PublishVendor;
 
 class Setup extends Command
 {
@@ -44,6 +45,7 @@ class Setup extends Command
         CreateAdminSectionModel::class,
         CreateDependencies::class,
         CreateSettingsNode::class,
+        PublishVendor::class,
     ];
 
     public function __construct()

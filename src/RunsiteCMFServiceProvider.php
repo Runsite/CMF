@@ -19,6 +19,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__ . '/routes/public.php');
         if(config('runsite.cmf.dynamic_routes.enabled'))
         {
             $this->loadRoutesFrom(__DIR__ . '/routes/public.php');
@@ -29,8 +30,11 @@ class RunsiteCMFServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/resources/langs', 'runsite');
 
         $this->publishes([
-            __DIR__.'/config/cmf.php' => config_path('runsite/cmf.php'),
+            __DIR__.'/../publish/config/cmf.php' => config_path('runsite/cmf.php'),
+            __DIR__.'/../publish/resources/views/layouts/app.blade.php' => base_path('resources/views/layouts/app.blade.php'),
+            __DIR__.'/../publish/resources/views/roots/view.blade.php' => base_path('resources/views/roots/view.blade.php'),
         ]);
+
 
         View::composer('runsite::*', AppComposer::class);
         View::composer('runsite::layouts.app', TreeComposer::class);

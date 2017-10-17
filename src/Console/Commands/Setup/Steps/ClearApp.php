@@ -22,6 +22,7 @@ class ClearApp {
         $this->unlinkPath('database/migrations');
         $this->unlinkPath('app/Http/Controllers');
         $this->unlinkPath('app/Models');
+        $this->unlinkPath('resources/views');
 
         return;
     }
