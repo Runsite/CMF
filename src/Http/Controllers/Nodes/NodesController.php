@@ -32,9 +32,42 @@ class NodesController extends BaseAdminController
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request)
+	public function store(Request $request, Model $model, Node $parent_node)
 	{
-		//
+		$languages = Language::get();
+		$main_language = $languages->where('locale', config('app.locale'))->first();
+		// Custom validation
+		$validation = [];
+		foreach($model->fields as $field)
+		{
+			$custom_validation_rules = $field->findSettings('custom_validation_rules');
+			foreach($languages as $language)
+			{
+				if($custom_validation_rules and $custom_validation_rules->value and  
+					(!$this->ruleHasRequired($custom_validation_rules->value) or $request->input('is_active.'.$language->id))
+				)
+				{
+					// If this field has validation rules
+					$validation = array_merge($validation, [
+						$field->name.'.'.$language->id => $custom_validation_rules->value,
+					]);
+				}
+				else
+				{
+					// Else rule will be empty
+					$validation = array_merge($validation, [
+						$field->name.'.'.$language->id => '',
+					]);
+				}
+			}
+		}
+
+		
+
+		// Gedding data from validator.
+		$data = $request->validate($validation);
+
+		dd($validation, $request->all(), $data);
 	}
 
 	/**
@@ -123,5 +156,10 @@ class NodesController extends BaseAdminController
 	public function destroy(Node $node)
 	{
 		//
+	}
+
+	protected function ruleHasRequired($rule)
+	{
+		return str_is('required', $rule) or str_is('*required', $rule) or str_is('required*', $rule) or str_is('*required*', $rule);
 	}
 }

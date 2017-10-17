@@ -138,7 +138,7 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.locale'
 
         Route::group(['prefix'=>'nodes', 'namespace'=>'Nodes', 'as'=>'nodes.', 'middleware'=>['application-access:nodes:read']], function() {
             Route::get('{model}/{parent_id}/create', ['as'=>'create', 'uses'=>'NodesController@create']);
-            Route::post('{model}/{parent_id}/store', ['as'=>'store', 'uses'=>'NodesController@store'])->middleware('application-access:nodes:edit');
+            Route::post('{model}/{parent_node}/store', ['as'=>'store', 'uses'=>'NodesController@store'])->middleware('application-access:nodes:edit');
             Route::get('{node}/edit/{depended_model_id?}', ['as'=>'edit', 'uses'=>'NodesController@edit']);
             Route::patch('{node}/update', ['as'=>'update', 'uses'=>'NodesController@update'])->middleware('application-access:nodes:edit');
             Route::delete('{node}/destroy', ['as'=>'destroy', 'uses'=>'NodesController@destroy'])->middleware('application-access:nodes:delete');

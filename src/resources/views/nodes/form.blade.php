@@ -4,9 +4,25 @@
 		@if($model->groups)
 			<div class="xs-pb-15">
 				<div class="btn-group" data-toggle="buttons">
-					<a data-toggle="tab" href="#no-group-{{ $language->id }}" class="btn btn-default active btn-sm ripple"><input type="radio" /> {{ trans('runsite::nodes.groups.Main') }}</a>
+					<a data-toggle="tab" href="#no-group-{{ $language->id }}" class="btn btn-default active btn-sm ripple">
+						<input type="radio" /> {{ trans('runsite::nodes.groups.Main') }}
+						@foreach($model->fields as $field)
+							@if(!$field->group_id and $errors->has($field->name . '.' . $language->id))
+								<i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+								@break
+							@endif
+						@endforeach
+					</a>
 					@foreach($model->groups as $group)
-						<a data-toggle="tab" href="#group-{{ $group->id }}-lang-{{ $language->id }}" class="btn btn-default btn-sm ripple"><input type="radio" /> {{ $group->name }}</a>
+						<a data-toggle="tab" href="#group-{{ $group->id }}-lang-{{ $language->id }}" class="btn btn-default btn-sm ripple">
+							<input type="radio" /> {{ $group->name }}
+							@foreach($model->fields as $field)
+								@if($field->group_id == $group->id and $errors->has($field->name . '.' . $language->id))
+									<i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+									@break
+								@endif
+							@endforeach
+						</a>
 					@endforeach
 				</div>
 			</div>

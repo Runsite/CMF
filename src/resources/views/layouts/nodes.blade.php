@@ -57,6 +57,7 @@
 @endsection
 
 @section('app')
+
 	{!! Form::open(['url'=>route('admin.nodes.destroy', $node->id), 'method'=>'delete', 'style'=>'display: none;', 'id'=>'deleting-node-'.$node->id]) !!}
 	{!! Form::close() !!}
 		<div class="content">
@@ -65,7 +66,21 @@
 						<ul class="nav nav-tabs">
 							@foreach($languages as $k=>$language)
 								<li class="{{ $active_language_tab == $language->locale ? 'active' : null }}">
-									<a href="#lang-{{ $language->id }}" data-toggle="tab"><span class="lang-xs" lang="{{ $language->locale }}"></span> {{ $language->display_name }}</a>
+									<a href="#lang-{{ $language->id }}" data-toggle="tab">
+										{{-- <span class="lang-xs" lang="{{ $language->locale }}"></span> --}}
+										{{ $language->display_name }}
+										@foreach($model->fields as $field)
+											@if($errors->has($field->name . '.' . $language->id))
+												<i class="fa fa-exclamation-circle text-danger" aria-hidden="true"></i>
+												@break
+											@endif
+										@endforeach
+										{{-- @if($node->getErrorsCountByLanguageId($language->id, $errors))
+											<span class="label label-danger">
+												{{ $node->getErrorsCountByLanguageId($language->id, $errors) }}
+											</span>
+										@endif --}}
+									</a>
 								</li>
 							@endforeach
 							<li class="pull-right">
