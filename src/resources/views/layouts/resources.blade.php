@@ -70,6 +70,16 @@
         </script>
     @endif
 
+    @if($errors->count())
+        <script>
+            new Noty({
+                text: 'Some errors detected',
+                type: 'error',
+                timeout: 1500,
+            }).show();
+        </script>
+    @endif
+
     @yield('js')
   </body>
 </html>
