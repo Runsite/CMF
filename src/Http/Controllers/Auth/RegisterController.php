@@ -4,8 +4,10 @@ namespace Runsite\CMF\Http\Controllers\Auth;
 
 use Runsite\CMF\User;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\{
+    Support\Facades\Validator,
+    Foundation\Auth\RegistersUsers
+};
 
 class RegisterController extends Controller
 {

@@ -6,12 +6,14 @@ use DB;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
-use Runsite\CMF\Http\Controllers\BaseAdminController;
-use Runsite\CMF\Models\Model\Model;
-use Runsite\CMF\Models\Model\Field\Field;
-use Runsite\CMF\Models\User\Access\AccessField;
-use Runsite\CMF\Models\User\Group;
-use Runsite\CMF\Traits\Applicable;
+use Runsite\CMF\{
+	Http\Controllers\BaseAdminController,
+	Models\Model\Model,
+	Models\Model\Field\Field,
+	Models\User\Access\AccessField,
+	Models\User\Group,
+	Traits\Applicable
+};
 
 class AccessController extends BaseAdminController
 {

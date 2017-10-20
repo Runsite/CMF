@@ -3,9 +3,11 @@
 namespace Runsite\CMF\Http\Controllers\Model\Fields;
 
 use Illuminate\Http\Request;
-use Runsite\CMF\Http\Controllers\BaseAdminController;
-use Runsite\CMF\Models\Model\Model;
-use Runsite\CMF\Models\Model\Field\FieldGroup;
+use Runsite\CMF\{
+    Http\Controllers\BaseAdminController,
+    Models\Model\Model,
+    Models\Model\Field\FieldGroup
+};
 
 class FieldGroupsController extends BaseAdminController
 {

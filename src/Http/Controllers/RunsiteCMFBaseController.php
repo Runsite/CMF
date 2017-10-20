@@ -2,8 +2,10 @@
 
 namespace Runsite\CMF\Http\Controllers;
 
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\{
+    Routing\Controller as BaseController,
+    Foundation\Validation\ValidatesRequests
+};
 use Runsite\CMF\Helpers\GlobalScope;
 
 class RunsiteCMFBaseController extends BaseController

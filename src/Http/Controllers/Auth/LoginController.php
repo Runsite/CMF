@@ -3,8 +3,10 @@
 namespace Runsite\CMF\Http\Controllers\Auth;
 
 use Runsite\CMF\Http\Controllers\BaseAdminController;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use Illuminate\{
+    Foundation\Auth\AuthenticatesUsers,
+    Http\Request
+};
 
 class LoginController extends BaseAdminController
 {
