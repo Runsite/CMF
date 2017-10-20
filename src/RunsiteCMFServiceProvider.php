@@ -2,13 +2,19 @@
 
 namespace Runsite\CMF;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Config;
 use View;
 use Validator;
-use Runsite\CMF\Http\ViewComposers\AppComposer;
-use Runsite\CMF\Http\ViewComposers\TreeComposer;
-use Runsite\CMF\Http\Middlewares\Access\Application as ApplicationAccessMiddleware;
+
+use Illuminate\Support\{
+    ServiceProvider,
+    Facades\Config
+};
+
+use Runsite\CMF\Http\{
+    ViewComposers\AppComposer,
+    ViewComposers\TreeComposer,
+    Middlewares\Access\Application as ApplicationAccessMiddleware
+};
 
 class RunsiteCMFServiceProvider extends ServiceProvider
 {
