@@ -31,12 +31,12 @@ class DateType
         ],
     ];
 
-    public static function defaultValue()
+    public static function defaultValue(): Carbon
     {
         return Carbon::now()->format('Y-m-d');
     }
 
-    public static function beforeDeleting(Field $field, Node $node)
+    public static function beforeDeleting(Field $field, Node $node): void
     {
         return;
     }

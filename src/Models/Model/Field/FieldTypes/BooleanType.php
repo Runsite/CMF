@@ -28,12 +28,12 @@ class BooleanType
 
     ];
 
-    public static function defaultValue()
+    public static function defaultValue(): bool
     {
         return false;
     }
 
-    public static function beforeDeleting(Field $field, Node $node)
+    public static function beforeDeleting(Field $field, Node $node): void
     {
         return;
     }

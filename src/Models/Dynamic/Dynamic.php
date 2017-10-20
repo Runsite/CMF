@@ -35,17 +35,17 @@ class Dynamic extends Eloquent
             $this->dates = $dates;
         }
     }
-    public function node()
+    public function node(): Node
     {
         return $this->belongsTo(Node::class, 'node_id');
     }
 
-    public function language()
+    public function language(): Language
     {
         return $this->belongsTo(Language::class, 'language_id');
     }
 
-    public function save(array $options = [])
+    public function save(array $options = []): Dynamic
     {
         if($this->name)
         {
@@ -67,7 +67,7 @@ class Dynamic extends Eloquent
         return parent::save($options);
     }
 
-    public function first()
+    public function first(): Dynamic
     {
         // $this->orderBy('rs_nodes.position', 'asc');
         return parent::first();

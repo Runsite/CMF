@@ -32,7 +32,7 @@ class RelationToManyType
         ],
     ];
 
-    public static function beforeDeleting(Field $field, Node $node)
+    public static function beforeDeleting(Field $field, Node $node): void
     {
         return;
     }
