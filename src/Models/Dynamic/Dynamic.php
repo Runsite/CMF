@@ -35,17 +35,17 @@ class Dynamic extends Eloquent
             $this->dates = $dates;
         }
     }
-    public function node(): Node
+    public function node()
     {
         return $this->belongsTo(Node::class, 'node_id');
     }
 
-    public function language(): Language
+    public function language()
     {
         return $this->belongsTo(Language::class, 'language_id');
     }
 
-    public function save(array $options = []): Dynamic
+    public function save(array $options = []): bool
     {
         if($this->name)
         {
