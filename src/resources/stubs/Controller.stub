@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Runsite\CMF\Http\Controllers\RunsiteCMFBaseController;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
+use Illuminate\{
+    Http\Request,
+    View\View
+};
 
 class %_controller_name_% extends RunsiteCMFBaseController
 {
