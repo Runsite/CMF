@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use Runsite\CMF\Http\Controllers\RunsiteCMFBaseController;
-use Illuminate\{
-    Http\Request,
-    View\View
-};
+use Illuminate\View\View;
 
 class %_controller_name_% extends RunsiteCMFBaseController
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
+    public function index(): View
     {
         $%_model_name_plural_% = M('%_model_name_%')
             ->where('parent_id', $this->node->id) // Only child items of current node
@@ -26,7 +23,7 @@ class %_controller_name_% extends RunsiteCMFBaseController
     /**
      * Display the specified resource.
      */
-    public function show(Request $request): View
+    public function show(): View
     {
         return $this->view('%_views_dirname_%.view');
     }
