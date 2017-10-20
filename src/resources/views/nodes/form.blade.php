@@ -1,7 +1,7 @@
 @foreach($languages as $k=>$language)
 	<div class="tab-pane {{ $active_language_tab == $language->locale ? 'active' : null }}" id="lang-{{ $language->id }}">
 
-		@if($model->groups)
+		@if(count($model->groups))
 			<div class="xs-pb-15">
 				<div class="btn-group" data-toggle="buttons">
 					<a data-toggle="tab" href="#no-group-{{ $language->id }}" class="btn btn-default active btn-sm ripple">
