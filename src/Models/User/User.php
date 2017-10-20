@@ -2,8 +2,10 @@
 
 namespace Runsite\CMF\Models\User;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\{
+    Notifications\Notifiable,
+    Foundation\Auth\User as Authenticatable
+};
 use Runsite\CMF\Models\User\Access\Access;
 
 class User extends Authenticatable

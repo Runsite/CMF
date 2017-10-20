@@ -3,8 +3,10 @@
 namespace Runsite\CMF\Models\Notification;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Runsite\CMF\Models\Node\Node;
-use Runsite\CMF\Models\User\User;
+use Runsite\CMF\Models\{
+    Node\Node,
+    User\User
+};
 
 class Notification extends Eloquent
 {

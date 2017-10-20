@@ -2,24 +2,32 @@
 
 namespace Runsite\CMF\Models\Model\Field;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Support\Facades\Schema;
 use DB;
-use Runsite\CMF\Models\Node\Relation;
-use Runsite\CMF\Models\Model\Model;
-use Runsite\CMF\Models\User\Access\AccessField;
-use Runsite\CMF\Models\User\Group;
 
-use Runsite\CMF\Models\Model\Field\FieldTypes\BooleanType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\DateTimeType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\DateType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\DecimalType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\ImageType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\RelationToManyType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\RelationToOneType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\ServerFileType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\StringType;
-use Runsite\CMF\Models\Model\Field\FieldTypes\TextareaType;
+use Illuminate\{
+    Database\Eloquent\Model as Eloquent,
+    Support\Facades\Schema
+};
+
+use Runsite\CMF\Models\{
+    Node\Relation,
+    Model\Model,
+    User\Access\AccessField,
+    User\Group
+};
+
+use Runsite\CMF\Models\Model\Field\FieldTypes\{
+    BooleanType,
+    DateTimeType,
+    DateType,
+    DecimalType,
+    ImageType,
+    RelationToManyType,
+    RelationToOneType,
+    ServerFileType,
+    StringType,
+    TextareaType
+};
 
 class Field extends Eloquent
 {

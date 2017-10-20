@@ -2,12 +2,17 @@
 
 namespace Runsite\CMF\Models\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Support\Facades\Schema;
-use Runsite\CMF\Models\Model\Field\Field;
-use Runsite\CMF\Models\Model\Field\FieldGroup;
-use Runsite\CMF\Models\User\Access\AccessModel;
-use Runsite\CMF\Models\User\Group;
+use Illuminate\{
+	Database\Eloquent\Model as Eloquent,
+	Support\Facades\Schema
+};
+
+use Runsite\CMF\Models\{
+	Model\Field\Field,
+	Model\Field\FieldGroup,
+	User\Access\AccessModel,
+	User\Group
+};
 
 class Model extends Eloquent
 {

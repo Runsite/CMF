@@ -2,15 +2,17 @@
 
 namespace Runsite\CMF\Models\User\Access;
 
-use Runsite\CMF\Models\User\User;
-use Runsite\CMF\Models\User\Access\AccessApplication;
-use Runsite\CMF\Models\User\Access\AccessNode;
-use Runsite\CMF\Models\User\Access\AccessModel;
-use Runsite\CMF\Models\User\Access\AccessField;
-use Runsite\CMF\Models\Application;
-use Runsite\CMF\Models\Node\Node;
-use Runsite\CMF\Models\Model\Model;
-use Runsite\CMF\Models\Model\Field\Field;
+use Runsite\CMF\Models\{
+    User\User,
+    User\Access\AccessApplication,
+    User\Access\AccessNode,
+    User\Access\AccessModel,
+    User\Access\AccessField,
+    Node\Node,
+    Model\Model,
+    Model\Field\Field,
+    Application
+};
 
 class Access {
 

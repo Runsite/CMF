@@ -3,11 +3,13 @@
 namespace Runsite\CMF\Models\Node;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Runsite\CMF\Models\Model\Model;
-use Runsite\CMF\Models\Dynamic\Dynamic;
-use Runsite\CMF\Models\Dynamic\Language;
-use Runsite\CMF\Models\User\Group;
-use Runsite\CMF\Models\User\Access\AccessNode;
+use Runsite\CMF\Models\{
+    Model\Model,
+    Dynamic\Dynamic,
+    Dynamic\Language,
+    User\Group,
+    User\Access\AccessNode
+};
 use DB;
 use LaravelLocalization;
 use Goszowski\Temp\Temp;

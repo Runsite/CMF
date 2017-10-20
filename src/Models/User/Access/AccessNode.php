@@ -3,8 +3,10 @@
 namespace Runsite\CMF\Models\User\Access;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Runsite\CMF\Models\Node\Node;
-use Runsite\CMF\Models\User\Group;
+use Runsite\CMF\Models\{
+    Node\Node,
+    User\Group
+};
 
 class AccessNode extends Eloquent
 {

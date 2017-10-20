@@ -3,8 +3,10 @@
 namespace Runsite\CMF\Models\User\Access;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Runsite\CMF\Models\Model\Field\Field;
-use Runsite\CMF\Models\User\Group;
+use Runsite\CMF\Models\{
+    Model\Field\Field,
+    User\Group
+};
 
 class AccessField extends Eloquent
 {
