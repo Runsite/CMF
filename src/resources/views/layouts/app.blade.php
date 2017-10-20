@@ -117,10 +117,10 @@
     </form> --}}
     <ul class="sidebar-menu" data-widget="tree">
       {{-- <li class="header">NAVIGATION</li> --}}
-      <li class="{{ request()->route('id') == 1 ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$rootNode->id]) }}"><i class="fa fa-home"></i> <span>{{ $rootNode->dynamicCurrentLanguage()->first()->name }}</span></a></li>
+      <li class="{{ request()->route('node')->id == 1 ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$rootNode->id]) }}"><i class="fa fa-home"></i> <span>{{ $rootNode->dynamicCurrentLanguage()->first()->name }}</span></a></li>
 
       @foreach($childNodes as $childNode)
-        <li class="{{ request()->route('id') == $childNode->id ? 'active' : null }}">
+        <li class="{{ request()->route('node')->id == $childNode->id ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
             <i class="fa fa-folder"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name }}</span>
