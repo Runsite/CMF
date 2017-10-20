@@ -19,12 +19,13 @@ class RunsiteCMFServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
         $this->loadRoutesFrom(__DIR__ . '/routes/public.php');
         if(config('runsite.cmf.dynamic_routes.enabled'))
         {
             $this->loadRoutesFrom(__DIR__ . '/routes/public.php');
         }
-        $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
+        
         $this->loadViewsFrom(__DIR__ . '/resources/views', 'runsite');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
         $this->loadTranslationsFrom(__DIR__.'/resources/langs', 'runsite');
