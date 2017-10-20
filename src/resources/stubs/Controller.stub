@@ -14,10 +14,8 @@ class %_controller_name_% extends RunsiteCMFBaseController
     public function index(Request $request): View
     {
         $%_model_name_plural_% = M('%_model_name_%')
-            // Only child items of this node
-            ->where('parent_id', $this->node->id)
-            // Default ordering
-            ->orderBy('position', 'asc')
+            ->where('parent_id', $this->node->id) // Only child items of current node
+            ->orderBy('position', 'asc') // Default ordering
             ->paginate();
 
         return $this->view('%_views_dirname_%.index', compact('%_model_name_plural_%'));
