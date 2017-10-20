@@ -68,7 +68,7 @@ class Setup extends Command
             }
             else
             {
-              $this->comment('Instalation canceled');
+              $this->comment('Installation canceled');
               return false;
             }
           }
@@ -80,7 +80,7 @@ class Setup extends Command
         
 
 
-        $this->comment('Instalation...');
+        $this->comment('Installation...');
 
         $bar = $this->output->createProgressBar(count($this->steps));
         $bar->setFormatDefinition('runsite', '  %current%/%max% [%bar%] %percent:3s%% -- %message%');
@@ -96,7 +96,7 @@ class Setup extends Command
           $class->handle();
         }
 
-        $bar->setMessage('Instalation complete!');
+        $bar->setMessage('Installation complete!');
         $bar->finish();
 
         $this->comment('');
