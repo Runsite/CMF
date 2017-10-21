@@ -10,7 +10,6 @@ trait Applicable {
 
     public function __construct()
     {
-        parent::__construct();
         $this->application = Application::where('name', $this->application_name)->first();
 
         if(method_exists($this, '__boot'))

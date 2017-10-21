@@ -4,7 +4,7 @@
 <form method="POST" action="{{ route('login') }}">
 		{{ csrf_field() }}
 		<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-			<input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus placeholder="{{ trans('runsite::auth.Email') }}">
+			<input id="email" type="email" class="form-control input-sm" name="email" value="{{ old('email') }}" required autofocus placeholder="{{ trans('runsite::auth.Email') }}">
 			@if ($errors->has('email'))
 			<span class="help-block">
 				{{ $errors->first('email') }}
@@ -13,7 +13,7 @@
 			<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 		</div>
 		<div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-			<input id="password" type="password" class="form-control" name="password" required placeholder="{{ trans('runsite::auth.Password') }}">
+			<input id="password" type="password" class="form-control input-sm" name="password" required placeholder="{{ trans('runsite::auth.Password') }}">
 			@if ($errors->has('password'))
 			<span class="help-block">
 				{{ $errors->first('password') }}
