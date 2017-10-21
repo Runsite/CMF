@@ -10,9 +10,4 @@ use Illuminate\{
 class BaseAdminController extends BaseController
 {
     use ValidatesRequests;
-
-    public function __construct()
-    {
-        
-    }
 }
