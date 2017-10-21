@@ -1,6 +1,6 @@
 @extends('runsite::layouts.auth')
 @section('app')
-<p class="login-box-msg">{{ trans('runsite::auth.Sign in to start your session') }}</p>
+<p>{{ trans('runsite::auth.Sign in to start your session') }}</p>
 <form method="POST" action="{{ route('login') }}">
 		{{ csrf_field() }}
 		<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">

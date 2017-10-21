@@ -1,6 +1,6 @@
 @extends('runsite::layouts.auth')
 @section('app')
-<p class="login-box-msg">{{ trans('runsite::auth.Reset Password') }}</p>
+<p>{{ trans('runsite::auth.Reset Password') }}</p>
 <form method="POST" action="{{ route('password.email') }}">
 	{{ csrf_field() }}
 
