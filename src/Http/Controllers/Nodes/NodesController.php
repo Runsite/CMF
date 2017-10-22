@@ -35,7 +35,6 @@ class NodesController extends BaseAdminController
 	public function store(Request $request, Model $model, Node $parent_node)
 	{
 		$languages = Language::get();
-		$main_language = $languages->where('locale', config('app.locale'))->first();
 		// Custom validation
 		$validation = [];
 		foreach($model->fields as $field)
@@ -62,12 +61,34 @@ class NodesController extends BaseAdminController
 			}
 		}
 
-		
-
 		// Gedding data from validator.
 		$data = $request->validate($validation);
 
-		dd($validation, $request->all(), $data);
+		// Node name is needly for generation path. But not required.
+		// Getting main language by app.locale
+		$main_language = $languages->where('locale', config('app.locale'))->first();
+		$node_name = isset($data['name']) ? $data['name'][$main_language->id] : null;
+
+		// Creating node
+		$node = Node::create([
+			'parent_id' => $parent_node->id,
+			'model_id' => $model->id,
+		], $node_name);
+
+		// Saving fields values
+		foreach($languages as $language)
+		{
+			foreach($model->fields as $field)
+			{
+				// TODO: must be middleware for fields like image etc
+				$field_value = $data[$field->name][$language->id];
+				$node->{$language->locale}->{$field->name} = $field_value;
+			}
+			// Saving locale
+			$node->{$language->locale}->save();
+		}
+
+		return redirect()->route('admin.nodes.edit', ['mode'=>$parent_node])->with('succcess', trans('runsite::nodes.The node is created'));
 	}
 
 	/**
