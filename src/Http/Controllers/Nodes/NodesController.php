@@ -18,7 +18,7 @@ class NodesController extends BaseAdminController
 	/**
 	 * Show the form for creating a new resource.
 	 */
-	public function create(Model $model, $parent_id): View
+	public function create(Model $model, int $parent_id): View
 	{
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
@@ -35,14 +35,18 @@ class NodesController extends BaseAdminController
 	public function store(Request $request, Model $model, Node $parent_node): RedirectResponse
 	{
 		$languages = Language::get();
+
 		// Custom validation
 		$validation = [];
 		foreach($model->fields as $field)
 		{
+			// Loading rules from field settings
 			$custom_validation_rules = $field->findSettings('custom_validation_rules');
 			foreach($languages as $language)
 			{
-				if($custom_validation_rules and $custom_validation_rules->value and  
+				if($custom_validation_rules and $custom_validation_rules->value and 
+
+					// If rule is "required" and language group "is_active" is not checked, then we can not validate this rule
 					(!$this->ruleHasRequired($custom_validation_rules->value) or $request->input('is_active.'.$language->id))
 				)
 				{
@@ -88,7 +92,9 @@ class NodesController extends BaseAdminController
 			$node->{$language->locale}->save();
 		}
 
-		return redirect()->route('admin.nodes.edit', ['mode'=>$parent_node])->with('succcess', trans('runsite::nodes.The node is created'));
+		// Redirecting with success message
+		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node])
+			->with('succcess', trans('runsite::nodes.The node is created'));
 	}
 
 	/**
@@ -126,9 +132,6 @@ class NodesController extends BaseAdminController
 		{
 			$children = M($depended_model->tableName())->where('parent_id', $node->id)->paginate();
 		}
-		
-
-		// debug($children);
 
 		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab'));
 	}
@@ -162,7 +165,8 @@ class NodesController extends BaseAdminController
 			$dynamic->save();
 		}
 
-		return redirect(route('admin.nodes.edit', $node->id))->with('success', trans('runsite::nodes.The node is updated'));
+		return redirect(route('admin.nodes.edit', $node->id))
+			->with('success', trans('runsite::nodes.The node is updated'));
 	}
 
 	/**
