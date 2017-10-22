@@ -46,7 +46,7 @@ class Model extends Eloquent
 
 	public function fields()
 	{
-		return $this->hasMany(Field::class, 'model_id');
+		return $this->hasMany(Field::class, 'model_id')->orderBy('position', 'asc');
 	}
 
 	public function groups()
