@@ -18,7 +18,7 @@ class ClearApp {
             unlink(app_path('Http/Middleware/RedirectIfAuthenticated.php'));
         }
 
-        // Creating model file 
+        // Creating model folder 
         if(! is_dir(app_path('Models')))
         {
             mkdir(app_path('Models'));
