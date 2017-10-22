@@ -3,6 +3,9 @@
 namespace Runsite\CMF\Http\Controllers\nodes;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Runsite\CMF\Http\Controllers\BaseAdminController;
 use Runsite\CMF\Models\Node\Node;
 use Runsite\CMF\Models\Model\Model;
@@ -14,10 +17,8 @@ class NodesController extends BaseAdminController
 {
 	/**
 	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
 	 */
-	public function create(Model $model, $parent_id)
+	public function create(Model $model, $parent_id): View
 	{
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
@@ -30,9 +31,8 @@ class NodesController extends BaseAdminController
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
 	 */
-	public function store(Request $request, Model $model, Node $parent_node)
+	public function store(Request $request, Model $model, Node $parent_node): RedirectResponse
 	{
 		$languages = Language::get();
 		// Custom validation
@@ -94,10 +94,9 @@ class NodesController extends BaseAdminController
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
+	 * @param  int  $depended_model_id
 	 */
-	public function edit(Node $node, $depended_model_id=null)
+	public function edit(Node $node, $depended_model_id=null): View
 	{
 		if(! Auth::user()->access()->node($node)->read)
 		{
@@ -138,10 +137,8 @@ class NodesController extends BaseAdminController
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Node $node)
+	public function update(Request $request, Node $node): RedirectResponse
 	{
 		if(! Auth::user()->access()->node($node)->edit)
 		{
@@ -170,11 +167,8 @@ class NodesController extends BaseAdminController
 
 	/**
 	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Node $node)
+	public function destroy(Node $node): RedirectResponse
 	{
 		//
 	}
