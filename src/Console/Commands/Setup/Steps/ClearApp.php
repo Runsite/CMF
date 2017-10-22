@@ -29,6 +29,7 @@ class ClearApp {
         $this->unlinkPath('app/Mail');
         $this->unlinkPath('app/Models');
         $this->unlinkPath('resources/views');
+        $this->unlinkPath('config/runsite');
 
         return;
     }
