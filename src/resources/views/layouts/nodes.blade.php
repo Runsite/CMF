@@ -11,7 +11,7 @@
 				@foreach($breadcrumbs as $k=>$breadcrumb)
 					<li class="{{ (++$k) > (count($breadcrumbs) - 2) ? 'visible-xs visible-sm' : null }}">
 						<a href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
-							{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}
+							{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name ?? ($breadcrumb->model->display_name . ' ' . $breadcrumb->id), 20) }}
 						</a>
 					</li>
 				@endforeach
@@ -23,7 +23,7 @@
 		@if((++$k) > (count($breadcrumbs) - 2))
 			<li class="{{ request()->route('id') == $breadcrumb->id ? 'active' : null }} visible-md visible-lg">
 				<a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$breadcrumb->id]) }}">
-					<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name, 20) }}</small>
+					<small>{{ str_limit($breadcrumb->dynamicCurrentLanguage()->first()->name ?? ($breadcrumb->model->display_name . ' ' . $breadcrumb->id), 20) }}</small>
 				</a>
 			</li>
 		@endif
