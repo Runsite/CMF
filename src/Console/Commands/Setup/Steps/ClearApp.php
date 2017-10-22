@@ -13,6 +13,11 @@ class ClearApp {
             unlink(app_path('User.php'));
         }
 
+        if(file_exists(app_path('Http/Middleware/RedirectIfAuthenticated.php')))
+        {
+            unlink(app_path('Http/Middleware/RedirectIfAuthenticated.php'));
+        }
+
         // Creating model file 
         if(! is_dir(app_path('Models')))
         {
