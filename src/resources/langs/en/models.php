@@ -60,6 +60,9 @@ return [
         'The field is removed' => 'The field is removed',
         'Is common for all languages' => 'Is common for all languages',
         'Is visible in nodes list' => 'Is visible in nodes list',
+        'Are you sure you want to delete the field' => 'Are you sure you want to delete the field',
+        'Delete field' => 'Delete field',
+        'Close' => 'Close',
 
         'settings' => [
             'control' => 'Control',

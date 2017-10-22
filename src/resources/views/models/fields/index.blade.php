@@ -58,9 +58,9 @@
                         
                         @if(Auth::user()->access()->application($application)->delete)
                             <td>
-                                {!! Form::open(['url'=>route('admin.models.fields.destroy', ['model_id'=>$model->id, 'field_id'=>$fieldItem->id]), 'method'=>'delete']) !!}
-                                    <button @if($fieldItem->name == 'is_active') disabled @endif onclick="return confirm('{{ trans('runsite::models.fields.Are you sure') }}?')" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
-                                {!! Form::close() !!}
+                                <button @if($fieldItem->name == 'is_active') disabled @endif data-toggle="modal" data-target="#destroy-field-{{ $fieldItem->id }}" class="btn btn-danger btn-xs">
+                                    <i class="fa fa-trash"></i>
+                                </button>
                             </td>
                         @endif
                     </tr>
@@ -68,4 +68,25 @@
             </tbody>
         </table>
     </div>
+
+    @foreach($fields as $fieldItem)
+    <div class="modal modal-danger fade" tabindex="-1" role="dialog" id="destroy-field-{{ $fieldItem->id }}">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('runsite::models.fields.Close') }}"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{ trans('runsite::models.fields.Are you sure') }}?</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{ trans('runsite::models.fields.Are you sure you want to delete the field') }} "{{ $fieldItem->name }}"?</p>
+          </div>
+          <div class="modal-footer">
+            {!! Form::open(['url'=>route('admin.models.fields.destroy', ['model_id'=>$model->id, 'field_id'=>$fieldItem->id]), 'method'=>'delete']) !!}
+                <button type="submit" class="btn btn-default btn-sm ripple" data-ripple-color="#ccc">{{ trans('runsite::models.fields.Delete field') }}</button>
+            {!! Form::close() !!}
+          </div>
+        </div>
+      </div>
+    </div>
+    @endforeach
 @endsection
