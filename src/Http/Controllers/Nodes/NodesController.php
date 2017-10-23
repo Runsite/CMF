@@ -72,12 +72,20 @@ class NodesController extends BaseAdminController
 		// Getting main language by app.locale
 		$main_language = $languages->where('locale', config('app.locale'))->first();
 		$node_name = isset($data['name']) ? $data['name'][$main_language->id] : null;
+		
+		$node_names = null;
+
+		foreach($languages as $language)
+		{
+			// Gedding nodenames for all languages
+			$node_names[$language->locale] = (isset($data['name']) and $data['name'][$language->id]) ? $data['name'][$language->id] : $node_name;
+		}
 
 		// Creating node
 		$node = Node::create([
 			'parent_id' => $parent_node->id,
 			'model_id' => $model->id,
-		], $node_name);
+		], $node_names);
 
 		// Saving fields values
 		foreach($languages as $language)

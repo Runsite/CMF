@@ -89,10 +89,15 @@ class Node extends Eloquent
 
         foreach($languages as $language)
         {
+            $current_language_basename = $basename;
+            if(is_array($basename))
+            {
+                $current_language_basename = $basename[$language->locale];
+            }
             Path::create([
                 'node_id' => $node->id,
                 'language_id' => $language->id,
-                'name' => $node->generatePath($basename),
+                'name' => $node->generatePath($current_language_basename),
             ]);
 
             DB::table($node->model->tableName())->insert([
@@ -116,14 +121,28 @@ class Node extends Eloquent
 
     }
 
-    public function generatePath($basename=null, $unique=true)
+    public function generatePath($basename=null, $unique=true, $language_id=null)
     {
         if($this->parent_id === null)
         {
             $basename = null;
         }
 
-        $root = $this->parent ? $this->parent->path->name . '/' : '/';
+        $root = '/';
+        
+        if($this->parent)
+        {
+            if($language_id)
+            {
+                $root = $this->parent->path->where('language_id', $language_id)->first()->name;
+            }
+            else
+            {
+                $root = $this->parent->path->name;
+            }
+
+            $root .= '/';
+        }
 
         if($root == '//')
         {
@@ -132,9 +151,9 @@ class Node extends Eloquent
 
         $path = $root . str_slug($basename);
 
-        if($this->parent_id and $unique)
+        if($unique)
         {
-            while(Path::where('rs_paths.name', $path)->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->where('rs_nodes.parent_id', $this->parent_id)->count() >= Language::count())
+            while(Path::where('rs_paths.name', $path)->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->count() >= Language::count())
             {
                 $path .= Node::where('parent_id', $this->parent_id)->count();
             }

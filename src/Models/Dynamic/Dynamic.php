@@ -49,7 +49,7 @@ class Dynamic extends Eloquent
     {
         if($this->name)
         {
-            $pathExists = Path::where('node_id', $this->node->id)->where('name', $this->node->generatePath($this->name, false))->count() >= Language::count();
+            $pathExists = Path::where('node_id', $this->node->id)->where('name', $this->node->generatePath($this->name, false, $this->language_id))->count();
 
             if(!$pathExists)
             {
