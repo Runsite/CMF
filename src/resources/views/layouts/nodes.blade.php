@@ -127,6 +127,7 @@
 															<small>{{ $field->display_name }}</small>
 														</th>
 													@endforeach
+													<th>{{ trans('runsite::nodes.Actions') }}</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -137,6 +138,9 @@
 																@include('runsite::models.fields.field_types.'.$field->type()::$name.'._view')
 															</td>
 														@endforeach
+														<td>
+															<a href="{{ route('admin.nodes.edit', $child) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+														</td>
 													</tr>
 												@endforeach
 											</tbody>

@@ -6,6 +6,7 @@ return [
 	'Delete' => 'Delete',
 	'The node is updated' => 'The node is updated',
 	'The node is created' => 'The node is created',
+	'Actions' => 'Actions',
 
 	'groups' => [
 		'Main' => 'Main',
