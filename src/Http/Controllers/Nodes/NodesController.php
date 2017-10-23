@@ -70,7 +70,7 @@ class NodesController extends BaseAdminController
 
 		// Node name is needly for generation path. But not required.
 		// Getting main language by app.locale
-		$main_language = $languages->where('locale', config('app.locale'))->first();
+		$main_language = $languages->where('locale', config('app.fallback_locale'))->first();
 		$node_name = isset($data['name']) ? $data['name'][$main_language->id] : null;
 		
 		$node_names = null;
@@ -121,7 +121,7 @@ class NodesController extends BaseAdminController
 		$model = $node->model;
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
-		$active_language_tab = LaravelLocalization::setLocale();
+		$active_language_tab = config('app.fallback_locale');
 
 		$depended_models = [];
 
