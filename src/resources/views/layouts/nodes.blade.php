@@ -127,6 +127,9 @@
 															<small>{{ $field->display_name }}</small>
 														</th>
 													@endforeach
+													@if(str_is('position *', $depended_model->settings->nodes_ordering))
+														<th><small>{{ trans('runsite::nodes.Position') }}</small></th>
+													@endif
 													<th><small>{{ trans('runsite::nodes.Actions') }}</small></th>
 												</tr>
 											</thead>
@@ -138,8 +141,16 @@
 																@include('runsite::models.fields.field_types.'.$field->type()::$name.'._view')
 															</td>
 														@endforeach
+														@if(str_is('position *', $depended_model->settings->nodes_ordering))
+															<td>
+																<div class="btn-group">
+																	<div class="btn btn-sm btn-default"><i class="fa fa-caret-up"></i></div>
+																	<div class="btn btn-sm btn-default"><i class="fa fa-caret-down"></i></div>
+																</div>
+															</td>
+														@endif
 														<td>
-															<a href="{{ route('admin.nodes.edit', $child) }}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i></a>
+															<a href="{{ route('admin.nodes.edit', $child) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
 														</td>
 													</tr>
 												@endforeach

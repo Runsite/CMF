@@ -138,7 +138,8 @@ class NodesController extends BaseAdminController
 		$children = [];
 		if($depended_model)
 		{
-			$children = M($depended_model->tableName(), false, $active_language_tab)->where('parent_id', $node->id)->paginate();
+			$ordering = explode(' ', $depended_model->settings->nodes_ordering);
+			$children = M($depended_model->tableName(), false, $active_language_tab)->where('parent_id', $node->id)->orderBy($ordering[0], $ordering[1])->paginate();
 		}
 
 		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab'));
