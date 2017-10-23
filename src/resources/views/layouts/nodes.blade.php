@@ -106,10 +106,10 @@
 
 			@if(isset($depended_models) and $depended_models)
 				<div class="nav-tabs-custom">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs nav-tabs-autochange">
 						@foreach($depended_models as $depended_model_item)
 							<li class="{{ $depended_model_item->id == $depended_model->id ? 'active' : null }}">
-								<a href="{{ route('admin.nodes.edit', ['id'=>$node->id, 'depended_model_id'=>$depended_model_item->id]) }}">{{ $depended_model_item->display_name_plural }}</a>
+								<a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.nodes.edit', ['id'=>$node->id, 'depended_model_id'=>$depended_model_item->id]) }}">{{ $depended_model_item->display_name_plural }}</a>
 							</li>
 						@endforeach
 					</ul>
@@ -127,7 +127,7 @@
 															<small>{{ $field->display_name }}</small>
 														</th>
 													@endforeach
-													<th>{{ trans('runsite::nodes.Actions') }}</th>
+													<th><small>{{ trans('runsite::nodes.Actions') }}</small></th>
 												</tr>
 											</thead>
 											<tbody>
