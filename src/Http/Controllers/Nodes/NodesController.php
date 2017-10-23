@@ -23,7 +23,7 @@ class NodesController extends BaseAdminController
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
-		$active_language_tab = LaravelLocalization::setLocale();
+		$active_language_tab = config('app.fallback_locale');
 		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab'));
 	}
 
@@ -138,7 +138,7 @@ class NodesController extends BaseAdminController
 		$children = [];
 		if($depended_model)
 		{
-			$children = M($depended_model->tableName())->where('parent_id', $node->id)->paginate();
+			$children = M($depended_model->tableName(), false, $active_language_tab)->where('parent_id', $node->id)->paginate();
 		}
 
 		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab'));
