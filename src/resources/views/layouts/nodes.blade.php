@@ -122,7 +122,7 @@
 										<table class="table">
 											<thead>
 												<tr>
-													@foreach($depended_model->fields as $field)
+													@foreach($depended_model->fields->where('is_visible_in_nodes_list', true) as $field)
 														<th>
 															<small>{{ $field->display_name }}</small>
 														</th>
@@ -133,7 +133,7 @@
 											<tbody>
 												@foreach($children as $child)
 													<tr>
-														@foreach($depended_model->fields as $field)
+														@foreach($depended_model->fields->where('is_visible_in_nodes_list', true) as $field)
 															<td>
 																@include('runsite::models.fields.field_types.'.$field->type()::$name.'._view')
 															</td>
