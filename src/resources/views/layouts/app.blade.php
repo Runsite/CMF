@@ -115,9 +115,13 @@
       @foreach($childNodes as $childNode)
         <li class="{{ (request()->route('node') and request()->route('node')->id == $childNode->id) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
-            <i class="fa fa-folder"></i> 
+            <i class="fa fa-archive"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name }}</span>
           </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><div class="xs-pl-10"><i class="fa fa-file-o xs-mr-5"></i> Підрозділ</div></a></li>
+            <li><a href="#"><div class="xs-pl-10"><i class="fa fa-file-o xs-mr-5"></i> Ще один підрозділ</div></a></li>
+          </ul>
         </li>
       @endforeach
       {{-- <li><a href="#"><i class="fa fa-folder"></i> <span>Новини</span></a></li>
