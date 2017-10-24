@@ -135,7 +135,7 @@
 											</thead>
 											<tbody>
 												@foreach($children as $child)
-													<tr>
+													<tr class="{{ (Session::has('highlight') and Session::get('highlight') == $child->id) ? 'success' : null }}">
 														@foreach($depended_model->fields->where('is_visible_in_nodes_list', true) as $field)
 															<td>
 																@include('runsite::models.fields.field_types.'.$field->type()::$name.'._view')
@@ -144,13 +144,21 @@
 														@if(str_is('position *', $depended_model->settings->nodes_ordering))
 															<td>
 																<div class="btn-group">
-																	<div class="btn btn-sm btn-default"><i class="fa fa-caret-up"></i></div>
-																	<div class="btn btn-sm btn-default"><i class="fa fa-caret-down"></i></div>
+																	{!! Form::open(['url'=>route('admin.nodes.move.up', ['node'=>$child->id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
+																		<button type="submit" {{ $child->position == 1 ? 'disabled' : null }} class="btn btn-sm btn-default ripple" data-ripple-color="#5d5d5d">
+																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'up' : 'down' }}"></i>
+																		</button>
+																	{!! Form::close() !!}
+																	{!! Form::open(['url'=>route('admin.nodes.move.down', ['node'=>$child->id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
+																		<button type="submit" {{ $child->position == $children_total_count ? 'disabled' : null }} class="btn btn-sm btn-default ripple" data-ripple-color="#5d5d5d">
+																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'down' : 'up' }}"></i>
+																		</button>
+																	{!! Form::close() !!}
 																</div>
 															</td>
 														@endif
 														<td>
-															<a href="{{ route('admin.nodes.edit', $child) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+															<a href="{{ route('admin.nodes.edit', $child) }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-edit"></i></a>
 														</td>
 													</tr>
 												@endforeach
