@@ -40,16 +40,6 @@
 
 
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle ripple" data-toggle="dropdown">
-              <i class="fa fa-cogs" aria-hidden="true"></i>
-            </a>
-            <ul class="dropdown-menu">
-              <li><a href="{{ route('admin.models.index') }}">{{ trans('runsite::models.Models') }}</a></li>
-              <li><a href="{{ route('admin.users.index') }}">{{ trans('runsite::users.Users') }} / {{ trans('runsite::users.Groups') }}</a></li>
-            </ul>
-          </li>
-
-          <li class="dropdown">
             <a href="#" class="dropdown-toggle text-uppercase ripple" data-toggle="dropdown">
               {{-- {{ LaravelLocalization::getCurrentLocale() }}  --}}
               <i class="fa fa-language"></i>
@@ -116,7 +106,10 @@
       </div>
     </form> --}}
     <ul class="sidebar-menu" data-widget="tree">
-      {{-- <li class="header">NAVIGATION</li> --}}
+      <li class="header text-uppercase">{{ trans('runsite::app.Tools') }}</li>
+      <li class="{{ str_is('admin.models.*', Route::current()->getName()) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.models.index') }}"><i class="fa fa-circle-o text-red"></i> <span>{{ trans('runsite::models.Models') }}</span></a></li>
+      <li class="{{ (str_is('admin.users.*', Route::current()->getName()) or str_is('admin.groups.*', Route::current()->getName())) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o text-success"></i> <span>{{ trans('runsite::users.Users') }} / {{ trans('runsite::users.Groups') }}</span></a></li>
+      <li class="header text-uppercase">{{ trans('runsite::app.Website') }}</li>
       <li class="{{ (request()->route('node') and request()->route('node')->id == 1) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$rootNode->id]) }}"><i class="fa fa-home"></i> <span>{{ $rootNode->dynamicCurrentLanguage()->first()->name }}</span></a></li>
 
       @foreach($childNodes as $childNode)
