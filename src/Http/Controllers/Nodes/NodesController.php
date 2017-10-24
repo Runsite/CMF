@@ -101,7 +101,7 @@ class NodesController extends BaseAdminController
 		}
 
 		// Redirecting with success message
-		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node])
+		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node, 'depended_model_id'=>$model->id])
 			->with('succcess', trans('runsite::nodes.The node is created'));
 	}
 
