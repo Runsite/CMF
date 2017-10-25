@@ -49,7 +49,7 @@ class TreeComposer {
         }
 
 
-        $children = Node::where('parent_id', $parentNode->id)->whereIn('model_id', $depended_models)->get();
+        $children = Node::where('parent_id', $parentNode->id)->whereIn('model_id', $depended_models)->orderBy('position', 'asc')->get();
 
         return $children;
     }
