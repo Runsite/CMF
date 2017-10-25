@@ -1,32 +1,42 @@
 @foreach($languages as $k=>$language)
 	<div class="tab-pane {{ $active_language_tab == $language->locale ? 'active' : null }}" id="lang-{{ $language->id }}">
 
-		@if(count($model->groups))
+		
 			<div class="xs-pb-15">
-				<div class="btn-group" data-toggle="buttons">
-					<a data-toggle="tab" href="#no-group-{{ $language->id }}" class="btn btn-default active btn-sm ripple">
-						<input type="radio" /> {{ trans('runsite::nodes.groups.Main') }}
-						@foreach($model->fields as $field)
-							@if(!$field->group_id and $errors->has($field->name . '.' . $language->id))
-								<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
-								@break
-							@endif
-						@endforeach
-					</a>
-					@foreach($model->groups as $group)
-						<a data-toggle="tab" href="#group-{{ $group->id }}-lang-{{ $language->id }}" class="btn btn-default btn-sm ripple">
-							<input type="radio" /> {{ $group->name }}
+				@if(count($model->groups))
+					<div class="btn-group" data-toggle="buttons">
+						<a data-toggle="tab" href="#no-group-{{ $language->id }}" class="btn btn-default active btn-sm ripple">
+							<input type="radio" /> {{ trans('runsite::nodes.groups.Main') }}
 							@foreach($model->fields as $field)
-								@if($field->group_id == $group->id and $errors->has($field->name . '.' . $language->id))
+								@if(!$field->group_id and $errors->has($field->name . '.' . $language->id))
 									<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
 									@break
 								@endif
 							@endforeach
 						</a>
-					@endforeach
-				</div>
+						@foreach($model->groups as $group)
+							<a data-toggle="tab" href="#group-{{ $group->id }}-lang-{{ $language->id }}" class="btn btn-default btn-sm ripple">
+								<input type="radio" /> {{ $group->name }}
+								@foreach($model->fields as $field)
+									@if($field->group_id == $group->id and $errors->has($field->name . '.' . $language->id))
+										<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
+										@break
+									@endif
+								@endforeach
+							</a>
+						@endforeach
+					</div>
+				@endif
+				{{-- Prev/Next Node --}}
+				@if($prev_node or $next_node)
+					<div class="btn-group pull-right">
+						<a href="{{ $prev_node ? route('admin.nodes.edit', ['node'=>$prev_node, 'depended_model_id'=>$depended_model ? $depended_model->id : null]) : 'javascript: void(0)' }}" {{ !$prev_node ? 'disabled' : null }} class="btn btn-default btn-sm ripple"><i class="fa fa-caret-left"></i></a>
+						<a href="{{ $next_node ? route('admin.nodes.edit', ['node'=>$next_node, 'depended_model_id'=>$depended_model ? $depended_model->id : null]) : 'javascript: void(0)' }}" {{ !$next_node ? 'disabled' : null }} class="btn btn-default btn-sm ripple"><i class="fa fa-caret-right"></i></a>
+					</div>
+				@endif
+				{{-- [end] Prev/Next Node --}}
 			</div>
-		@endif
+		
 		
 		<div class="tab-content no-padding">
 			<div class="tab-pane active" id="no-group-{{ $language->id }}">

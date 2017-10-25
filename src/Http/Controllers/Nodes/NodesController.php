@@ -24,7 +24,9 @@ class NodesController extends BaseAdminController
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.fallback_locale');
-		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab'));
+		$prev_node = null;
+		$next_node = null;
+		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab', 'prev_node', 'next_node'));
 	}
 
 	/**
@@ -123,6 +125,27 @@ class NodesController extends BaseAdminController
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.fallback_locale');
 
+		// Left/Right node navigation
+		$node_ordering = explode(' ', $model->settings->nodes_ordering);
+		$order_column = $node_ordering[0];
+		$order_direcction = $node_ordering[1];
+
+		// Current position
+		$current_position_value = isset($dynamic->first()->{$order_column}) ? $dynamic->first()->{$order_column} : $node->{$order_column};
+		$direction_left = $order_direcction == 'asc' ? 'desc' : 'asc';
+		$direction_right = $order_direcction == 'desc' ? 'asc' : 'desc';
+
+		$prev_node = M($model->name, false, $active_language_tab)
+			->where($order_column, $direction_left == 'asc' ? '>' : '<', $current_position_value)
+			->orderBy($order_column, $direction_left == 'desc' ? 'desc' : 'asc')
+			->first();
+
+		$next_node = M($model->name, false, $active_language_tab)
+			->where($order_column, $direction_right == 'desc' ? '>' : '<', $current_position_value)
+			->orderBy($order_column, $direction_right == 'desc' ? 'asc' : 'desc')
+			->first();
+		// [end] Left/Right node navigation
+
 		$depended_models = [];
 
 		foreach($model->dependencies as $k=>$dependency)
@@ -145,7 +168,7 @@ class NodesController extends BaseAdminController
 			$children = $children->paginate();
 		}
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab', 'children_total_count'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node'));
 	}
 
 	/**
