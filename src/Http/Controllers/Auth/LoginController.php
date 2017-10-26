@@ -5,8 +5,11 @@ namespace Runsite\CMF\Http\Controllers\Auth;
 use Runsite\CMF\Http\Controllers\BaseAdminController;
 use Illuminate\{
     Foundation\Auth\AuthenticatesUsers,
-    Http\Request
+    Http\Request,
+    Support\Facades\Hash
 };
+
+use Auth;
 
 class LoginController extends BaseAdminController
 {
@@ -64,5 +67,24 @@ class LoginController extends BaseAdminController
         $request->session()->invalidate();
 
         return redirect($this->redirectTo);
+    }
+
+    /**
+     * Get the post login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        if(Hash::needsRehash(Auth::user()->password))
+        {
+            return route('admin.account.rehash.form');
+        }
+
+        if (method_exists($this, 'redirectTo')) {
+            return $this->redirectTo();
+        }
+
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
     }
 }

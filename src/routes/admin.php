@@ -25,6 +25,12 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                 Route::patch('/')->name('crop')->uses('ImageController@crop');
             });
 
+            // Needs rehash
+            Route::group(['prefix'=>'rehash', 'as'=>'rehash.'], function() {
+                Route::get('/')->name('form')->uses('SettingsController@needsRehash');
+                Route::patch('/')->name('rehash')->uses('SettingsController@rehash');
+            });
+
         });
 
         // Apps 

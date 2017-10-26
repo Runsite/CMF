@@ -47,4 +47,23 @@ class SettingsController extends BaseAccountController
 
         return redirect()->back();
     }
+
+    public function needsRehash()
+    {
+        return view('runsite::account.rehash.form');
+    }
+
+    public function rehash()
+    {
+        $data = request()->validate([
+            'password' => 'required|string|max:255|confirmed:password_confirmation',
+            'password_confirmation' => 'required|string|max:255',
+        ]);
+
+        Auth::user()->update([
+            'password' => bcrypt($data['password']),
+        ]);
+
+        return redirect()->route('admin.boot')->with('success', trans('runsite::auth.The password has been successfully changed'));
+    }
 }

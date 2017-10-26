@@ -3,8 +3,8 @@
 @section('content')
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4 hidden-xs hidden-sm auth-image"></div>
-		<div class="col-md-8">
+		<div class="col-md-3 hidden-xs hidden-sm auth-image"></div>
+		<div class="col-md-9">
 			<div class="col-sm-4 col-sm-push-4 auth-body">
 				<div class="auth-box">
 					<h1 class="h2"><a href="{{ route('login') }}">{{ config('app.name') }}</a></h1>
