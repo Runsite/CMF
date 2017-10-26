@@ -7,7 +7,7 @@ use Runsite\CMF\Models\Node\Node;
 
 class CkeditorType
 {
-    public static $name = 'ckeditor';
+    public static $name = 'text';
 
     public static $displayName = 'ckeditor';
 

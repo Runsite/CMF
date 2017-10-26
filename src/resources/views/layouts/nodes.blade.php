@@ -138,7 +138,7 @@
 													<tr class="{{ (Session::has('highlight') and Session::get('highlight') == $child->id) ? 'success' : null }}">
 														@foreach($depended_model->fields->where('is_visible_in_nodes_list', true) as $field)
 															<td>
-																@include('runsite::models.fields.field_types.'.$field->type()::$name.'._view')
+																@include('runsite::models.fields.field_types.'.$field->type()::$displayName.'._view')
 															</td>
 														@endforeach
 														@if(str_is('position *', $depended_model->settings->nodes_ordering))

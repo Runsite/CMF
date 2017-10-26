@@ -41,6 +41,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
             __DIR__.'/../publish/resources/views/layouts/app.blade.php' => base_path('resources/views/layouts/app.blade.php'),
             __DIR__.'/../publish/resources/views/roots/view.blade.php' => base_path('resources/views/roots/view.blade.php'),
             __DIR__.'/../publish/app/Http/Kernel.php' => app_path('Http/Kernel.php'),
+            __DIR__.'/../publish/public' => public_path('vendor/runsite'),
         ]);
 
 
