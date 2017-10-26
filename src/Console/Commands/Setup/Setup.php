@@ -19,6 +19,7 @@ use Runsite\CMF\Console\Commands\Setup\Steps\CreateSettingsNode;
 use Runsite\CMF\Console\Commands\Setup\Steps\GivePermissions;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateAdminSectionModel;
+use Runsite\CMF\Console\Commands\Setup\Steps\CreatePageModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateDependencies;
 use Runsite\CMF\Console\Commands\Setup\Steps\PublishVendor;
 
@@ -43,6 +44,7 @@ class Setup extends Command
         GivePermissions::class,
         CreateSectionModel::class,
         CreateAdminSectionModel::class,
+        CreatePageModel::class,
         CreateDependencies::class,
         CreateSettingsNode::class,
         PublishVendor::class,

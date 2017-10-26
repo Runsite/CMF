@@ -1,0 +1,1 @@
+{{ str_limit(strip_tags($child->{$field->name}), 50) }}

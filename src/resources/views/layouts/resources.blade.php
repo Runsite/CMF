@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/runsite-checkbox/runsite-checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/noty/noty.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/plugins/animate/animate.css') }}">
+
+    <script src="{{ asset('vendor/runsite/plugins/ckeditor/ckeditor.js') }}"></script>
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

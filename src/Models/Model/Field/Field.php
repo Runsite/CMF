@@ -26,7 +26,8 @@ use Runsite\CMF\Models\Model\Field\FieldTypes\{
     RelationToOneType,
     ServerFileType,
     StringType,
-    TextareaType
+    TextareaType,
+    CkeditorType
 };
 
 class Field extends Eloquent
@@ -45,6 +46,7 @@ class Field extends Eloquent
         8  => ServerFileType::class,
         9  => StringType::class,
         10 => TextareaType::class,
+        11 => CkeditorType::class,
     ];
 
     public static function getTypeId($needleName)
@@ -114,7 +116,14 @@ class Field extends Eloquent
             // Creating schema
             Schema::table($field->model->tableName(), function($table) use($type, $field) 
             {
-                $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->nullable()->default($type::defaultValue());
+                if($type::defaultValue())
+                {
+                    $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->nullable()->default($type::defaultValue());
+                }
+                else
+                {
+                    $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->nullable();
+                }
             });
         }
 
@@ -158,12 +167,26 @@ class Field extends Eloquent
                 // TODO: окультурить ці кондішини бо виглядає як індія
                 if($type::$needField and $field->types[$field->type_id]::$needField)
                 {
-                    $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->default($type::defaultValue())->change();
+                    if($type::defaultValue())
+                    {
+                        $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->default($type::defaultValue())->change();
+                    }
+                    else
+                    {
+                        $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->change();
+                    }
                 }
 
                 if($type::$needField and !$field->types[$field->type_id]::$needField)
                 {
-                    $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->default($type::defaultValue());
+                    if($type::defaultValue())
+                    {
+                        $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->default($type::defaultValue());
+                    }
+                    else
+                    {
+                        $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra']);
+                    }
                 }
                 
                 if(!$type::$needField and $field->types[$field->type_id]::$needField)

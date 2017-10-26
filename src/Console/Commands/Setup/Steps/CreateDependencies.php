@@ -14,6 +14,7 @@ class CreateDependencies
 		$root = Model::where('name', 'root')->first();
 		$section = Model::where('name', 'section')->first();
 		$admin_section = Model::where('name', 'admin_section')->first();
+		$page = Model::where('name', 'page')->first();
 
 		Dependency::create([
 			'model_id' => $root->id,
@@ -28,6 +29,11 @@ class CreateDependencies
 		Dependency::create([
 			'model_id' => $root->id,
 			'depended_model_id' => $admin_section->id,
+		]);
+
+		Dependency::create([
+			'model_id' => $root->id,
+			'depended_model_id' => $page->id,
 		]);
 	}
 }
