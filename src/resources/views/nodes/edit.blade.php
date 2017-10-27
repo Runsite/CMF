@@ -1,7 +1,7 @@
 @extends('runsite::layouts.nodes')
 
 @section('form-open')
-	{!! Form::open(['url'=>route('admin.nodes.update', ['id' => $node->id]), 'method'=>'patch', 'class'=>'form-horizontal']) !!}
+	{!! Form::open(['url'=>route('admin.nodes.update', ['id' => $node->id]), 'method'=>'patch', 'class'=>'form-horizontal', 'files'=>true]) !!}
 @endsection
 
 @section('node')

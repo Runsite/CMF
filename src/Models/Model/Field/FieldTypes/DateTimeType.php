@@ -53,4 +53,9 @@ class DateTimeType
     {
         return;
     }
+
+    public static function beforeCreating($value, Node $node)
+    {
+        return $value;
+    }
 }

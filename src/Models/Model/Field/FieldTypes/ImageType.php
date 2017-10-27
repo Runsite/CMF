@@ -52,4 +52,21 @@ class ImageType
         }
         
     }
+
+    public static function beforeCreating($value, Node $node)
+    {
+        $full_path = null;
+        if($value)
+        {
+            $path = 'images/'.$node->id.'/original';
+            $name = str_random(10).time().str_random(10).'.'.$value->extension();
+            $value->storeAs($path, $name, 'public');
+
+            // TODO: Resize image.
+
+            $full_path = $path . '/' . $name;
+        }
+        
+        return $full_path;
+    }
 }
