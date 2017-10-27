@@ -94,8 +94,9 @@ class NodesController extends BaseAdminController
 		{
 			foreach($model->fields as $field)
 			{
-				// TODO: must be middleware for fields like image etc
 				$field_value = $data[$field->name][$language->id];
+				$field_type = $field->type();
+				$field_value = $field_type::beforeCreating($field_value, $node->baseNode);
 				$node->{$language->locale}->{$field->name} = $field_value;
 			}
 			// Saving locale

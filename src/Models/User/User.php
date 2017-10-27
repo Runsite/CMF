@@ -81,7 +81,7 @@ class User extends Authenticatable
 
     public function imagePath()
     {
-        return asset($this->image ? $this->imagesPath . '/' . $this->id . '/' . $this->thumbsFolderName . '/' . $this->image : 'vendor/runsite/images/no-image.png');
+        return asset($this->image ? $this->imagesPath . '/' . $this->id . '/' . $this->thumbsFolderName . '/' . $this->image : 'vendor/runsite/asset/images/no-image.png');
     }
 
     public function imagePathOriginal()

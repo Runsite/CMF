@@ -1,7 +1,7 @@
 @extends('runsite::layouts.nodes')
 
 @section('form-open')
-	{!! Form::open(['url'=>route('admin.nodes.store', ['model'=>$model, 'parent_node' => $node]), 'method'=>'post', 'class'=>'form-horizontal']) !!}
+	{!! Form::open(['url'=>route('admin.nodes.store', ['model'=>$model, 'parent_node' => $node]), 'method'=>'post', 'class'=>'form-horizontal', 'files'=>true]) !!}
 @endsection
 
 @section('node')
