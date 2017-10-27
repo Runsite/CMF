@@ -22,6 +22,7 @@ use Runsite\CMF\Console\Commands\Setup\Steps\CreateAdminSectionModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreatePageModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateDependencies;
 use Runsite\CMF\Console\Commands\Setup\Steps\PublishVendor;
+use Runsite\CMF\Console\Commands\Setup\Steps\StoragePreparation;
 
 class Setup extends Command
 {
@@ -48,6 +49,7 @@ class Setup extends Command
         CreateDependencies::class,
         CreateSettingsNode::class,
         PublishVendor::class,
+        StoragePreparation::class,
     ];
 
     public function __construct()
