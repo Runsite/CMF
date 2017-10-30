@@ -26,7 +26,7 @@ class DateTimeType
         ],
 
         'custom_validation_rules' => [
-            'value' => null,
+            'value' => 'date',
             'variants' => null,
         ],
 
@@ -44,7 +44,7 @@ class DateTimeType
         ],
     ];
 
-    public static function defaultValue(): Carbon
+    public static function defaultValue(): string
     {
         return Carbon::now()->format('Y-m-d H:i:s');
     }

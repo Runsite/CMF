@@ -24,12 +24,18 @@ class ClearApp {
             mkdir(app_path('Models'));
         }
 
+        if(! is_dir(storage_path('app/public/images')))
+        {
+            mkdir(storage_path('app/public/images'));
+        }
+
         $this->unlinkPath('database/migrations');
         $this->unlinkPath('app/Http/Controllers');
         $this->unlinkPath('app/Mail');
         $this->unlinkPath('app/Models');
         $this->unlinkPath('resources/views');
         $this->unlinkPath('config/runsite');
+        $this->unlinkPath('storage/app/public/images');
 
         return;
     }
