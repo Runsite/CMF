@@ -1,0 +1,1 @@
+{{ Carbon\Carbon::parse($child->{$field->name})->format('d.m.Y') }}

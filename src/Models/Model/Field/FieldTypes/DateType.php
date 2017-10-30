@@ -26,12 +26,25 @@ class DateType
         ],
 
         'custom_validation_rules' => [
+            'value' => 'date',
+            'variants' => null,
+        ],
+
+        'faker_provider' => [
+            'value' => null,
+            'variants' => [
+                null,
+                'Date',
+            ],
+        ],
+
+        'faker_type' => [
             'value' => null,
             'variants' => null,
         ],
     ];
 
-    public static function defaultValue(): Carbon
+    public static function defaultValue(): string
     {
         return Carbon::now()->format('Y-m-d');
     }
