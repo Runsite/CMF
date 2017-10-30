@@ -1,10 +1,21 @@
-<div class="form-group">
-    <label class="col-sm-2" for="">{{ $field->display_name }}</label>
-    <div class="col-sm-10">
-        <input
-            type="text"
-            class="form-control input-sm datetimepicker"
-            name="{{ $field->name }}[{{ $language->id }}]"
-            value="{{ old($field->name[$language->id]) ?: $dynamic->where('language_id', $language->id)->first()->{$field->name} }}">
-    </div>
+<div class="form-group {{ $errors->has($field->name.'.'.$language->id) ? ' has-error' : '' }}">
+	<label class="col-sm-2" for="{{ $field->name }}-{{ $language->id }}">{{ $field->display_name }}</label>
+	<div class="col-sm-10">
+		<input
+			type="text"
+			class="form-control input-sm input-datetime"
+			name="{{ $field->name }}[{{ $language->id }}]"
+			id="{{ $field->name }}-{{ $language->id }}"
+			value="{{ old($field->name.'.'.$language->id) ?: $value }}">
+
+		@if($field->hint)
+			<div class="text-muted"><small>{{ $field->hint }}</small></div>
+		@endif
+
+		@if ($errors->has($field->name.'.'.$language->id))
+			<span class="help-block">
+				<strong>{{ $errors->first($field->name.'.'.$language->id) }}</strong>
+			</span>
+		@endif
+	</div>
 </div>

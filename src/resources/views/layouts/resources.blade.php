@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/runsite-checkbox/runsite-checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/noty/noty.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/animate/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
 
     <script src="{{ asset('vendor/runsite/asset/plugins/ckeditor/ckeditor.js') }}"></script>
     
@@ -46,6 +47,8 @@
     <script src="{{ asset('vendor/runsite/asset/plugins/bootstrap-toggle/bootstrap-toggle.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/plugins/ripple/ripple.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/plugins/noty/noty.min.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script>
     $(document).ready(function () {
       $('.sidebar-menu').tree();
@@ -58,6 +61,13 @@
       $('.nav.nav-tabs.nav-tabs-autochange li a').on('click', function() {
         $(this).parent().parent().find('li').removeClass('active');
         $(this).parent().addClass('active');
+      });
+
+      $('.input-datetime').each(function(){
+        $(this).datetimepicker({
+            locale: '{{ LaravelLocalization::setLocale() }}',
+            format: 'YYYY-MM-DD HH:mm:ss'
+        });
       });
     })
     </script>
