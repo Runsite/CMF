@@ -3,6 +3,7 @@
 namespace Runsite\CMF\Models\Model\Field\FieldTypes;
 
 use Runsite\CMF\Models\Model\Field\Field;
+use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
 
 class TextareaType
@@ -62,7 +63,7 @@ class TextareaType
         return;
     }
 
-    public static function beforeCreating($value, Node $node)
+    public static function beforeCreating($value, Node $node, Field $field, Language $language)
     {
         return $value;
     }

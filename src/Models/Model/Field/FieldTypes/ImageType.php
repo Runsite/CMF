@@ -3,7 +3,10 @@
 namespace Runsite\CMF\Models\Model\Field\FieldTypes;
 
 use Runsite\CMF\Models\Model\Field\Field;
+use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class ImageType
 {
@@ -53,20 +56,53 @@ class ImageType
         
     }
 
-    public static function beforeCreating($value, Node $node)
+    // Generating unique filename
+    protected static function generateFilename($value)
     {
-        $full_path = null;
+        return str_random(10).time().str_random(10).'.'.$value->extension();
+    }
+
+    public static function beforeCreating($value, Node $node, Field $field, Language $language)
+    {
+        $name = null;
         if($value)
         {
-            $path = 'images/'.$node->id.'/original';
-            $name = str_random(10).time().str_random(10).'.'.$value->extension();
-            $value->storeAs($path, $name, 'public');
+            $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->locale;
+            $original_path = $base_path.'/original';
+            $name = self::generateFilename($value);
+            $value->storeAs($original_path, $name, 'public');
 
-            // TODO: Resize image.
+            $sizes = explode('/', $field->findSettings('image_size')->value);
 
-            $full_path = $path . '/' . $name;
+            foreach($sizes as $k=>$size)
+            {
+                // Folder name
+                $size_name = $size;
+
+                if(!$k)
+                    $size_name = 'max'; // If this is maximum size, it will be named "max"
+                elseif(++$k == count($sizes))
+                    $size_name = 'min'; // If this is minimum size, it will be named "min"
+
+                // Path to current size folder
+                $size_path = $base_path . '/' .$size_name;
+                mkdir(storage_path('app/public/' . $size_path));
+
+                $image = Image::make(storage_path('app/public/' . $original_path) . '/' . $name);
+
+                // If original width is larger than current size
+                if($image->width() > $size)
+                {
+                    $image->resize($size, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+                $image->save(storage_path('app/public/' . $size_path . '/' . $name));
+                
+            }
         }
         
-        return $full_path;
+        return $name;
     }
 }
