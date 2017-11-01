@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/runsite-checkbox/runsite-checkbox.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/noty/noty.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/animate/animate.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/pace/pace.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
 
@@ -49,6 +50,7 @@
     <script src="{{ asset('vendor/runsite/asset/plugins/ripple/ripple.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/plugins/noty/noty.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/plugins/pace/pace.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.LaravelLocalization::setLocale().'.min.js') }}"></script>

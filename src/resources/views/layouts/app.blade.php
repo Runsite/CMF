@@ -116,7 +116,7 @@
         <li class="{{ (request()->route('node') and request()->route('node')->id == $childNode->id) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
             <i class="fa fa-archive"></i> 
-            <span>{{ $childNode->dynamicCurrentLanguage()->first()->name }}</span>
+            <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
           </a>
           <ul class="treeview-menu">
             <li><a href="#"><div class="xs-pl-10"><i class="fa fa-file-o xs-mr-5"></i> Підрозділ</div></a></li>
