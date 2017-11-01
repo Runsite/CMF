@@ -67,7 +67,7 @@ class ImageType
         $name = null;
         if($value)
         {
-            $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->locale;
+            $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->id;
             $original_path = $base_path.'/original';
             $name = self::generateFilename($value);
             $value->storeAs($original_path, $name, 'public');

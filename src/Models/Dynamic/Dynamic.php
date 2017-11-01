@@ -7,6 +7,7 @@ use Runsite\CMF\Models\Node\Node;
 use Runsite\CMF\Models\Node\Path;
 use Runsite\CMF\Helpers\GlobalScope;
 use LaravelLocalization;
+use Goszowski\Temp\Temp;
 
 class Dynamic extends Eloquent
 {
@@ -35,6 +36,7 @@ class Dynamic extends Eloquent
             $this->dates = $dates;
         }
     }
+
     public function node()
     {
         return $this->belongsTo(Node::class, 'node_id');

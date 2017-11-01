@@ -3,11 +3,23 @@
 use Runsite\CMF\Models\Dynamic\Dynamic;
 use Runsite\CMF\Models\Dynamic\Language;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Runsite\CMF\Models\Model\Model;
 use Goszowski\Temp\Temp;
 
 function M($model_name, $is_active=true, $language_locale=null)
 {
-    $dynamic = new Dynamic($model_name);
+    $model = Model::where('name', $model_name)->first();
+    $dynamic_model = $model->settings->dynamic_model;
+    if($dynamic_model)
+    {
+        $dynamic_model = 'App\Models\\' . $dynamic_model;
+        $dynamic = new $dynamic_model($model_name);
+    }
+    else 
+    {
+        $dynamic = new Dynamic($model_name);
+    }
+    
 
     $dynamic = $dynamic->join('rs_nodes', 'rs_nodes.id', '=', $model_name.'.node_id');
 

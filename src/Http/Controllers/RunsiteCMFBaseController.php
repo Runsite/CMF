@@ -26,7 +26,7 @@ class RunsiteCMFBaseController extends BaseController
             $this->fields = M($this->node->model->name)->where('node_id', $this->node->id)->first();
         }
 
-        if(isset($this->fields->is_active) and !$this->fields->is_active)
+        if(!$this->fields or (isset($this->fields->is_active) and !$this->fields->is_active))
         {
             // Aborting request, because "is_active" parameter exists and is false
             return abort(404);
