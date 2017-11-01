@@ -3,6 +3,7 @@
 namespace Runsite\CMF\Models\Model\Field\FieldTypes;
 
 use Runsite\CMF\Models\Model\Field\Field;
+use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
 use Carbon\Carbon;
 
@@ -26,12 +27,25 @@ class DateType
         ],
 
         'custom_validation_rules' => [
+            'value' => 'date',
+            'variants' => null,
+        ],
+
+        'faker_provider' => [
+            'value' => null,
+            'variants' => [
+                null,
+                'Date',
+            ],
+        ],
+
+        'faker_type' => [
             'value' => null,
             'variants' => null,
         ],
     ];
 
-    public static function defaultValue(): Carbon
+    public static function defaultValue(): string
     {
         return Carbon::now()->format('Y-m-d');
     }
@@ -41,7 +55,7 @@ class DateType
         return;
     }
 
-    public static function beforeCreating($value, Node $node)
+    public static function beforeCreating($value, Node $node, Field $field, Language $language)
     {
         return $value;
     }

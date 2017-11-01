@@ -109,7 +109,7 @@
 					<ul class="nav nav-tabs nav-tabs-autochange">
 						@foreach($depended_models as $depended_model_item)
 							<li class="{{ $depended_model_item->id == $depended_model->id ? 'active' : null }}">
-								<a class="ripple" data-ripple-color="#ccc" href="{{ route('admin.nodes.edit', ['id'=>$node->id, 'depended_model_id'=>$depended_model_item->id]) }}">{{ $depended_model_item->display_name_plural }}</a>
+								<a class="ripple remember-scroll-position" data-ripple-color="#ccc" href="{{ route('admin.nodes.edit', ['id'=>$node->id, 'depended_model_id'=>$depended_model_item->id]) }}">{{ $depended_model_item->display_name_plural }}</a>
 							</li>
 						@endforeach
 					</ul>
@@ -145,12 +145,12 @@
 															<td>
 																<div class="btn-group">
 																	{!! Form::open(['url'=>route('admin.nodes.move.up', ['node'=>$child->id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
-																		<button type="submit" {{ $child->position == 1 ? 'disabled' : null }} class="btn btn-sm btn-default ripple" data-ripple-color="#5d5d5d">
+																		<button type="submit" {{ $child->position == 1 ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
 																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'up' : 'down' }}"></i>
 																		</button>
 																	{!! Form::close() !!}
 																	{!! Form::open(['url'=>route('admin.nodes.move.down', ['node'=>$child->id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
-																		<button type="submit" {{ $child->position == $children_total_count ? 'disabled' : null }} class="btn btn-sm btn-default ripple" data-ripple-color="#5d5d5d">
+																		<button type="submit" {{ $child->position == $children_total_count ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
 																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'down' : 'up' }}"></i>
 																		</button>
 																	{!! Form::close() !!}

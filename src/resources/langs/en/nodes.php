@@ -8,6 +8,7 @@ return [
 	'The node is created' => 'The node is created',
 	'Actions' => 'Actions',
 	'Position' => 'Position',
+	'Node' => 'Node',
 
 	'groups' => [
 		'Main' => 'Main',

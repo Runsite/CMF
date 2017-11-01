@@ -46,11 +46,11 @@
                             <td>
                                 <div class="btn-group">
                                     {!! Form::open(['url'=>route('admin.models.fields.move.up', ['model_id'=>$model->id, 'id'=>$fieldItem->id]), 'method'=>'patch', 'style'=>'display:inline;']) !!}
-                                        <button type="submit" {{ $fieldItem->position == 1 ? 'disabled' : null }} class="btn btn-default btn-xs ripple" data-ripple-color="#5d5d5d"><i class="fa fa-caret-up"></i></button>
+                                        <button type="submit" {{ $fieldItem->position == 1 ? 'disabled' : null }} class="btn btn-default btn-xs ripple remember-scroll-position" data-ripple-color="#5d5d5d"><i class="fa fa-caret-up"></i></button>
                                     {!! Form::close() !!}
 
                                     {!! Form::open(['url'=>route('admin.models.fields.move.down', ['model_id'=>$model->id, 'id'=>$fieldItem->id]), 'method'=>'patch', 'style'=>'display:inline;']) !!}
-                                        <button type="submit" {{ $fieldItem->position == count($fields) ? 'disabled' : null }} class="btn btn-default btn-xs ripple" data-ripple-color="#5d5d5d"><i class="fa fa-caret-down"></i></button>
+                                        <button type="submit" {{ $fieldItem->position == count($fields) ? 'disabled' : null }} class="btn btn-default btn-xs ripple remember-scroll-position" data-ripple-color="#5d5d5d"><i class="fa fa-caret-down"></i></button>
                                     {!! Form::close() !!}
                                 </div>
                             </td>

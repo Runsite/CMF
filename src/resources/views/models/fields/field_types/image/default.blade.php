@@ -6,8 +6,7 @@
 			type="file" 
 			class="btn btn-default" 
 			name="{{ $field->name }}[{{ $language->id }}]"
-			id="{{ $field->name }}-{{ $language->id }}"
-			value="{{ old($field->name.'.'.$language->id) ?: $value }}">
+			id="{{ $field->name }}-{{ $language->id }}">
 
 		@if($field->hint)
 			<div class="text-muted"><small>{{ $field->hint }}</small></div>
