@@ -48,6 +48,7 @@
     <script src="{{ asset('vendor/runsite/asset/plugins/bootstrap-toggle/bootstrap-toggle.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/plugins/ripple/ripple.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/plugins/noty/noty.min.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.LaravelLocalization::setLocale().'.min.js') }}"></script>
@@ -79,6 +80,16 @@
             format: 'yyyy-mm-dd'
         });
       });
+
+      $('.remember-scroll-position').on('click', function() {
+        $.cookie('remember-scroll-position', $(window).scrollTop());
+      });
+
+      if($.cookie('remember-scroll-position'))
+      {
+        $(window).scrollTop($.cookie('remember-scroll-position'));
+        $.removeCookie('remember-scroll-position');
+      }
     })
     </script>
 
