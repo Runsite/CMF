@@ -15,7 +15,7 @@ class Image {
 
 	public function size($size)
 	{
-		return (asset('storage/images/'.$this->attributes['node_id']. '/' .$this->attributes['field_name'] . '/' . $this->attributes['language_id'] . '/' . $size . '/' . $this->value));
+		return asset('storage/images/'.$this->attributes['node_id']. '/' .$this->attributes['field_name'] . '/' . $this->attributes['language_id'] . '/' . $size . '/' . $this->value);
 	}
 
 	public function max()
