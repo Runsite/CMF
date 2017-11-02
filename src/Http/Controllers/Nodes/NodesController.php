@@ -187,15 +187,44 @@ class NodesController extends BaseAdminController
 		$fields = $node->model->fields;
 		$languages = Language::get();
 
+		// Custom validation
+		$validation = [];
+		foreach($fields as $field)
+		{
+			// Loading rules from field settings
+			$custom_validation_rules = $field->findSettings('custom_validation_rules');
+			foreach($languages as $language)
+			{
+				if($custom_validation_rules and $custom_validation_rules->value and 
+
+					// If rule is "required" and language group "is_active" is not checked, then we can not validate this rule
+					(!$this->ruleHasRequired($custom_validation_rules->value) or $request->input('is_active.'.$language->id))
+				)
+				{
+					// If this field has validation rules
+					$validation = array_merge($validation, [
+						$field->name.'.'.$language->id => $custom_validation_rules->value,
+					]);
+				}
+				else
+				{
+					// Else rule will be empty
+					$validation = array_merge($validation, [
+						$field->name.'.'.$language->id => '',
+					]);
+				}
+			}
+		}
+
+		// Gedding data from validator.
+		$data = $request->validate($validation);
+
 		foreach($languages as $language)
 		{
 			$dynamic = $node->dynamic()->where('language_id', $language->id)->first();
 			foreach($fields as $field)
 			{
-				if(isset($request->{$field->name}[$language->id]))
-				{
-					$dynamic->{$field->name} = $request->{$field->name}[$language->id];
-				}
+				$dynamic->{$field->name} = $data[$field->name][$language->id];
 			}
 
 			$dynamic->save();
