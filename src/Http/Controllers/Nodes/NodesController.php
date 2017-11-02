@@ -40,6 +40,7 @@ class NodesController extends BaseAdminController
 
 		// Custom validation
 		$validation = [];
+		$messages = [];
 		foreach($model->fields as $field)
 		{
 			// Loading rules from field settings
@@ -55,6 +56,10 @@ class NodesController extends BaseAdminController
 					// If this field has validation rules
 					$validation = array_merge($validation, [
 						$field->name.'.'.$language->id => $custom_validation_rules->value,
+					]);
+
+					$messages = array_merge($messages, [
+						$field->name.'.'.$language->id.'.'.$custom_validation_rules->value => trans('runsite::validation.'.$custom_validation_rules->value),
 					]);
 				}
 				else
@@ -189,6 +194,7 @@ class NodesController extends BaseAdminController
 
 		// Custom validation
 		$validation = [];
+		$messages = [];
 		foreach($fields as $field)
 		{
 			// Loading rules from field settings
@@ -205,6 +211,10 @@ class NodesController extends BaseAdminController
 					$validation = array_merge($validation, [
 						$field->name.'.'.$language->id => $custom_validation_rules->value,
 					]);
+
+					$messages = array_merge($messages, [
+						$field->name.'.'.$language->id.'.'.$custom_validation_rules->value => trans('runsite::validation.'.$custom_validation_rules->value),
+					]);
 				}
 				else
 				{
@@ -213,11 +223,12 @@ class NodesController extends BaseAdminController
 						$field->name.'.'.$language->id => '',
 					]);
 				}
+				
 			}
 		}
 
 		// Gedding data from validator.
-		$data = $request->validate($validation);
+		$data = $request->validate($validation, $messages);
 
 		foreach($languages as $language)
 		{
