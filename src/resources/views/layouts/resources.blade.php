@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin | {{ config('app.name') }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/Ionicons/css/ionicons.min.css') }}">
@@ -55,6 +56,8 @@
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.LaravelLocalization::setLocale().'.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js') }}"></script>
     <script>
     $(document).ready(function () {
       $('.sidebar-menu').tree();
@@ -92,6 +95,31 @@
         $(window).scrollTop($.cookie('remember-scroll-position'));
         $.removeCookie('remember-scroll-position');
       }
+
+
+      $('.relation-to-one-search').each(function(){
+        var select = $(this);
+        var related_model_name = select.data('related-model-name');
+        var related_parent_node_id = select.data('related-parent-node-id');
+
+        select.select2({
+            minimumInputLength: 3,
+            locale: '{{ LaravelLocalization::setLocale() }}',
+            ajax: {
+                delay: 500,
+                url: "{{route('admin.api.node.find-by-name')}}?related_model_name="+related_model_name+"&related_parent_node_id="+related_parent_node_id,
+                dataType: 'json',
+                cache: false,
+                data: function (term, page) {
+                  return {
+                    q: term
+                  }
+                }
+            }
+        });
+      });
+
+
     })
     </script>
 

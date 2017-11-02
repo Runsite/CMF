@@ -14,7 +14,7 @@ class RelationToOneType
 
     public static $needField = true;
 
-    public static $size = ['base' => 11, 'extra' => null];
+    public static $size = ['base' => null, 'extra' => null];
 
     public static $foreign = true;
 
