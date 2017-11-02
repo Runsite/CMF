@@ -9,6 +9,7 @@ return [
 	'Actions' => 'Actions',
 	'Position' => 'Position',
 	'Node' => 'Node',
+	'Remove' => 'Remove',
 
 	'groups' => [
 		'Main' => 'Main',

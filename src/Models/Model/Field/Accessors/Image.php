@@ -3,7 +3,7 @@ namespace Runsite\CMF\Models\Model\Field\Accessors;
 
 class Image {
 
-	protected $value = null;
+	public $value = null;
 	protected $attributes = null;
 
 	public function __construct($value, $attributes)

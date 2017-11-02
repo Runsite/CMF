@@ -105,4 +105,73 @@ class ImageType
         
         return $name;
     }
+
+    public static function beforeUpdating($value, $old_value, Node $node, Field $field, Language $language)
+    {
+        $name = null;
+
+        if(is_string($value))
+        {
+            return $value;
+        }
+
+        if($value)
+        {
+            $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->id;
+            $original_path = $base_path.'/original';
+            $name = self::generateFilename($value);
+            $value->storeAs($original_path, $name, 'public');
+
+            $sizes = explode('/', $field->findSettings('image_size')->value);
+
+            foreach($sizes as $k=>$size)
+            {
+                // Folder name
+                $size_name = $size;
+
+                if(!$k)
+                    $size_name = 'max'; // If this is maximum size, it will be named "max"
+                elseif(++$k == count($sizes))
+                    $size_name = 'min'; // If this is minimum size, it will be named "min"
+
+                // Path to current size folder
+                $size_path = $base_path . '/' .$size_name;
+                // mkdir(storage_path('app/public/' . $size_path));
+
+                $image = Image::make(storage_path('app/public/' . $original_path) . '/' . $name);
+
+                // If original width is larger than current size
+                if($image->width() > $size)
+                {
+                    $image->resize($size, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                    });
+                }
+
+                $image->save(storage_path('app/public/' . $size_path . '/' . $name));
+
+                // Removing old image
+                if($old_value->value)
+                {
+                    $old_file_path = storage_path('app/public/' . $size_path . '/' . $old_value->value);
+                    if(file_exists($old_file_path))
+                    {
+                        unlink($old_file_path);
+                    }
+                }
+            }
+
+            // Removing old original image
+            if($old_value->value)
+            {
+                $old_original_file_path = storage_path('app/public/' . $original_path . '/' . $old_value->value);
+                if(file_exists($old_original_file_path))
+                {
+                    unlink($old_original_file_path);
+                }
+            }
+        }
+        
+        return $name;
+    }
 }

@@ -67,4 +67,9 @@ class TextareaType
     {
         return $value;
     }
+
+    public static function beforeUpdating($value, $old_value, Node $node, Field $field, Language $language)
+    {
+        return $value;
+    }
 }

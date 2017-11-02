@@ -235,7 +235,10 @@ class NodesController extends BaseAdminController
 			$dynamic = $node->dynamic()->where('language_id', $language->id)->first();
 			foreach($fields as $field)
 			{
-				$dynamic->{$field->name} = $data[$field->name][$language->id];
+				$field_value = $data[$field->name][$language->id];
+				$field_type = $field->type();
+				$field_value = $field_type::beforeUpdating($field_value, $dynamic->{$field->name}, $node, $field, $language);
+				$dynamic->{$field->name} = $field_value;
 			}
 
 			$dynamic->save();
