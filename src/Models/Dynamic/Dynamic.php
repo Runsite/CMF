@@ -74,4 +74,52 @@ class Dynamic extends Eloquent
         // $this->orderBy('rs_nodes.position', 'asc');
         return parent::first();
     }
+
+    /**
+     * Get an attribute from the model.
+     *
+     * @param  string  $key
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        if (! $key) {
+            return;
+        }
+
+        $node_temp_key = 'node_model_fields_'.$this->attributes['node_id'];
+        $node = Temp::get($node_temp_key);
+        if(!$node)
+        {
+            $node = Temp::put($node_temp_key, Node::with('model.fields')->find($this->attributes['node_id']));
+        }
+
+        foreach($node->model->fields as $field)
+        {
+            $accessor_class = 'Runsite\CMF\Models\Model\Field\Accessors\\'.title_case($field->type()::$displayName);
+            if($field->name == $key and class_exists($accessor_class))
+            {
+                return new $accessor_class($this->attributes[$key], [
+                    'node_id' => $this->attributes['node_id'],
+                    'field_name' => $key,
+                    'language_id' => $this->attributes['language_id'],
+                ]);
+            }
+        }
+
+        // If the attribute exists in the attribute array or has a "get" mutator we will
+        // get the attribute's value. Otherwise, we will proceed as if the developers
+        // are asking for a relationship's value. This covers both types of values.
+        if (array_key_exists($key, $this->attributes) ||
+            $this->hasGetMutator($key)) {
+            return $this->getAttributeValue($key);
+        }
+        // Here we will determine if the model base class itself contains this given key
+        // since we don't want to treat any of those methods as relationships because
+        // they are all intended as helper methods and none of these are relations.
+        if (method_exists(parent::class, $key)) {
+            return;
+        }
+        return $this->getRelationValue($key);
+    }
 }

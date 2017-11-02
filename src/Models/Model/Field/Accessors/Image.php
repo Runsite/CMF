@@ -3,7 +3,7 @@ namespace Runsite\CMF\Models\Model\Field\Accessors;
 
 class Image {
 
-	protected $value = null;
+	public $value = null;
 	protected $attributes = null;
 
 	public function __construct($value, $attributes)
@@ -15,7 +15,7 @@ class Image {
 
 	public function size($size)
 	{
-		return (asset('storage/images/'.$this->attributes['node_id']. '/' .$this->attributes['field_name'] . '/' . $this->attributes['language_id'] . '/' . $size . '/' . $this->value));
+		return asset('storage/images/'.$this->attributes['node_id']. '/' .$this->attributes['field_name'] . '/' . $this->attributes['language_id'] . '/' . $size . '/' . $this->value);
 	}
 
 	public function max()

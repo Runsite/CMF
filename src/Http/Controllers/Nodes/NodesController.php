@@ -40,6 +40,7 @@ class NodesController extends BaseAdminController
 
 		// Custom validation
 		$validation = [];
+		$messages = [];
 		foreach($model->fields as $field)
 		{
 			// Loading rules from field settings
@@ -55,6 +56,10 @@ class NodesController extends BaseAdminController
 					// If this field has validation rules
 					$validation = array_merge($validation, [
 						$field->name.'.'.$language->id => $custom_validation_rules->value,
+					]);
+
+					$messages = array_merge($messages, [
+						$field->name.'.'.$language->id.'.'.$custom_validation_rules->value => trans('runsite::validation.'.$custom_validation_rules->value),
 					]);
 				}
 				else
@@ -187,15 +192,53 @@ class NodesController extends BaseAdminController
 		$fields = $node->model->fields;
 		$languages = Language::get();
 
+		// Custom validation
+		$validation = [];
+		$messages = [];
+		foreach($fields as $field)
+		{
+			// Loading rules from field settings
+			$custom_validation_rules = $field->findSettings('custom_validation_rules');
+			foreach($languages as $language)
+			{
+				if($custom_validation_rules and $custom_validation_rules->value and 
+
+					// If rule is "required" and language group "is_active" is not checked, then we can not validate this rule
+					(!$this->ruleHasRequired($custom_validation_rules->value) or $request->input('is_active.'.$language->id))
+				)
+				{
+					// If this field has validation rules
+					$validation = array_merge($validation, [
+						$field->name.'.'.$language->id => $custom_validation_rules->value,
+					]);
+
+					$messages = array_merge($messages, [
+						$field->name.'.'.$language->id.'.'.$custom_validation_rules->value => trans('runsite::validation.'.$custom_validation_rules->value),
+					]);
+				}
+				else
+				{
+					// Else rule will be empty
+					$validation = array_merge($validation, [
+						$field->name.'.'.$language->id => '',
+					]);
+				}
+				
+			}
+		}
+
+		// Gedding data from validator.
+		$data = $request->validate($validation, $messages);
+
 		foreach($languages as $language)
 		{
 			$dynamic = $node->dynamic()->where('language_id', $language->id)->first();
 			foreach($fields as $field)
 			{
-				if(isset($request->{$field->name}[$language->id]))
-				{
-					$dynamic->{$field->name} = $request->{$field->name}[$language->id];
-				}
+				$field_value = $data[$field->name][$language->id];
+				$field_type = $field->type();
+				$field_value = $field_type::beforeUpdating($field_value, $dynamic->{$field->name}, $node, $field, $language);
+				$dynamic->{$field->name} = $field_value;
 			}
 
 			$dynamic->save();
