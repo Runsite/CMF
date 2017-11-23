@@ -133,6 +133,16 @@
         </script>
     @endif
 
+    @if (\Session::has('error'))
+        <script>
+            new Noty({
+                text: '{!! \Session::get('error') !!}',
+                type: 'error',
+                timeout: 1500,
+            }).show();
+        </script>
+    @endif
+
     @if($errors->count())
         <script>
             new Noty({
