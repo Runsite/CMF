@@ -10,6 +10,13 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             return view('runsite::boot');
         })->name('boot');
 
+        // Api
+        Route::group(['prefix'=>'api', 'as'=>'api.', 'namespace'=>'Api'], function() {
+            Route::group(['prefix'=>'node', 'as'=>'node.'], function() {
+                Route::get('find-by-name', ['as'=>'find-by-name', 'uses'=>'NodesController@findByName']);
+            });
+        });
+
         // Account
         Route::group(['prefix'=>'account', 'as'=>'account.', 'namespace'=>'Account'], function() {
 

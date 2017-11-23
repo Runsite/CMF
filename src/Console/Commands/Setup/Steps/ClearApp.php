@@ -42,23 +42,27 @@ class ClearApp {
 
     protected function unlinkPath($path)
     {
-        $files = scandir($path);
-
-        foreach($files as $file)
+        if(is_dir($path))
         {
-            if($file != '.' and $file != '..')
+            $files = scandir($path);
+
+            foreach($files as $file)
             {
-                if(is_dir($path . '/' . $file))
+                if($file != '.' and $file != '..')
                 {
-                    $this->unlinkPath($path . '/' . $file);
-                    rmdir($path . '/' . $file);
-                }
-                else 
-                {
-                    unlink($path . '/' . $file);
+                    if(is_dir($path . '/' . $file))
+                    {
+                        $this->unlinkPath($path . '/' . $file);
+                        rmdir($path . '/' . $file);
+                    }
+                    else 
+                    {
+                        unlink($path . '/' . $file);
+                    }
                 }
             }
         }
+        
         
     }
 }

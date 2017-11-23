@@ -96,7 +96,7 @@ class Dynamic extends Eloquent
 
         foreach($node->model->fields as $field)
         {
-            $accessor_class = 'Runsite\CMF\Models\Model\Field\Accessors\\'.title_case($field->type()::$displayName);
+            $accessor_class = 'Runsite\CMF\Models\Model\Field\Accessors\\'.title_case(camel_case($field->type()::$displayName));
             if($field->name == $key and class_exists($accessor_class))
             {
                 return new $accessor_class($this->attributes[$key], [
