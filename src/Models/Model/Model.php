@@ -128,7 +128,7 @@ class Model extends Eloquent
 			// Creating model file
 			$stub = file_get_contents(__DIR__ . '/../../resources/stubs/Model.stub');
 			$stub = str_replace('%_model_name_%', $model->className(), $stub);
-			file_put_contents(app_path('Models\\'.$model->className().'.php'), $stub);
+			file_put_contents(app_path('Models'.DIRECTORY_SEPARATOR.$model->className().'.php'), $stub);
 		}
 		
 
@@ -140,7 +140,7 @@ class Model extends Eloquent
 			$stub = str_replace('%_model_name_plural_%', str_plural($model->name), $stub);
 			$stub = str_replace('%_views_dirname_%', str_plural($model->name), $stub);
 			$stub = str_replace('%_model_name_%', $model->name, $stub);
-			file_put_contents(app_path('Http\Controllers\\'.$model->controllerName().'.php'), $stub);
+			file_put_contents(app_path('Http'.DIRECTORY_SEPARATOR.'Controllers'.DIRECTORY_SEPARATOR.$model->controllerName().'.php'), $stub);
 
 			// Creating views
 			if(! is_dir(base_path('resources/views/'.str_plural($model->name))))
