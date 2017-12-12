@@ -25,24 +25,24 @@ class Group extends Eloquent
         return AccessApplication::where('group_id', $this->id)->where('application_id', $application->id)->first();
     }
 
-    public function getAccess($node_id)
+    public function getAccess(Node $node)
     {
-        return AccessNode::where('group_id', $this->id)->where('node_id', $node_id)->first();
+        return AccessNode::where('group_id', $this->id)->where('node_id', $node->id)->first();
     }
 
-    public function canRead($node_id)
+    public function canRead(Node $node)
     {
-        return $this->getAccess($node_id)->access >= 1;
+        return $this->getAccess($node)->access >= 1;
     }
 
-    public function canEdit($node_id)
+    public function canEdit(Node $node)
     {
-        return $this->getAccess($node_id)->access >= 2;
+        return $this->getAccess($node)->access >= 2;
     }
 
-    public function canDelete($node_id)
+    public function canDelete(Node $node)
     {
-        return $this->getAccess($node_id)->access == 3;
+        return $this->getAccess($node)->access == 3;
     }
 
     public function getAccessField($field_id)
@@ -60,19 +60,24 @@ class Group extends Eloquent
         return $this->getAccessField($field_id)->access >= 2;
     }
 
-    public function getAccessModel($model_id)
+    public function getAccessModel(Model $model)
     {
-        return AccessModel::where('group_id', $this->id)->where('model_id', $model_id)->first();
+        return AccessModel::where('group_id', $this->id)->where('model_id', $model->id)->first();
     }
 
-    public function canSeeModel($model_id)
+    public function canSeeModel(Model $model)
     {
-        return $this->getAccessModel($model_id)->access >= 1;
+        return $this->getAccessModel($model)->access >= 1;
     }
 
-    public function canCreateModel($model_id)
+    public function canCreateModel(Model $model)
     {
-        return $this->getAccessModel($model_id)->access >= 2;
+        return $this->getAccessModel($model)->access >= 2;
+    }
+
+    public function canDeleteModel(Model $model)
+    {
+        return $this->getAccessModel($model)->access >= 3;
     }
 
     public static function create(array $attributes = [])

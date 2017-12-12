@@ -253,6 +253,11 @@ class NodesController extends BaseAdminController
 	 */
 	public function destroy(Node $node): RedirectResponse
 	{
+		if(! $node->canBeRemoved())
+		{
+			return redirect()->back()->with('error', trans('runsite::nodes.Node can not be removed'));
+		}
+
 		$parent_node = $node->parent;
 
 		$node->delete();

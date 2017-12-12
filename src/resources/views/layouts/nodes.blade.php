@@ -83,16 +83,12 @@
 								</li>
 							@endforeach
 
-							{{-- <li class="pull-right">
-								{!! Form::open(['url'=>route('admin.nodes.destroy', $node->id), 'method'=>'delete', 'style'=>'display: inline;', 'id'=>'deleting-node-'.$node->id]) !!}
-								<button class="btn btn-danger btn-xs" type="submit" onclick="return confirm()"><i class="fa fa-trash"></i></button>
-								{!! Form::close() !!}
-							</li> --}}
-
-							<li class="pull-right">
-								<a href="#" data-toggle="modal" data-target="#destroy-current-node"><i class="fa fa-trash text-danger"></i></a>
-							</li>
-
+							@if($node->canBeRemoved())
+								<li class="pull-right">
+									<a href="#" data-toggle="modal" data-target="#destroy-current-node"><i class="fa fa-trash text-danger"></i></a>
+								</li>
+							@endif
+							
 							<li class="pull-right">
 								<a href="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
 								<ul class="dropdown-menu">
@@ -192,23 +188,25 @@
 		</div>
 
 
-		<div class="modal modal-danger fade" tabindex="-1" role="dialog" id="destroy-current-node">
-	      <div class="modal-dialog modal-sm" role="document">
-	        <div class="modal-content">
-	          <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('runsite::nodes.Close') }}"><span aria-hidden="true">&times;</span></button>
-	            <h4 class="modal-title">{{ trans('runsite::nodes.Are you sure') }}?</h4>
-	          </div>
-	          <div class="modal-body">
-	            <p>{{ trans('runsite::nodes.Are you sure you want to delete the node') }}?</p>
-	          </div>
-	          <div class="modal-footer">
-	            {!! Form::open(['url'=>route('admin.nodes.destroy', ['node'=>$node]), 'method'=>'delete']) !!}
-	                <button type="submit" class="btn btn-default btn-sm ripple" data-ripple-color="#ccc">{{ trans('runsite::nodes.Delete node') }}</button>
-	            {!! Form::close() !!}
-	          </div>
-	        </div>
-	      </div>
-	    </div>
+		@if($node->canBeRemoved())
+			<div class="modal modal-danger fade" tabindex="-1" role="dialog" id="destroy-current-node">
+		      <div class="modal-dialog modal-sm" role="document">
+		        <div class="modal-content">
+		          <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('runsite::nodes.Close') }}"><span aria-hidden="true">&times;</span></button>
+		            <h4 class="modal-title">{{ trans('runsite::nodes.Are you sure') }}?</h4>
+		          </div>
+		          <div class="modal-body">
+		            <p>{{ trans('runsite::nodes.Are you sure you want to delete the node') }}?</p>
+		          </div>
+		          <div class="modal-footer">
+		            {!! Form::open(['url'=>route('admin.nodes.destroy', ['node'=>$node]), 'method'=>'delete']) !!}
+		                <button type="submit" class="btn btn-default btn-sm ripple" data-ripple-color="#ccc">{{ trans('runsite::nodes.Delete node') }}</button>
+		            {!! Form::close() !!}
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		@endif
 
 @endsection
