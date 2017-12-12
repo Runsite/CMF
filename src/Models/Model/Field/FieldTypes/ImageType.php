@@ -43,7 +43,7 @@ class ImageType
         return '';
     }
 
-    public static function beforeDeleting(Field $field, Node $node): void
+    public static function beforeDeleting(Field $field, Node $node)
     {
         foreach($node->dynamic() as $languageVersion)
         {

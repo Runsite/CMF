@@ -29,28 +29,6 @@ class TextareaType
             'value' => null,
             'variants' => null,
         ],
-
-        'faker_provider' => [
-            'value' => null,
-            'variants' => [
-                null,
-                'Base',
-                'Person',
-                'Address',
-                'PhoneNumber',
-                'Company',
-                'Text',
-                'Internet',
-                'UserAgent',
-                'Payment',
-                'Color',
-            ],
-        ],
-
-        'faker_type' => [
-            'value' => null,
-            'variants' => null,
-        ],
     ];
 
     public static function defaultValue()

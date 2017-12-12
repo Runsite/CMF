@@ -34,7 +34,7 @@ class BooleanType
         return false;
     }
 
-    public static function beforeDeleting(Field $field, Node $node): void
+    public static function beforeDeleting(Field $field, Node $node)
     {
         return;
     }

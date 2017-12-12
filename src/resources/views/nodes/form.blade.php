@@ -60,13 +60,13 @@
 		
 		@if(isset($dynamic))
 			<div class="form-group sm-mb-0">
-				<div class="col-sm-2 text-sm-right"><small class="text-muted">Created at</small></div>
+				<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Created at') }}</small></div>
 				<div class="col-sm-10">
 					<small class="text-muted">{{ $dynamic->where('language_id', $language->id)->first()->created_at->format('d.m.Y H:i') }}</small>
 				</div>
 			</div>
 			<div class="form-group">
-				<div class="col-sm-2 text-sm-right"><small class="text-muted">Updated at</small></div>
+				<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Updated at') }}</small></div>
 				<div class="col-sm-10">
 					<small class="text-muted">{{ $dynamic->where('language_id', $language->id)->first()->updated_at->format('d.m.Y H:i') }}</small>
 				</div>

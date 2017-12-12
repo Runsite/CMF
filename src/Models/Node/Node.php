@@ -14,6 +14,8 @@ use DB;
 use LaravelLocalization;
 use Goszowski\Temp\Temp;
 
+use Auth;
+
 class Node extends Eloquent
 {
     protected $table = 'rs_nodes';
@@ -218,6 +220,23 @@ class Node extends Eloquent
         
 
         return array_reverse($result);
+    }
+
+    public function canBeRemoved()
+    {
+        if($this->id == 1)
+        {
+            // If this is root node, it can not be deleted.
+            return false;
+        }
+
+        // Access verification
+        if(! Auth::user()->canDelete($this))
+        {
+            return false;
+        }
+
+        return true;
     }
 
 }

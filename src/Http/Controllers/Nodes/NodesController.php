@@ -1,6 +1,6 @@
 <?php
 
-namespace Runsite\CMF\Http\Controllers\nodes;
+namespace Runsite\CMF\Http\Controllers\Nodes;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -253,7 +253,18 @@ class NodesController extends BaseAdminController
 	 */
 	public function destroy(Node $node): RedirectResponse
 	{
-		//
+		if(! $node->canBeRemoved())
+		{
+			return redirect()->back()->with('error', trans('runsite::nodes.Node can not be removed'));
+		}
+
+		$parent_node = $node->parent;
+
+		$node->delete();
+
+		// Redirecting with success message
+		return redirect(route('admin.nodes.edit', ['node'=>$parent_node]))
+			->with('succcess', trans('runsite::nodes.The node is deleted'));
 	}
 
 	protected function ruleHasRequired($rule)

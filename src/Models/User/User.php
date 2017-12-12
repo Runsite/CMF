@@ -7,6 +7,7 @@ use Illuminate\{
     Foundation\Auth\User as Authenticatable
 };
 use Runsite\CMF\Models\User\Access\Access;
+use Runsite\CMF\Models\Node\Node;
 
 class User extends Authenticatable
 {
@@ -47,36 +48,50 @@ class User extends Authenticatable
         return new Access($this);
     }
 
-    public function getAccess($node_id)
+    public function getAccess(Node $node)
     {
         $maxAccess = 0; // Default: no access
+        $maxAccessModel = 0; // Default: no access
 
         foreach($this->groups as $group)
         {
-            $access = $group->getAccess($node_id)->access;
+            $access = $group->getAccess($node)->access;
             if($access > $maxAccess)
             {
                 // if this group has access and access is higher
                 $maxAccess = $access;
             }
+
+            $modelAccess = $group->getAccessModel($node->model)->access;
+            if($modelAccess > $maxAccessModel)
+            {
+                // if this group has access and access is higher
+                $maxAccessModel = $modelAccess;
+            }
         }
 
-        return $maxAccess;
+        if($maxAccessModel == 2)
+        {
+            // User can manage nodes of this model
+            $maxAccessModel = 3; 
+        }
+
+        return $maxAccessModel < $maxAccess ? $maxAccessModel : $maxAccess;
     }
 
-    public function canRead($node_id)
+    public function canRead(Node $node)
     {
-        return $this->getAccess($node_id) >= 1;
+        return $this->getAccess($node) >= 1;
     }
 
-    public function canEdit($node_id)
+    public function canEdit(Node $node)
     {
-        return $this->getAccess($node_id) >= 2;
+        return $this->getAccess($node) >= 2;
     }
 
-    public function canDelete($node_id)
+    public function canDelete(Node $node)
     {
-        return $this->getAccess($node_id) == 3;
+        return $this->getAccess($node) == 3;
     }
 
     public function imagePath()

@@ -30,19 +30,6 @@ class DateType
             'value' => 'date',
             'variants' => null,
         ],
-
-        'faker_provider' => [
-            'value' => null,
-            'variants' => [
-                null,
-                'Date',
-            ],
-        ],
-
-        'faker_type' => [
-            'value' => null,
-            'variants' => null,
-        ],
     ];
 
     public static function defaultValue(): string
@@ -50,7 +37,7 @@ class DateType
         return Carbon::now()->format('Y-m-d');
     }
 
-    public static function beforeDeleting(Field $field, Node $node): void
+    public static function beforeDeleting(Field $field, Node $node)
     {
         return;
     }

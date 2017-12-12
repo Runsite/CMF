@@ -20,4 +20,5 @@ return [
 	'But it\'s time to change your password' => 'But it\'s time to change your password',
 	'You can specify your current password' => 'You can specify your current password',
 	'The password has been successfully changed' => 'The password has been successfully changed',
+	'Too many invalid authorizations recently' => 'Too many invalid authorizations recently',
 ];

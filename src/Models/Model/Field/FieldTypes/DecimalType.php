@@ -36,7 +36,7 @@ class DecimalType
         return 0;
     }
 
-    public static function beforeDeleting(Field $field, Node $node): void
+    public static function beforeDeleting(Field $field, Node $node)
     {
         return;
     }
