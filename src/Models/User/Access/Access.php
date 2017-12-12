@@ -32,7 +32,7 @@ class Access {
         $maxAccess = 0; // Default: no access
         foreach($this->groups as $group)
         {
-            $tmp_class = $class;
+            $tmp_class = clone $class;
             $access = $tmp_class->where('group_id', $group->id)->first()->access;
             if($access > $maxAccess)
             {
