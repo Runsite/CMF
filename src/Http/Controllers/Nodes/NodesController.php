@@ -154,6 +154,15 @@ class NodesController extends BaseAdminController
 
 		$depended_models = [];
 
+		foreach($node->dependencies as $k=>$dependency)
+		{
+			$depended_models[$dependency->id] = $dependency;
+			if(!$depended_model_id and !$k)
+			{
+				$depended_model_id = $dependency->id;
+			}
+		}
+
 		foreach($model->dependencies as $k=>$dependency)
 		{
 			$depended_models[$dependency->id] = $dependency;
@@ -164,6 +173,11 @@ class NodesController extends BaseAdminController
 		}
 
 		$depended_model = $model->dependencies->where('id', $depended_model_id)->first();
+		if(! $depended_model)
+		{
+			$depended_model = $node->dependencies->where('id', $depended_model_id)->first();
+		}
+
 		$children = [];
 		$children_total_count = 0;
 		if($depended_model)
