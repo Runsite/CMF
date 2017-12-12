@@ -1,6 +1,6 @@
 <?php
 
-namespace Runsite\CMF\Http\Controllers\nodes;
+namespace Runsite\CMF\Http\Controllers\Nodes;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

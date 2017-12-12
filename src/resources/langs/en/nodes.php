@@ -15,8 +15,20 @@ return [
 	'Are you sure you want to delete the node' => 'Are you sure you want to delete the node',
 	'Delete node' => 'Delete node',
 	'Node can not be removed' => 'Node can not be removed',
+	'Created at' => 'Created at',
+	'Updated at' => 'Updated at',
 
 	'groups' => [
 		'Main' => 'Main',
+	],
+
+	'settings' => [
+		'Paths' => 'Paths',
+
+
+	],
+
+	'paths' => [
+		'Updated successfully' => 'Updated successfully',
 	],
 ];

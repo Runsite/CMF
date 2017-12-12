@@ -162,6 +162,14 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                 Route::patch('{node}/{depended_model_id}/down', ['as'=>'down', 'uses'=>'NodesController@moveDown'])
                     ->middleware('application-access:nodes:edit');
             });
+
+            Route::group(['prefix'=>'settings', 'as'=>'settings.', 'namespace'=>'Settings'], function() {
+
+                Route::group(['prefix'=>'paths', 'as'=>'paths.'], function() {
+                    Route::get('{node}', ['as'=>'index', 'uses'=>'PathsController@index']);
+                    Route::patch('{node}', ['as'=>'update', 'uses'=>'PathsController@update']);
+                });
+            });
         });
 
 

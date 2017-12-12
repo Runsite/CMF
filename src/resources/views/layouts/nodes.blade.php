@@ -93,12 +93,9 @@
 								<a href="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
 								<ul class="dropdown-menu">
 									<li>
-										
-										{{-- <a href="javascript: void(0);" onclick="return confirm('Yes?') ? $('#deleting-node-{{ $node->id }}').submit() : false;">
-											<span class="text-danger">
-												<i class="fa fa-trash"></i> {{ trans('runsite::nodes.Delete') }}
-											</span>
-										</a> --}}
+										<a href="{{ route('admin.nodes.settings.paths.index', $node) }}">
+											{{ trans('runsite::nodes.settings.Paths') }}
+										</a>
 									</li>
 								</ul>
 							</li>
