@@ -89,16 +89,18 @@
 								</li>
 							@endif
 							
-							<li class="pull-right">
-								<a href="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="{{ route('admin.nodes.settings.paths.index', $node) }}">
-											{{ trans('runsite::nodes.settings.Paths') }}
-										</a>
-									</li>
-								</ul>
-							</li>
+							@if(Auth::user()->canEdit($node))
+								<li class="pull-right">
+									<a href="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="{{ route('admin.nodes.settings.paths.index', $node) }}">
+												{{ trans('runsite::nodes.settings.Paths') }}
+											</a>
+										</li>
+									</ul>
+								</li>
+							@endif
 						</ul>
 						<div class="tab-content">
 							@yield('node')

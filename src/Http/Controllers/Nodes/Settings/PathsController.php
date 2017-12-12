@@ -29,6 +29,11 @@ class PathsController extends BaseAdminController
 
 	public function update(Node $node) : RedirectResponse
 	{
+		if(! Auth::user()->canEdit($node))
+		{
+			return redirect()->back()->with('error', trans('runsite::nodes.settings.paths.Access denied'));
+		}
+
 		foreach(request()->path as $language_id=>$language_paths)
 		{
 			foreach($language_paths as $id=>$name)

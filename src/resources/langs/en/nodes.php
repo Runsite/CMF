@@ -30,5 +30,6 @@ return [
 
 	'paths' => [
 		'Updated successfully' => 'Updated successfully',
+		'Access denied' => 'Access denied',
 	],
 ];
