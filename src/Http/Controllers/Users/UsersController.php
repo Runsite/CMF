@@ -114,7 +114,7 @@ class UsersController extends BaseAdminController
 
         $user->update($data);
 
-        UserGroup::where('user_id', $id)->delete();
+        UserGroup::where('user_id', $user->id)->delete();
 
         if($request->groups)
         {
