@@ -37,7 +37,7 @@ class DateType
         return Carbon::now()->format('Y-m-d');
     }
 
-    public static function beforeDeleting(Field $field, Node $node): void
+    public static function beforeDeleting(Field $field, Node $node)
     {
         return;
     }

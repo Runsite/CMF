@@ -253,7 +253,13 @@ class NodesController extends BaseAdminController
 	 */
 	public function destroy(Node $node): RedirectResponse
 	{
-		//
+		$parent_node = $node->parent;
+
+		$node->delete();
+
+		// Redirecting with success message
+		return redirect(route('admin.nodes.edit', ['node'=>$parent_node]))
+			->with('succcess', trans('runsite::nodes.The node is deleted'));
 	}
 
 	protected function ruleHasRequired($rule)

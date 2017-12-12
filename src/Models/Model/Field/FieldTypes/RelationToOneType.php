@@ -44,7 +44,7 @@ class RelationToOneType
         return null;
     }
 
-    public static function beforeDeleting(Field $field, Node $node): void
+    public static function beforeDeleting(Field $field, Node $node)
     {
         return;
     }
