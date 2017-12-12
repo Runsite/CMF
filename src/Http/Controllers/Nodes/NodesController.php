@@ -120,7 +120,7 @@ class NodesController extends BaseAdminController
 	 */
 	public function edit(Node $node, $depended_model_id=null): View
 	{
-		if(! Auth::user()->access()->node($node)->read)
+		if(! Auth::user()->access()->node($node)->read or ! Auth::user()->access()->model($node->model)->read)
 		{
 			return view('runsite::errors.forbidden');
 		}
@@ -154,6 +154,15 @@ class NodesController extends BaseAdminController
 
 		$depended_models = [];
 
+		foreach($node->dependencies as $k=>$dependency)
+		{
+			$depended_models[$dependency->id] = $dependency;
+			if(!$depended_model_id and !$k)
+			{
+				$depended_model_id = $dependency->id;
+			}
+		}
+
 		foreach($model->dependencies as $k=>$dependency)
 		{
 			$depended_models[$dependency->id] = $dependency;
@@ -164,12 +173,24 @@ class NodesController extends BaseAdminController
 		}
 
 		$depended_model = $model->dependencies->where('id', $depended_model_id)->first();
+		if(! $depended_model)
+		{
+			$depended_model = $node->dependencies->where('id', $depended_model_id)->first();
+		}
+
 		$children = [];
 		$children_total_count = 0;
 		if($depended_model)
 		{
 			$ordering = explode(' ', $depended_model->settings->nodes_ordering);
-			$children = M($depended_model->tableName(), false, $active_language_tab)->where('parent_id', $node->id)->orderBy($ordering[0], $ordering[1]);
+			$children = M($depended_model->tableName(), false, $active_language_tab)->where('parent_id', $node->id)
+			->join('rs_group_node_access', 'rs_group_node_access.node_id', '=', 'rs_nodes.id')
+			->whereIn('rs_group_node_access.group_id', Auth::user()->groups->pluck('id'))
+			->where('rs_group_node_access.access', '>=', 1)
+			->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_nodes.model_id')
+			->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
+			->where('rs_group_model_access.access', '>=', 1)
+			->orderBy($ordering[0], $ordering[1]);
 			$children_total_count = $children->count();
 			$children = $children->paginate();
 		}

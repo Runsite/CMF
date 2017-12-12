@@ -62,26 +62,29 @@
 		<div class="content">
 			@yield('form-open')
 				<div class="nav-tabs-custom">
+						
 						<ul class="nav nav-tabs">
-							@foreach($languages as $k=>$language)
-								<li class="{{ $active_language_tab == $language->locale ? 'active' : null }}">
-									<a href="#lang-{{ $language->id }}" data-toggle="tab">
-										{{-- <span class="lang-xs" lang="{{ $language->locale }}"></span> --}}
-										{{ $language->display_name }}
-										@foreach($model->fields as $field)
-											@if($errors->has($field->name . '.' . $language->id))
-												<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
-												@break
-											@endif
-										@endforeach
-										{{-- @if($node->getErrorsCountByLanguageId($language->id, $errors))
-											<span class="label label-danger">
-												{{ $node->getErrorsCountByLanguageId($language->id, $errors) }}
-											</span>
-										@endif --}}
-									</a>
-								</li>
-							@endforeach
+							@if(isset($languages))
+								@foreach($languages as $k=>$language)
+									<li class="{{ $active_language_tab == $language->locale ? 'active' : null }}">
+										<a href="#lang-{{ $language->id }}" data-toggle="tab">
+											{{-- <span class="lang-xs" lang="{{ $language->locale }}"></span> --}}
+											{{ $language->display_name }}
+											@foreach($model->fields as $field)
+												@if($errors->has($field->name . '.' . $language->id))
+													<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
+													@break
+												@endif
+											@endforeach
+											{{-- @if($node->getErrorsCountByLanguageId($language->id, $errors))
+												<span class="label label-danger">
+													{{ $node->getErrorsCountByLanguageId($language->id, $errors) }}
+												</span>
+											@endif --}}
+										</a>
+									</li>
+								@endforeach
+							@endif
 
 							@if($node->canBeRemoved())
 								<li class="pull-right">
@@ -98,10 +101,17 @@
 												{{ trans('runsite::nodes.settings.Paths') }}
 											</a>
 										</li>
+
+										<li>
+											<a href="{{ route('admin.nodes.settings.dependencies.index', $node) }}">
+												{{ trans('runsite::nodes.settings.Dependencies') }}
+											</a>
+										</li>
 									</ul>
 								</li>
 							@endif
 						</ul>
+						
 						<div class="tab-content">
 							@yield('node')
 						</div>
@@ -109,7 +119,7 @@
 				</div>
 			{!! Form::close() !!}
 
-			@if(isset($depended_models) and $depended_models)
+			@if(isset($depended_models) and $depended_models and Route::current()->getName() == 'admin.nodes.edit')
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs nav-tabs-autochange">
 						@foreach($depended_models as $depended_model_item)

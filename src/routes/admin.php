@@ -169,6 +169,17 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                     Route::get('{node}', ['as'=>'index', 'uses'=>'PathsController@index']);
                     Route::patch('{node}', ['as'=>'update', 'uses'=>'PathsController@update']);
                 });
+
+                Route::group(['prefix'=>'dependencies', 'as'=>'dependencies.'], function() {
+                    Route::get('{node}', ['as'=>'index',  'uses'=>'DependenciesController@index']);
+                    Route::post('{node}', ['as'=>'store',  'uses'=>'DependenciesController@store']);
+                    Route::delete('{node}', ['as'=>'delete', 'uses'=>'DependenciesController@destroy']);
+
+                    Route::group(['prefix'=>'move', 'as'=>'move.'], function() {
+                        Route::patch('{node}/{depended_model_id}/up', ['as'=>'up',   'uses'=>'DependenciesController@moveUp']);
+                        Route::patch('{node}/{depended_model_id}/down', ['as'=>'down', 'uses'=>'DependenciesController@moveDown']);
+                    });
+                });
             });
         });
 

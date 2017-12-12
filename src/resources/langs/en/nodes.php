@@ -24,12 +24,17 @@ return [
 
 	'settings' => [
 		'Paths' => 'Paths',
-
+		'Dependencies' => 'Dependencies',
 
 	],
 
 	'paths' => [
 		'Updated successfully' => 'Updated successfully',
 		'Access denied' => 'Access denied',
+	],
+
+	'dependencies' => [
+		'The node dependency is created' => 'The node dependency is created',
+		'The node dependency is deleted' => 'The node dependency is deleted',
 	],
 ];

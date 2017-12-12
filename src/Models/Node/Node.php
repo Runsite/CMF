@@ -136,7 +136,7 @@ class Node extends Eloquent
         {
             if($language_id)
             {
-                $root = $this->parent->path->where('language_id', $language_id)->first()->name;
+                $root = $this->parent->path()->where('language_id', $language_id)->first()->name;
             }
             else
             {

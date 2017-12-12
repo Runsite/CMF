@@ -18,6 +18,7 @@ class CreateNodeDependenciesTable extends Migration
             $table->increments('id');
             $table->integer('node_id')->references('id')->on('rs_nodes')->unsigned();
             $table->integer('depended_model_id')->references('id')->on('rs_models')->unsigned();
+            $table->integer('position');
             $table->timestamps();
 
             $table->foreign('node_id')->references('id')->on('rs_nodes')->onUpdate('RESTRICT')->onDelete('CASCADE');

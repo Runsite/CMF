@@ -17,7 +17,7 @@ class DependenciesController extends BaseAdminController
     public function index(Model $model)
     {
         $depended_models = Dependency::where('model_id', $model->id)->with('model')->orderBy('position', 'asc')->get();
-        $available_models = Model::whereNotIn('id', $depended_models->pluck('depended_model_id'))->latest()->get();
+        $available_models = Model::whereNotIn('id', $depended_models->pluck('depended_model_id'))->where('id', '!=', 1)->latest()->get();
         return view('runsite::models.dependencies.index', compact('available_models', 'depended_models', 'model'));
     }
 
