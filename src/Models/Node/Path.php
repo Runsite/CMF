@@ -13,4 +13,20 @@ class Path extends Eloquent
     {
         return $this->belongsTo(Node::class, 'node_id');
     }
+
+    public function getRootNameAttribute()
+    {
+    	$dirname =  dirname($this->name);
+    	if($dirname != '/')
+    	{
+    		$dirname .= '/';
+    	}
+
+    	return $dirname;
+    }
+
+    public function getBaseNameAttribute()
+    {
+    	return basename($this->name);
+    }
 }

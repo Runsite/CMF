@@ -20,6 +20,11 @@ class NodesController extends BaseAdminController
 	 */
 	public function create(Model $model, int $parent_id): View
 	{
+		if(! Auth::user()->access()->model($model)->edit)
+		{
+			return view('runsite::errors.forbidden');
+		}
+
 		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
@@ -34,8 +39,14 @@ class NodesController extends BaseAdminController
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 */
-	public function store(Request $request, Model $model, Node $parent_node): RedirectResponse
+	public function store(Request $request, Model $model, Node $parent_node)
 	{
+		if(! Auth::user()->access()->model($model)->edit)
+		{
+			return view('runsite::errors.forbidden');
+		}
+
+
 		$languages = Language::get();
 
 		// Custom validation
@@ -153,8 +164,15 @@ class NodesController extends BaseAdminController
 		// [end] Left/Right node navigation
 
 		$depended_models = [];
+		$depended_models_create = [];
 
-		foreach($node->dependencies as $k=>$dependency)
+		$dependencies = $node->dependencies()
+		->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_node_dependencies.depended_model_id')
+		->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
+		->where('rs_group_model_access.access', '>=', 1)
+		->get();
+
+		foreach($dependencies as $k=>$dependency)
 		{
 			$depended_models[$dependency->id] = $dependency;
 			if(!$depended_model_id and !$k)
@@ -163,7 +181,13 @@ class NodesController extends BaseAdminController
 			}
 		}
 
-		foreach($model->dependencies as $k=>$dependency)
+		$dependencies = $model->dependencies()
+		->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_model_dependencies.depended_model_id')
+		->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
+		->where('rs_group_model_access.access', '>=', 1)
+		->get();
+
+		foreach($dependencies as $k=>$dependency)
 		{
 			$depended_models[$dependency->id] = $dependency;
 			if(!$depended_model_id and !$k)
@@ -195,7 +219,18 @@ class NodesController extends BaseAdminController
 			$children = $children->paginate();
 		}
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node'));
+
+		// Depended models to creating
+		foreach($depended_models as $depended_model_item)
+		{
+			if(Auth::user()->access()->model($depended_model_item)->edit)
+			{
+				$depended_models_create[] = $depended_model_item;
+			}
+			
+		}
+
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node'));
 	}
 
 	/**
@@ -203,7 +238,7 @@ class NodesController extends BaseAdminController
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 */
-	public function update(Request $request, Node $node): RedirectResponse
+	public function update(Request $request, Node $node)
 	{
 		if(! Auth::user()->access()->node($node)->edit)
 		{

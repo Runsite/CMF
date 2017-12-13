@@ -27,6 +27,12 @@ class Node extends Eloquent
         return $this->hasOne(Path::class, 'node_id')->orderby('id', 'desc');
     }
 
+    public function currentLanguagePath()
+    {
+        $language = Temp::get('current-language') ?: Temp::put('current-language', Language::where('locale', LaravelLocalization::getCurrentLocale())->first());
+        return $this->hasOne(Path::class, 'node_id')->where('language_id', $language->id)->orderby('id', 'desc');
+    }
+
     public function paths()
     {
         return $this->hasMany(Path::class, 'node_id');
@@ -99,7 +105,7 @@ class Node extends Eloquent
             Path::create([
                 'node_id' => $node->id,
                 'language_id' => $language->id,
-                'name' => $node->generatePath($current_language_basename),
+                'name' => $node->generatePath($current_language_basename, true, $language->id),
             ]);
 
             DB::table($node->model->tableName())->insert([
@@ -237,6 +243,25 @@ class Node extends Eloquent
         }
 
         return true;
+    }
+
+    public function treeChildren()
+    {
+        return Node::select('rs_nodes.id', 'rs_nodes.model_id', 'rs_nodes.parent_id')
+        ->join('rs_models', 'rs_models.id', '=', 'rs_nodes.model_id')
+        ->join('rs_model_settings', 'rs_model_settings.model_id', '=', 'rs_models.id')
+        ->where('rs_model_settings.show_in_admin_tree', 1)
+        ->where('rs_nodes.parent_id', $this->id);
+    }
+
+    public function hasTreeChildren()
+    {
+        return $this->treeChildren()->count();
+    }
+
+    public function getTreeChildren()
+    {
+        return $this->treeChildren()->with('currentLanguagePath')->get();
     }
 
 }

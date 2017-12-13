@@ -10,11 +10,15 @@
 			@foreach($paths as $path)
 				@if($path->language_id == $language->id)
 					<div class="form-group">
-						<input
+						<div class="input-group">
+						  <span class="input-group-addon bg-gray"><small class="text-mted">{{ $path->rootName }}</small></span>
+						  <input
 							type="text"
 							class="form-control input-sm"
 							name="path[{{ $language->id }}][{{ $path->id }}]"
-							value="{{ $path->name }}">
+							value="{{ $path->baseName }}">
+						</div>
+						
 						
 						<small class="text-muted"><i class="fa fa-clock-o"></i> {{ trans('runsite::nodes.Created at') }}: {{ $path->created_at->format('H:i, d.m.Y') }}</small>
 					</div>

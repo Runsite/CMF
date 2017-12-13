@@ -113,15 +113,30 @@
       <li class="{{ (request()->route('node') and request()->route('node')->id == 1) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$rootNode->id]) }}"><i class="fa fa-home"></i> <span>{{ $rootNode->dynamicCurrentLanguage()->first()->name }}</span></a></li>
 
       @foreach($childNodes as $childNode)
-        <li class="{{ (request()->route('node') and request()->route('node')->id == $childNode->id) ? 'active' : null }}">
+      {{-- {{ dd($node->path->name, $childNode->path->name) }} --}}
+        <li class="{{ (isset($node) and (str_is($childNode->path->name, $node->path->name) or str_is($childNode->path->name.'/*', $node->path->name))) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
             <i class="fa fa-archive"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="#"><div class="xs-pl-10"><i class="fa fa-file-o xs-mr-5"></i> Підрозділ</div></a></li>
-            <li><a href="#"><div class="xs-pl-10"><i class="fa fa-file-o xs-mr-5"></i> Ще один підрозділ</div></a></li>
-          </ul>
+          @if($childNode->hasTreeChildren())
+            <ul class="treeview-menu">
+
+              @foreach($childNode->getTreeChildren() as $treeChild)
+              {{-- {{ dd($treeChild->path->name, $node->path->name) }} --}}
+                <li class="{{ (isset($node) and (str_is($treeChild->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($treeChild->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
+                  <a href="{{ route('admin.nodes.edit', ['id'=>$treeChild->id]) }}">
+                    <div class="xs-pl-10">
+                      <i class="fa fa-file-o xs-mr-5"></i> 
+
+                    {{ $treeChild->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$treeChild->id }}
+                    </div>
+                  </a>
+                </li>
+              @endforeach
+            </ul>
+          @endif
+          
         </li>
       @endforeach
       {{-- <li><a href="#"><i class="fa fa-folder"></i> <span>Новини</span></a></li>
