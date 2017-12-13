@@ -24,7 +24,8 @@ class Node extends Eloquent
 
     public function path()
     {
-        return $this->hasOne(Path::class, 'node_id')->orderby('id', 'desc');
+        $language = Temp::get('current-language') ?: Temp::put('current-language', Language::where('locale', LaravelLocalization::getCurrentLocale())->first());
+        return $this->hasOne(Path::class, 'node_id')->where('language_id', $language->id)->orderby('id', 'desc');
     }
 
     public function paths()
@@ -237,6 +238,25 @@ class Node extends Eloquent
         }
 
         return true;
+    }
+
+    public function treeChildren()
+    {
+        return Node::select('rs_nodes.id', 'rs_nodes.model_id', 'rs_nodes.parent_id')
+        ->join('rs_models', 'rs_models.id', '=', 'rs_nodes.model_id')
+        ->join('rs_model_settings', 'rs_model_settings.model_id', '=', 'rs_models.id')
+        ->where('rs_model_settings.show_in_admin_tree', 1)
+        ->where('rs_nodes.parent_id', $this->id);
+    }
+
+    public function hasTreeChildren()
+    {
+        return $this->treeChildren()->count();
+    }
+
+    public function getTreeChildren()
+    {
+        return $this->treeChildren()->with('path')->get();
     }
 
 }

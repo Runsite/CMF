@@ -36,21 +36,32 @@ class TreeComposer {
 
     protected function getChildren(Node $parentNode)
     {
-        $depended_models = [];
+        // $depended_models = [];
 
-        foreach($parentNode->model->dependencies as $dependency)
-        {
-            $depended_models[$dependency->id] = $dependency->id;
-        }
+        // foreach($parentNode->model->dependencies as $dependency)
+        // {
+        //     $depended_models[$dependency->id] = $dependency->id;
+        // }
 
-        foreach($parentNode->dependencies as $dependency)
-        {
-            $depended_models[$dependency->id] = $dependency->id;
-        }
+        // foreach($parentNode->dependencies as $dependency)
+        // {
+        //     $depended_models[$dependency->id] = $dependency->id;
+        // }
 
 
-        $children = Node::where('parent_id', $parentNode->id)->whereIn('model_id', $depended_models)->orderBy('position', 'asc')->get();
+        // $children = Node::where('parent_id', $parentNode->id)->whereIn('model_id', $depended_models)->orderBy('position', 'asc')->get();
 
-        return $children;
+        // return $children;
+
+        $nodes = Node::select('rs_nodes.id', 'rs_nodes.model_id', 'rs_nodes.parent_id')
+        ->join('rs_models', 'rs_models.id', '=', 'rs_nodes.model_id')
+        ->join('rs_model_settings', 'rs_model_settings.model_id', '=', 'rs_models.id')
+        ->where('rs_model_settings.show_in_admin_tree', 1)
+        ->where('rs_nodes.parent_id', 1)
+        ->with('path')
+        ->get();
+
+
+        return $nodes;
     }
 }
