@@ -13,12 +13,13 @@ use Runsite\CMF\Models\Model\Model;
 use Runsite\CMF\Models\Dynamic\Language;
 use Auth;
 use LaravelLocalization;
+use DB;
 
 class PathsController extends BaseAdminController
 {
 	public function index(Node $node) : View
 	{
-		$paths = $node->paths;
+		$paths = $node->paths()->orderBy('created_at', 'desc')->get();
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.fallback_locale');
@@ -40,8 +41,17 @@ class PathsController extends BaseAdminController
 			{
 				if($name)
 				{
-					Path::find($id)->update([
-						'name' => $name,
+					$path = Path::find($id);
+
+					$old_name = $path->name;
+					$new_name = $path->rootName . str_slug($name);
+
+					$path->name = $new_name;
+					$path->save();
+
+					// Updating child paths
+					Path::where('name', 'like', $old_name.'/%')->update([
+						'name' => DB::raw("REPLACE(name, '".$old_name."/', '".$new_name."/')"),
 					]);
 				}
 				elseif(count($language_paths) > 1)
