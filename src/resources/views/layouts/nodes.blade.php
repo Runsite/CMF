@@ -35,8 +35,8 @@
 				<small><i class="fa fa-plus"></i></small>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-right">
-				@foreach($depended_models_create as $depended_model_item)
-					<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_model_item->id, 'parent_id'=>$node->id]) }}">{{ $depended_model_item->display_name }}</a></li>
+				@foreach($depended_models_create as $depended_models_create_item)
+					<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_models_create_item->id, 'parent_id'=>$node->id]) }}">{{ $depended_models_create_item->display_name }}</a></li>
 				@endforeach
 			</ul>
 		</li>
@@ -150,7 +150,7 @@
 											</thead>
 											<tbody>
 												@foreach($children as $child)
-													<tr class="{{ (Session::has('highlight') and Session::get('highlight') == $child->id) ? 'success' : null }}">
+													<tr class="{{ (Session::has('highlight') and Session::get('highlight') == $child->node_id) ? 'success' : null }}">
 														@foreach($depended_model->fields->where('is_visible_in_nodes_list', true) as $field)
 															<td>
 																@include('runsite::models.fields.field_types.'.$field->type()::$displayName.'._view')
@@ -159,12 +159,12 @@
 														@if(str_is('position *', $depended_model->settings->nodes_ordering))
 															<td>
 																<div class="btn-group">
-																	{!! Form::open(['url'=>route('admin.nodes.move.up', ['node'=>$child->id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
+																	{!! Form::open(['url'=>route('admin.nodes.move.up', ['node'=>$child->node_id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
 																		<button type="submit" {{ $child->position == 1 ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
 																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'up' : 'down' }}"></i>
 																		</button>
 																	{!! Form::close() !!}
-																	{!! Form::open(['url'=>route('admin.nodes.move.down', ['node'=>$child->id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
+																	{!! Form::open(['url'=>route('admin.nodes.move.down', ['node'=>$child->node_id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
 																		<button type="submit" {{ $child->position == $children_total_count ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
 																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'down' : 'up' }}"></i>
 																		</button>
@@ -173,7 +173,7 @@
 															</td>
 														@endif
 														<td>
-															<a href="{{ route('admin.nodes.edit', $child) }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-edit"></i></a>
+															<a href="{{ route('admin.nodes.edit', $child->node_id) }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-edit"></i></a>
 														</td>
 													</tr>
 												@endforeach
