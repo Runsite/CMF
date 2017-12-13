@@ -58,7 +58,7 @@ class TreeComposer {
         ->join('rs_model_settings', 'rs_model_settings.model_id', '=', 'rs_models.id')
         ->where('rs_model_settings.show_in_admin_tree', 1)
         ->where('rs_nodes.parent_id', 1)
-        ->with('path')
+        ->with('currentLanguagePath')
         ->get();
 
 

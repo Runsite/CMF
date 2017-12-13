@@ -50,7 +50,7 @@ class PathsController extends BaseAdminController
 					$path->save();
 
 					// Updating child paths
-					Path::where('name', 'like', $old_name.'/%')->update([
+					Path::where('name', 'like', $old_name.'/%')->where('language_id', $path->language_id)->update([
 						'name' => DB::raw("REPLACE(name, '".$old_name."/', '".$new_name."/')"),
 					]);
 				}

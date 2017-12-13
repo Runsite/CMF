@@ -24,6 +24,11 @@ class Node extends Eloquent
 
     public function path()
     {
+        return $this->hasOne(Path::class, 'node_id')->orderby('id', 'desc');
+    }
+
+    public function currentLanguagePath()
+    {
         $language = Temp::get('current-language') ?: Temp::put('current-language', Language::where('locale', LaravelLocalization::getCurrentLocale())->first());
         return $this->hasOne(Path::class, 'node_id')->where('language_id', $language->id)->orderby('id', 'desc');
     }
@@ -256,7 +261,7 @@ class Node extends Eloquent
 
     public function getTreeChildren()
     {
-        return $this->treeChildren()->with('path')->get();
+        return $this->treeChildren()->with('currentLanguagePath')->get();
     }
 
 }
