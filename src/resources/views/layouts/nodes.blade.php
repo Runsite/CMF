@@ -29,13 +29,13 @@
 		@endif
 	@endforeach
 
-	@if(isset($depended_models) and $depended_models)
+	@if(isset($depended_models_create) and $depended_models_create)
 		<li>
 			<a class="ripple" href="#" data-toggle="dropdown">
 				<small><i class="fa fa-plus"></i></small>
 			</a>
 			<ul class="dropdown-menu dropdown-menu-right">
-				@foreach($depended_models as $depended_model_item)
+				@foreach($depended_models_create as $depended_model_item)
 					<li><a href="{{ route('admin.nodes.create', ['model_id'=>$depended_model_item->id, 'parent_id'=>$node->id]) }}">{{ $depended_model_item->display_name }}</a></li>
 				@endforeach
 			</ul>
