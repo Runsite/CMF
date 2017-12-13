@@ -105,7 +105,7 @@ class Node extends Eloquent
             Path::create([
                 'node_id' => $node->id,
                 'language_id' => $language->id,
-                'name' => $node->generatePath($current_language_basename),
+                'name' => $node->generatePath($current_language_basename, true, $language->id),
             ]);
 
             DB::table($node->model->tableName())->insert([
