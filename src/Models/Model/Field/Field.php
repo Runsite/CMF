@@ -3,6 +3,7 @@
 namespace Runsite\CMF\Models\Model\Field;
 
 use DB;
+use Auth;
 
 use Illuminate\{
     Database\Eloquent\Model as Eloquent,
@@ -90,7 +91,22 @@ class Field extends Eloquent
 
     public function getControlPath()
     {
-        return $this->types[$this->type_id]::$displayName.'.'.$this->findSettings('control')->value;
+        $base = $this->types[$this->type_id]::$displayName.'.';
+
+
+
+        if(! Auth::user()->access()->field($this)->edit)
+        {
+            if(! Auth::user()->access()->field($this)->read)
+            {
+                return null;
+            }
+
+            return $base.'.readonly';
+        }
+
+        $control = $this->findSettings('control')->value;
+        return $base.'.'.$control;
     }
 
     public static function getNewPosition(array $attributes = [])
