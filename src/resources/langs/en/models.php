@@ -73,8 +73,8 @@ return [
             'The model field settings are updated' => 'The model field settings are updated',
             'Column length' => 'Column length',
             'For fields, like decimal, you can use two numbers, separated by a comma' => 'For fields, like decimal, you can use two numbers, separated by a comma',
-            'faker_provider' => 'Faker Provider',
-            'faker_type' => 'Faker Type',
+            'related_model_name' => 'Related model name',
+            'related_parent_node_id' => 'Related parent node id',
         ],
 
         'access' => [

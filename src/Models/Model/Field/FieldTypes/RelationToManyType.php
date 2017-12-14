@@ -22,6 +22,11 @@ class RelationToManyType
             ],
         ],
 
+        'custom_validation_rules' => [
+            'value' => null,
+            'variants' => null,
+        ],
+
         'related_model_name' => [
             'value' => '',
             'variants' => null,

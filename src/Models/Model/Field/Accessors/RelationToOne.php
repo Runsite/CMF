@@ -17,7 +17,7 @@ class RelationToOne {
 
 	public function relation()
 	{
-		if(!$this->relation)
+		if(!$this->relation and $this->value)
 		{
 			$node = Node::findOrFail($this->value);
 			$this->relation = $node->dynamic()->where('language_id', $this->attributes['language_id'])->first();
