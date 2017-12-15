@@ -134,7 +134,7 @@ class UsersController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(user $user)
+    public function destroy(User $user)
     {
         $user->delete();
         return redirect()->route('admin.users.index')->with('success', trans('runsite::users.User is deleted'));

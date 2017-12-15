@@ -24,9 +24,9 @@ class GroupsController extends BaseAdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Group $group)
     {
-        //
+        return view('runsite::groups.create', compact('group'));
     }
 
     /**
@@ -37,7 +37,15 @@ class GroupsController extends BaseAdminController
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => '',
+        ]);
+
+        Group::create($data);
+
+        return redirect()->route('admin.groups.index')->with('success', trans('runsite::groups.Group is created'));
+
     }
 
     /**
@@ -48,7 +56,7 @@ class GroupsController extends BaseAdminController
      */
     public function show($id)
     {
-        //
+        abort(404);
     }
 
     /**
@@ -57,9 +65,9 @@ class GroupsController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Group $group)
     {
-        //
+        return view('runsite::groups.edit', compact('group'));
     }
 
     /**
@@ -69,9 +77,16 @@ class GroupsController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Group $group)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => '',
+        ]);
+
+        $group->update($data);
+
+        return redirect()->route('admin.groups.edit', $group)->with('success', trans('runsite::groups.Group is updated'));
     }
 
     /**
@@ -80,8 +95,9 @@ class GroupsController extends BaseAdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        return redirect()->route('admin.groups.index')->with('success', trans('runsite::groups.Group is deleted'));
     }
 }
