@@ -125,7 +125,7 @@
               @foreach($childNode->getTreeChildren() as $treeChild)
               {{-- {{ dd($treeChild->path->name, $node->path->name) }} --}}
                 <li class="{{ (isset($node) and (str_is($treeChild->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($treeChild->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
-                  <a href="{{ route('admin.nodes.edit', ['id'=>$treeChild->id]) }}">
+                  <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$treeChild->id]) }}">
                     <div class="xs-pl-10">
                       <i class="fa fa-file-o xs-mr-5"></i> 
 

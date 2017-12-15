@@ -42,7 +42,12 @@
 			<div class="tab-pane active" id="no-group-{{ $language->id }}">
 				@foreach($model->fields as $field)
 					@if(!$field->group_id)
-						@include('runsite::models.fields.field_types.'.$field->getControlPath(), ['value'=>$field->getValue((isset($dynamic) ? $dynamic : null), (isset($language) ? $language : null))])
+						@php($controllPath = $field->getControlPath())
+
+						@if($controllPath)
+							@include('runsite::models.fields.field_types.'.$controllPath, ['value'=>$field->getValue((isset($dynamic) ? $dynamic : null), (isset($language) ? $language : null))])
+						@endif
+						
 					@endif
 				@endforeach
 			</div>
@@ -50,7 +55,11 @@
 				<div class="tab-pane" id="group-{{ $group->id }}-lang-{{ $language->id }}">
 					@foreach($model->fields as $field)
 						@if($field->group_id == $group->id)
-							@include('runsite::models.fields.field_types.'.$field->getControlPath(), ['value'=>$field->getValue((isset($dynamic) ? $dynamic : null), (isset($language) ? $language : null))])
+							@php($controllPath = $field->getControlPath())
+
+							@if($controllPath)
+								@include('runsite::models.fields.field_types.'.$controllPath, ['value'=>$field->getValue((isset($dynamic) ? $dynamic : null), (isset($language) ? $language : null))])
+							@endif
 						@endif
 					@endforeach
 				</div>

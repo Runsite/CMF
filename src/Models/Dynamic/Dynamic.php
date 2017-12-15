@@ -87,6 +87,8 @@ class Dynamic extends Eloquent
             return;
         }
 
+
+
         $node_temp_key = 'node_model_fields_'.$this->attributes['node_id'];
         $node = Temp::get($node_temp_key);
         if(!$node)
@@ -96,10 +98,18 @@ class Dynamic extends Eloquent
 
         foreach($node->model->fields as $field)
         {
-            $accessor_class = 'Runsite\CMF\Models\Model\Field\Accessors\\'.title_case(camel_case($field->type()::$displayName));
+            $accessor_class = 'Runsite\CMF\Models\Model\Field\Accessors\\'.ucfirst(camel_case($field->type()::$displayName));
+
             if($field->name == $key and class_exists($accessor_class))
             {
-                return new $accessor_class($this->attributes[$key], [
+                $value = null;
+
+                if($field->type()::$needField)
+                {
+                    $value = $this->attributes[$key];
+                }
+
+                return new $accessor_class($value, [
                     'node_id' => $this->attributes['node_id'],
                     'field_name' => $key,
                     'language_id' => $this->attributes['language_id'],

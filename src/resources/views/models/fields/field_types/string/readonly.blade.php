@@ -6,7 +6,7 @@
 			class="form-control input-sm"
 			readonly
 			id="{{ $field->name }}-{{ $language->id }}"
-			value="{{ $dynamic->where('language_id', $language->id)->first()->{$field->name} }}">
+			value="{{ $value }}">
 		<span class="fa fa-lock form-control-feedback" aria-hidden="true"></span>
 
 		@if($field->hint)

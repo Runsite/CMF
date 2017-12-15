@@ -10,7 +10,7 @@
 			id="{{ $field->name }}-{{ $language->id }}">
 			<option value="">---</option>
 
-			@if($value)
+			@if($value and $value->relation())
 				<option value="{{ $value->relation()->node_id }}" selected>{{ $value->relation()->name }}</option>
 			@endif
 		</select>
