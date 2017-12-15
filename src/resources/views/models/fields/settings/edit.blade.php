@@ -27,11 +27,13 @@
 			@endforeach
 
 			{{-- Field size --}}
-			<div class="form-group">
-				{{ Form::label('field_length', trans('runsite::models.fields.settings.Column length')) }}
-				<input type="text" class="form-control input-sm" name="field_length" id="field_length" value="{{ $column->getLength() ?: ($column->getPrecision().','.$column->getScale()) }}" {{ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null }}>
-				<small class="text-muted"><i class="fa fa-info-circle text-info"></i> {{ trans('runsite::models.fields.settings.For fields, like decimal, you can use two numbers, separated by a comma') }}</small>
-			</div>
+			@if($column)
+				<div class="form-group">
+					{{ Form::label('field_length', trans('runsite::models.fields.settings.Column length')) }}
+					<input type="text" class="form-control input-sm" name="field_length" id="field_length" value="{{ $column->getLength() ?: ($column->getPrecision().','.$column->getScale()) }}" {{ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null }}>
+					<small class="text-muted"><i class="fa fa-info-circle text-info"></i> {{ trans('runsite::models.fields.settings.For fields, like decimal, you can use two numbers, separated by a comma') }}</small>
+				</div>
+			@endif
 
 			@if(Auth::user()->access()->application($application)->edit)
 				<button class="btn btn-primary btn-sm ripple">{{ trans('runsite::models.fields.settings.Update') }}</button>

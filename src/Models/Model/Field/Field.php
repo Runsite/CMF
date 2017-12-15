@@ -239,10 +239,13 @@ class Field extends Eloquent
 
     public function delete()
     {
-        Schema::table($this->model->tableName(), function($table)
+        if($this->type()::$needField)
         {
-            $table->dropColumn([$this->name]);
-        });
+            Schema::table($this->model->tableName(), function($table)
+            {
+                $table->dropColumn([$this->name]);
+            });
+        }
 
         // Calculating position
         Field::where('model_id', $this->model_id)->where('position', '>', $this->position)->decrement('position');
@@ -293,5 +296,29 @@ class Field extends Eloquent
             ->where('position', '>', $this->position)
             ->orderBy('position', 'asc')
             ->first();
+    }
+
+    public function getAvailableRelationValues()
+    {
+        $related_model_name = $this->settings()->where('parameter', 'related_model_name')->first();
+        $related_parent_node_id = $this->settings()->where('parameter', 'related_parent_node_id')->first();
+
+        $values = [];
+
+        if(empty($related_model_name->value))
+        {
+            return $values;
+        }
+
+        $values = M($related_model_name->value);
+
+        if($related_parent_node_id->value)
+        {
+            $values = $values->where('parent_id', $related_parent_node_id->value);
+        }
+
+        $values = $values->get();
+
+        return $values;
     }
 }

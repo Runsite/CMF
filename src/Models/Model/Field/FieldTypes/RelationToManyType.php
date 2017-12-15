@@ -5,6 +5,7 @@ namespace Runsite\CMF\Models\Model\Field\FieldTypes;
 use Runsite\CMF\Models\Model\Field\Field;
 use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
+use Runsite\CMF\Models\Node\Relation;
 
 class RelationToManyType
 {    
@@ -38,6 +39,11 @@ class RelationToManyType
         ],
     ];
 
+    public static function defaultValue()
+    {
+        return null;
+    }
+
     public static function beforeDeleting(Field $field, Node $node)
     {
         return;
@@ -45,11 +51,43 @@ class RelationToManyType
 
     public static function beforeCreating($value, Node $node, Field $field, Language $language)
     {
-        return $value;
+        Relation::where('language_id', $language->id)->where('node_id', $node->id)->where('field_id', $field->id)->delete();
+
+        foreach($value as $node_id)
+        {
+            if($node_id)
+            {
+                Relation::create([
+                    'language_id' => $language->id,
+                    'node_id' => $node->id,
+                    'field_id' => $field->id,
+                    'related_node_id' => $node_id,
+                ]);
+            }
+            
+        }
+
+        return null;
     }
 
     public static function beforeUpdating($value, $old_value, Node $node, Field $field, Language $language)
     {
-        return $value;
+        Relation::where('language_id', $language->id)->where('node_id', $node->id)->where('field_id', $field->id)->delete();
+
+        foreach($value as $node_id)
+        {
+            if($node_id)
+            {
+                Relation::create([
+                    'language_id' => $language->id,
+                    'node_id' => $node->id,
+                    'field_id' => $field->id,
+                    'related_node_id' => $node_id,
+                ]);
+            }
+            
+        }
+
+        return null;
     }
 }

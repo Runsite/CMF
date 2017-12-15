@@ -41,7 +41,12 @@ class SettingsController extends BaseAdminController
     public function edit(Model $model, Field $field)
     {
         $settings = $field->settings;
-        $column = $this->getColumn($model->tableName(), $field->name);
+        $column = null;
+
+        if($field->type()::$needField)
+        {
+            $column = $this->getColumn($model->tableName(), $field->name);
+        }
 
         return view('runsite::models.fields.settings.edit', compact('field', 'settings', 'model', 'column'))->withApplication($this->application);
     }
@@ -64,30 +69,34 @@ class SettingsController extends BaseAdminController
         }
 
         // Change column size
-        $column = $this->getColumn($model->tableName(), $field->name);
-        $field_length['actual'] = $column->getLength();
-        if(!$field_length['actual'])
+        if($field->type()::$needField)
         {
-            $field_length['actual'] = $column->getPrecision().','.$column->getScale();
-        }
-        $field_length['new'] = $request->field_length;
-        $field_type = $field->types[$field->type_id];
+            $column = $this->getColumn($model->tableName(), $field->name);
+            $field_length['actual'] = $column->getLength();
+            if(!$field_length['actual'])
+            {
+                $field_length['actual'] = $column->getPrecision().','.$column->getScale();
+            }
+            $field_length['new'] = $request->field_length;
+            $field_type = $field->types[$field->type_id];
 
-        if($field_length['actual'] != $field_length['new'])
-        {
-            if(str_is('*,*', $field_length['new']))
+            if($field_length['actual'] != $field_length['new'])
             {
-                list($base, $extra) = explode(',', $field_length['new']);
+                if(str_is('*,*', $field_length['new']))
+                {
+                    list($base, $extra) = explode(',', $field_length['new']);
+                }
+                else
+                {
+                    $base = $field_length['new'];
+                    $extra = null;
+                }
+                Schema::table($model->tableName(), function($table) use($field_type, $field, $base, $extra) {
+                    $table->{$field_type::$name}($field->name, $base, $extra)->change();
+                });
             }
-            else
-            {
-                $base = $field_length['new'];
-                $extra = null;
-            }
-            Schema::table($model->tableName(), function($table) use($field_type, $field, $base, $extra) {
-                $table->{$field_type::$name}($field->name, $base, $extra)->change();
-            });
         }
+        
 
         return redirect()->route('admin.models.fields.settings.edit', ['model'=>$model, 'field'=>$field])->with('success', trans('runsite::models.fields.settings.The model field settings are updated'));
     }

@@ -8,7 +8,7 @@ use Runsite\CMF\Models\Model\Field;
 class Relation extends Eloquent
 {
     protected $table = 'rs_node_relations';
-    protected $fillable = ['field_id', 'related_node_id'];
+    protected $fillable = ['language_id', 'node_id', 'field_id', 'related_node_id'];
 
     public function field()
     {

@@ -26,31 +26,4 @@ class RelationToOne {
 		
 		return $this->relation;
 	}
-
-	public function availableValues()
-	{
-		$node = Node::findOrFail($this->attributes['node_id']);
-		$field = Field::where('model_id', $node->model_id)->where('name', $this->attributes['field_name'])->first();
-
-		$related_model_name = $field->settings()->where('parameter', 'related_model_name')->first();
-		$related_parent_node_id = $field->settings()->where('parameter', 'related_parent_node_id')->first();
-
-		$values = [];
-
-		if(!$related_model_name->value)
-		{
-			return $values;
-		}
-
-		$values = M($related_model_name->value);
-
-		if($related_parent_node_id->value)
-		{
-			$values = $values->where('parent_id', $related_parent_node_id->value);
-		}
-
-		$values = $values->get();
-
-		return $values;
-	}
 }

@@ -58,6 +58,11 @@ class Node extends Eloquent
         return $this->belongsToMany(Model::class, 'rs_node_dependencies', 'node_id', 'depended_model_id');
     }
 
+    public function relations()
+    {
+        return $this->belongsToMany(Model::class, 'rs_node_relations', 'node_id', 'related_node_id');
+    }
+
     public function putAnalytic($type)
     {
         Analytic::create(['model_id'=>$this->model->id, 'parent_node_id'=>$this->parent_id, 'type'=>$type]);

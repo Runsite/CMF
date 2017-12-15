@@ -115,7 +115,11 @@ class NodesController extends BaseAdminController
 					$field_value = $data[$field->name][$language->id];
 					$field_type = $field->type();
 					$field_value = $field_type::beforeCreating($field_value, $node->baseNode, $field, $language);
-					$node->{$language->locale}->{$field->name} = $field_value;
+
+					if($field->type()::$needField)
+					{
+						$node->{$language->locale}->{$field->name} = $field_value;
+					}
 				}
 			}
 			// Saving locale
@@ -299,7 +303,11 @@ class NodesController extends BaseAdminController
 					$field_value = $data[$field->name][$language->id];
 					$field_type = $field->type();
 					$field_value = $field_type::beforeUpdating($field_value, $dynamic->{$field->name}, $node, $field, $language);
-					$dynamic->{$field->name} = $field_value;
+					
+					if($field->type()::$needField)
+					{
+						$dynamic->{$field->name} = $field_value;
+					}
 				}
 			}
 
