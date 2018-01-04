@@ -131,4 +131,10 @@ class User extends Authenticatable
         $access = $this->getAccessToApplication($application_name);
 
     }
+
+    public function delete()
+    {
+        // TODO
+        return parent::delete();
+    }
 }

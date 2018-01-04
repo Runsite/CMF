@@ -13,6 +13,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'namespace' => 'App\
     }
 
     // dd(Request::method());
+    // dd($path);
     $path = Path::where('name', $requestPath)->first();
 
     if($path)

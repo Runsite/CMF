@@ -223,7 +223,7 @@ class NodesController extends BaseAdminController
 			->where('rs_group_model_access.access', '>=', 1)
 			->orderBy($ordering[0], $ordering[1]);
 			$children_total_count = $children->count();
-			$children = $children->paginate();
+			$children = $children->groupBy('rs_nodes.id')->paginate();
 		}
 
 

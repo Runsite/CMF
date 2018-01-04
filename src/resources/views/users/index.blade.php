@@ -32,7 +32,7 @@
                     </td>
                     <td>
                         {!! Form::open(['url'=>route('admin.users.destroy', $user->id), 'method'=>'delete']) !!}
-                            <button onclick="return confirm('{{ trans('runsite::models.fields.Are you sure') }}?')" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                            <button onclick="return confirm('{{ trans('runsite::users.Are you sure') }}?')" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
                         {!! Form::close() !!}
                     </td>
                 </tr>

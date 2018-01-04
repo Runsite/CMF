@@ -37,6 +37,9 @@ class ClearApp {
         $this->unlinkPath('config/runsite');
         $this->unlinkPath('storage/app/public/images');
 
+        // Clearning routes
+        file_put_contents(base_path('routes/web.php'), '');
+
         return;
     }
 

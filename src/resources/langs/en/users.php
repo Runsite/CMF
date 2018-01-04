@@ -14,4 +14,5 @@ return [
 	'User is created' => 'User is created',
 	'User is updated' => 'User is updated',
 	'User is deleted' => 'User is deleted',
+	'Are you sure' => 'Are you sure',
 ];

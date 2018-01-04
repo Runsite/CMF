@@ -2,7 +2,7 @@
 
 return [
     'dynamic_routes' => [
-        'enabled' => false,
+        'enabled' => true,
     ],
 
     'account' => [
