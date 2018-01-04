@@ -18,7 +18,7 @@
 				<div class="col-md-4">
 					<input type="hidden" name="{{ $field->name }}[{{ $language->id }}][{{ $availableValue->node_id }}]" value="">
 					<label>
-						<input
+						<input 
 						
 						@if($value and isset($relationsArr) and $value->relations() and in_array($availableValue->node_id, $relationsArr))
 							checked
