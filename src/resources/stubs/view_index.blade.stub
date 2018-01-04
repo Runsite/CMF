@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('app')
+@section('content')
     <div class="container">
         <ul>
             @foreach($%_model_name_plural_% as $%_model_name_%)

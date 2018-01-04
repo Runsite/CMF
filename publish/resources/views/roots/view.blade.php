@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('app')
+@section('content')
 	<div class="jumbotron">
 		<div class="container">
 			<h1>Runsite.<b>CMF</b></h1>
