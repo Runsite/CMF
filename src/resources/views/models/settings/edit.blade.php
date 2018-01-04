@@ -14,6 +14,17 @@
                 @endif
             </div>
 
+            <div class="form-group {{ $errors->has('use_response_cache') ? ' has-error' : '' }}">
+                {{ Form::hidden('use_response_cache', 0) }}
+                {{ Form::checkbox('use_response_cache', 1, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+                {{ Form::label('use_response_cache', trans('runsite::models.settings.Use response cache')) }}
+                @if ($errors->has('use_response_cache'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('use_response_cache') }}</strong>
+                    </span>
+                @endif
+            </div>
+
             <div class="form-group {{ $errors->has('nodes_ordering') ? ' has-error' : '' }}">
                 {{ Form::label('nodes_ordering', trans('runsite::models.settings.Nodes ordering')) }}
                 {{ Form::text('nodes_ordering', null, ['class'=>'form-control input-sm', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}

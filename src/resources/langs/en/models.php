@@ -25,6 +25,7 @@ return [
         'Nodes ordering' => 'Nodes ordering',
         'Dynamic model' => 'Dynamic model',
         'The model settings is updated' => 'The model settings is updated',
+        'Use response cache' => 'Use response cache',
     ],
 
     'methods' => [

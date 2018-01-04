@@ -42,6 +42,7 @@ class SettingsController extends BaseAdminController
             'show_in_admin_tree' => 'nullable|boolean',
             'nodes_ordering' => 'required|string|max:255',
             'dynamic_model' => 'nullable|string|max:255',
+            'use_response_cache' => 'nullable|boolean',
         ]);
 
         $model->settings->update($data);

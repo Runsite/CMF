@@ -12,6 +12,7 @@ use Runsite\CMF\Models\Model\Model;
 use Runsite\CMF\Models\Dynamic\Language;
 use Auth;
 use LaravelLocalization;
+use Artisan;
 
 class NodesController extends BaseAdminController
 {
@@ -125,6 +126,8 @@ class NodesController extends BaseAdminController
 			// Saving locale
 			$node->{$language->locale}->save();
 		}
+
+		Artisan::call('responsecache:flush');
 
 		// Redirecting with success message
 		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node, 'depended_model_id'=>$model->id])
@@ -314,6 +317,8 @@ class NodesController extends BaseAdminController
 			$dynamic->save();
 		}
 
+		Artisan::call('responsecache:flush');
+
 		return redirect(route('admin.nodes.edit', $node->id))
 			->with('success', trans('runsite::nodes.The node is updated'));
 	}
@@ -331,6 +336,8 @@ class NodesController extends BaseAdminController
 		$parent_node = $node->parent;
 
 		$node->delete();
+
+		Artisan::call('responsecache:flush');
 
 		// Redirecting with success message
 		return redirect(route('admin.nodes.edit', ['node'=>$parent_node]))
@@ -350,6 +357,9 @@ class NodesController extends BaseAdminController
 	public function moveUp(Node $node, int $depended_model_id)
 	{
 		$node->moveUp();
+
+		Artisan::call('responsecache:flush');
+
 		return redirect()
 			->route('admin.nodes.edit', ['node'=>$node->parent, 'depended_model_id'=>$depended_model_id])
 			->with('highlight', $node->id);
@@ -363,6 +373,9 @@ class NodesController extends BaseAdminController
 	public function moveDown(Node $node, int $depended_model_id)
 	{
 		$node->moveDown();
+
+		Artisan::call('responsecache:flush');
+
 		return redirect()
 			->route('admin.nodes.edit', ['node'=>$node->parent, 'depended_model_id'=>$depended_model_id])
 			->with('highlight', $node->id);
