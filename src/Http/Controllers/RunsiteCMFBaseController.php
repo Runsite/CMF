@@ -7,6 +7,7 @@ use Illuminate\{
     Foundation\Validation\ValidatesRequests
 };
 use Runsite\CMF\Helpers\GlobalScope;
+use StdClass;
 
 class RunsiteCMFBaseController extends BaseController
 {
@@ -14,6 +15,7 @@ class RunsiteCMFBaseController extends BaseController
 
     protected $node = null;
     protected $fields = null;
+    protected $seo = null;
 
     public function __construct()
     {
@@ -31,6 +33,13 @@ class RunsiteCMFBaseController extends BaseController
             // Aborting request, because "is_active" parameter exists and is false
             return abort(404);
         }
+
+        $this->seo = new StdClass();
+
+        $this->seo->title = $this->fields->title ?? ($this->fields->name ?? config('app.name'));
+        $this->seo->description = $this->fields->description ?? null;
+        $this->seo->author = config('app.name');
+        $this->seo->image = isset($this->fields->image) ? $this->fields->image->max() : null;
     }
 
     public function view($view, $params=null)
@@ -38,6 +47,7 @@ class RunsiteCMFBaseController extends BaseController
         $p = [
             'node'     => $this->node,
             'fields'   => $this->fields,
+            'seo'      => $this->seo,
         ];
 
         if($params) {
