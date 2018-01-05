@@ -163,7 +163,11 @@ class ImageType
 
                 // Path to current size folder
                 $size_path = $base_path . '/' .$size_name;
-                // mkdir(storage_path('app/public/' . $size_path));
+                $dirPath = storage_path('app/public/' . $size_path);
+                if(!is_dir($dirPath))
+                {
+                    mkdir($dirPath);
+                }
 
                 $image = Image::make(storage_path('app/public/' . $original_path) . '/' . $name);
 
