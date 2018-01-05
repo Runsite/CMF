@@ -28,10 +28,10 @@ class ServerFileType
 
     public static function defaultValue()
     {
-        return '';
+        return null;
     }
 
-    public static function beforeDeleting(Field $field, Node $node)
+    public static function beforeDeleting($old_value, Node $node, Field $field, Language $language)
     {
         return;
     }

@@ -14,7 +14,8 @@ use Runsite\CMF\Models\{
     Node\Relation,
     Model\Model,
     User\Access\AccessField,
-    User\Group
+    User\Group,
+    Dynamic\Language
 };
 
 use Runsite\CMF\Models\Model\Field\FieldTypes\{
@@ -255,8 +256,18 @@ class Field extends Eloquent
 
     public function beforeDeleting($node)
     {
-        $type = $this->types[$this->type_id];
-        return $type::beforeDeleting($this, $node);
+        $fields = $node->model->fields;
+        $languages = Language::get();
+
+        foreach($fields as $field)
+        {
+            foreach($languages as $language)
+            {
+                $dynamic = $node->dynamic()->where('language_id', $language->id)->first();
+                $field_type = $field->type();
+                $field_type::beforeDeleting($dynamic->{$field->name}, $node, $field, $language);
+            }
+        }
     }
 
     public function moveDown()

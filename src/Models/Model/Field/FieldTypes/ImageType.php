@@ -38,22 +38,46 @@ class ImageType
         ],
     ];
 
-    public static function defaultValue(): string
+    public static function defaultValue()
     {
         return null;
     }
 
-    public static function beforeDeleting(Field $field, Node $node)
+    public static function beforeDeleting($old_value, Node $node, Field $field, Language $language)
     {
-        foreach($node->dynamic() as $languageVersion)
+        $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->id;
+        $original_path = $base_path.'/original';
+        $sizes = explode('/', $field->findSettings('image_size')->value);
+
+        foreach($sizes as $k=>$size)
         {
-            $image_path = public_path('uploads/fieldtypes/images/'.$languageVersion->{$field->name});
-            if(file_exists($image_path))
+            // Folder name
+            $size_name = $size;
+
+            if(!$k)
+                $size_name = 'max'; // If this is maximum size, it will be named "max"
+            elseif(++$k == count($sizes))
+                $size_name = 'min'; // If this is minimum size, it will be named "min"
+
+            // Path to current size folder
+            $size_path = $base_path . '/' .$size_name;
+
+            $old_file_path = storage_path('app/public/' . $size_path . '/' . $old_value->value);
+            if(file_exists($old_file_path))
             {
-                unlink($image_path);
+                unlink($old_file_path);
             }
         }
+
+        $old_original_file_path = storage_path('app/public/' . $original_path . '/' . $old_value->value);
+        if(file_exists($old_original_file_path))
+        {
+            unlink($old_original_file_path);
+        }
         
+        // Deleting folders
+        $foldersPath = storage_path('app/public/images/' . $node->id);
+        self::rrmdir($foldersPath);
     }
 
     // Generating unique filename
@@ -202,12 +226,25 @@ class ImageType
             {
                 unlink($old_original_file_path);
             }
-
-            
         }
         
         return $name;
     }
+
+    private static function rrmdir($dir) { 
+       if (is_dir($dir)) { 
+         $objects = scandir($dir); 
+         foreach ($objects as $object) { 
+           if ($object != "." && $object != "..") { 
+             if (is_dir($dir."/".$object))
+               self::rrmdir($dir."/".$object);
+             else
+               unlink($dir."/".$object); 
+           } 
+         }
+         rmdir($dir); 
+       } 
+     }
 
 
 }
