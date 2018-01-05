@@ -41,7 +41,7 @@
 		<div class="tab-content no-padding">
 			<div class="tab-pane active" id="no-group-{{ $language->id }}">
 				@foreach($model->fields as $field)
-					@if(!$field->group_id)
+					@if(!$field->group_id and ($language->id == $defaultLanguage->id or !$field->is_common))
 						@php($controllPath = $field->getControlPath())
 
 						@if($controllPath)
@@ -54,7 +54,7 @@
 			@foreach($model->groups as $group)
 				<div class="tab-pane" id="group-{{ $group->id }}-lang-{{ $language->id }}">
 					@foreach($model->fields as $field)
-						@if($field->group_id == $group->id)
+						@if($field->group_id == $group->id  and ($language->id == $defaultLanguage->id or !$field->is_common))
 							@php($controllPath = $field->getControlPath())
 
 							@if($controllPath)
