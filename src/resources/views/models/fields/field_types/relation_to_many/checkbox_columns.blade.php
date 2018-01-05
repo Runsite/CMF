@@ -9,7 +9,7 @@
 		@endif
 		
 		<div class="row">
-			@foreach($field->getAvailableRelationValues() as $k=>$availableValue)
+			@foreach($field->getAvailableRelationValues($language) as $k=>$availableValue)
 				
 				@if($k and $k%3==0)
 					</div><div class="row">

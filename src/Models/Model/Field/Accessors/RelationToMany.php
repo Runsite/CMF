@@ -38,8 +38,10 @@ class RelationToMany {
 			->where('field_id', $field->id)
 			->get();
 
-			return M($related_model_name->value, true, $language->locale)->whereIn('node_id', $relations->pluck('related_node_id'))->get();
+			$this->relations = M($related_model_name->value, true, $language->locale)->whereIn('node_id', $relations->pluck('related_node_id'))->get();
 		}
+		
+
 		
 		return $this->relations;
 	}

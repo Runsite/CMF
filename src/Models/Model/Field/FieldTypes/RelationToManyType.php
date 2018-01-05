@@ -53,19 +53,22 @@ class RelationToManyType
     {
         Relation::where('language_id', $language->id)->where('node_id', $node->id)->where('field_id', $field->id)->delete();
 
-        foreach($value as $node_id)
+        if(is_array($value))
         {
-            if($node_id)
+            foreach($value as $node_id)
             {
-                Relation::create([
-                    'language_id' => $language->id,
-                    'node_id' => $node->id,
-                    'field_id' => $field->id,
-                    'related_node_id' => $node_id,
-                ]);
+                if($node_id)
+                {
+                    Relation::create([
+                        'language_id' => $language->id,
+                        'node_id' => $node->id,
+                        'field_id' => $field->id,
+                        'related_node_id' => $node_id,
+                    ]);
+                }
             }
-            
         }
+        
 
         return null;
     }
@@ -74,18 +77,21 @@ class RelationToManyType
     {
         Relation::where('language_id', $language->id)->where('node_id', $node->id)->where('field_id', $field->id)->delete();
 
-        foreach($value as $node_id)
+        if(is_array($value))
         {
-            if($node_id)
+            foreach($value as $node_id)
             {
-                Relation::create([
-                    'language_id' => $language->id,
-                    'node_id' => $node->id,
-                    'field_id' => $field->id,
-                    'related_node_id' => $node_id,
-                ]);
+                if($node_id)
+                {
+                    Relation::create([
+                        'language_id' => $language->id,
+                        'node_id' => $node->id,
+                        'field_id' => $field->id,
+                        'related_node_id' => $node_id,
+                    ]);
+                }
+                
             }
-            
         }
 
         return null;

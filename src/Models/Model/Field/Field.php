@@ -309,7 +309,7 @@ class Field extends Eloquent
             ->first();
     }
 
-    public function getAvailableRelationValues()
+    public function getAvailableRelationValues(Language $language)
     {
         $related_model_name = $this->settings()->where('parameter', 'related_model_name')->first();
         $related_parent_node_id = $this->settings()->where('parameter', 'related_parent_node_id')->first();
@@ -321,7 +321,7 @@ class Field extends Eloquent
             return $values;
         }
 
-        $values = M($related_model_name->value);
+        $values = M($related_model_name->value, true, $language->locale);
 
         if($related_parent_node_id->value)
         {
