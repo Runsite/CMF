@@ -29,6 +29,6 @@ class RelationToOne {
 
 	public function defaultMethod()
 	{
-		return $this;
+		return $this->relation();
 	}
 }

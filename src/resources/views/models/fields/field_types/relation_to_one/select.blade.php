@@ -9,10 +9,10 @@
 			id="{{ $field->name }}-{{ $language->id }}">
 			<option value="">---</option>
 
-			@foreach($field->getAvailableRelationValues() as $availableValue)
+			@foreach($field->getAvailableRelationValues($language) as $availableValue)
 				<option 
 					
-					@if(isset($value) and $value->relation() and $value->relation()->node_id == $availableValue->node_id)
+					@if(isset($value) and $value and $value->node_id == $availableValue->node_id)
 						selected 
 					@endif
 

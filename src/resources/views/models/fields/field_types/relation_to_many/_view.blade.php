@@ -1,6 +1,6 @@
 @if($child->{$field->name})
 
-	@php($relations = $child->{$field->name}->relations())
+	@php($relations = $child->{$field->name})
 
 	@if($relations)
 		@foreach($relations as $relation)

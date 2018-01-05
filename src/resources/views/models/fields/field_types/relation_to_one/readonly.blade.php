@@ -7,7 +7,7 @@
 			class="form-control input-sm" 
 			readonly 
 			id="{{ $field->name }}-{{ $language->id }}" 
-			value="{{ $value ? $value->relation()->name : null }}">
+			value="{{ $value ? $value->name : null }}">
 		<span class="fa fa-lock form-control-feedback" aria-hidden="true"></span>
 
 		@if($field->hint)

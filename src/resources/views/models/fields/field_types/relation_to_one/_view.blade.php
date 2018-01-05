@@ -1,6 +1,6 @@
 @if($child->{$field->name})
 
-	@php($relation = $child->{$field->name}->relation())
+	@php($relation = $child->{$field->name})
 
 	@if($relation)
 		<span class="label label-default" style="{{ isset($relation->bg_color) ? 'background-color: '.$relation->bg_color.'; ' : null }} {{ isset($relation->color) ? 'color: '.$relation->color : null }}">
