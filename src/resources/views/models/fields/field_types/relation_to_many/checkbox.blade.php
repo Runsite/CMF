@@ -6,8 +6,8 @@
 
 		<input type="hidden" name="{{ $field->name }}[{{ $language->id }}]" value="">
 
-		@if(isset($value) and $value->relations())
-			@php($relationsArr = $value->relations()->pluck('node_id')->toArray())
+		@if(isset($value) and $value)
+			@php($relationsArr = $value->pluck('node_id')->toArray())
 		@endif
 		
 		@foreach($field->getAvailableRelationValues($language) as $availableValue)
@@ -15,7 +15,7 @@
 			<label>
 				<input 
 				
-				@if($value and isset($relationsArr) and $value->relations() and in_array($availableValue->node_id, $relationsArr))
+				@if($value and isset($relationsArr) and $value and in_array($availableValue->node_id, $relationsArr))
 					checked 
 				@endif
 

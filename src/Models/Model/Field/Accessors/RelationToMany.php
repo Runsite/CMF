@@ -45,4 +45,9 @@ class RelationToMany {
 		
 		return $this->relations;
 	}
+
+	public function defaultMethod()
+	{
+		return $this->relations();
+	}
 }

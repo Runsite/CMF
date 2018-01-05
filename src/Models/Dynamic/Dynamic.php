@@ -109,11 +109,11 @@ class Dynamic extends Eloquent
                     $value = $this->attributes[$key];
                 }
 
-                return new $accessor_class($value, [
+                return (new $accessor_class($value, [
                     'node_id' => $this->attributes['node_id'],
                     'field_name' => $key,
                     'language_id' => $this->attributes['language_id'],
-                ]);
+                ]))->defaultMethod();
             }
         }
 

@@ -27,4 +27,9 @@ class Image {
 	{
 		return $this->size('min');
 	}
+
+	public function defaultMethod()
+	{
+		return $this;
+	}
 }
