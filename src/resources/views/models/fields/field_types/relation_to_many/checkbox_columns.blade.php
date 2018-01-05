@@ -4,8 +4,8 @@
 	<label class="col-sm-2" for="{{ $field->name }}-{{ $language->id }}">{{ $field->display_name }}</label>
 	<div class="col-sm-10">
 
-		@if(isset($value) and $value->relations())
-			@php($relationsArr = $value->relations()->pluck('node_id')->toArray())
+		@if(isset($value) and $value)
+			@php($relationsArr = $value->pluck('node_id')->toArray())
 		@endif
 		
 		<div class="row">
@@ -20,7 +20,7 @@
 					<label>
 						<input 
 						
-						@if($value and isset($relationsArr) and $value->relations() and in_array($availableValue->node_id, $relationsArr))
+						@if($value and isset($relationsArr) and $value and in_array($availableValue->node_id, $relationsArr))
 							checked
 						@endif
 
