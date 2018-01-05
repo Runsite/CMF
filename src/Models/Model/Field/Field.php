@@ -94,6 +94,10 @@ class Field extends Eloquent
     {
         $base = $this->types[$this->type_id]::$displayName.'.';
 
+        if(! Auth::user()->access()->model($this->model)->edit)
+        {
+            return $base.'.readonly';
+        }
 
 
         if(! Auth::user()->access()->field($this)->edit)
