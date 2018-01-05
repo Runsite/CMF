@@ -64,7 +64,7 @@
       $('.icheck input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
         radioClass: 'iradio_square-blue',
-        increaseArea: '20%' // optional
+        increaseArea: '20%'
       });
 
       $('.nav.nav-tabs.nav-tabs-autochange li a').on('click', function() {
@@ -103,7 +103,6 @@
         var related_parent_node_id = select.data('related-parent-node-id');
 
         select.select2({
-            // minimumInputLength: 0,
             locale: '{{ LaravelLocalization::setLocale() }}',
             ajax: {
                 delay: 500,
