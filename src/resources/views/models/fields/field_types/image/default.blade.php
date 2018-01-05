@@ -3,7 +3,7 @@
 	<div class="col-sm-10">
 		<input type="hidden" name="{{ $field->name }}[{{ $language->id }}]">
 
-		@if($value)
+		@if($value and $value->value)
 			<img src="{{ $value->min() }}" class="img-responsive">
 			<input type="hidden" name="{{ $field->name }}[{{ $language->id }}]" value="{{ $value->value }}">
 		@endif
@@ -11,10 +11,10 @@
 		<input 
 			type="file" 
 			class="btn btn-default" 
-			name="{{ $field->name }}[{{ $language->id }}]"
+			name="{{ $field->name }}[{{ $language->id }}]" 
 			id="{{ $field->name }}-{{ $language->id }}">
 
-		@if($value->value)
+		@if($value and $value->value)
 			<label>
 				<input type="checkbox" name="{{ $field->name }}[{{ $language->id }}]" value="">
 				{{ trans('runsite::nodes.Remove') }}
