@@ -106,7 +106,12 @@ class Dynamic extends Eloquent
 
                 if($field->type()::$needField)
                 {
-                    $value = $this->attributes[$key] ?? $this->attributes[$key.'_id'];
+                    $value = $this->attributes[$key] ?? null;
+
+                    if(!$value)
+                    {
+                        $value = $this->attributes[$key.'_id'] ?? null;
+                    }
                 }
 
                 return (new $accessor_class($value, [
