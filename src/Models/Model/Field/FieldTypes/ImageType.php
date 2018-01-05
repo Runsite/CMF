@@ -45,36 +45,39 @@ class ImageType
 
     public static function beforeDeleting($old_value, Node $node, Field $field, Language $language)
     {
-        $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->id;
-        $original_path = $base_path.'/original';
-        $sizes = explode('/', $field->findSettings('image_size')->value);
-
-        foreach($sizes as $k=>$size)
+        if($old_value and $old_value->value)
         {
-            // Folder name
-            $size_name = $size;
+            $base_path = 'images/'.$node->id.'/'.$field->name.'/'.$language->id;
+            $original_path = $base_path.'/original';
+            $sizes = explode('/', $field->findSettings('image_size')->value);
 
-            if(!$k)
-                $size_name = 'max'; // If this is maximum size, it will be named "max"
-            elseif(++$k == count($sizes))
-                $size_name = 'min'; // If this is minimum size, it will be named "min"
-
-            // Path to current size folder
-            $size_path = $base_path . '/' .$size_name;
-
-            $old_file_path = storage_path('app/public/' . $size_path . '/' . $old_value->value);
-            if(file_exists($old_file_path))
+            foreach($sizes as $k=>$size)
             {
-                unlink($old_file_path);
+                // Folder name
+                $size_name = $size;
+
+                if(!$k)
+                    $size_name = 'max'; // If this is maximum size, it will be named "max"
+                elseif(++$k == count($sizes))
+                    $size_name = 'min'; // If this is minimum size, it will be named "min"
+
+                // Path to current size folder
+                $size_path = $base_path . '/' .$size_name;
+
+                $old_file_path = storage_path('app/public/' . $size_path . '/' . $old_value->value);
+                if(file_exists($old_file_path))
+                {
+                    unlink($old_file_path);
+                }
+            }
+
+            $old_original_file_path = storage_path('app/public/' . $original_path . '/' . $old_value->value);
+            if(file_exists($old_original_file_path))
+            {
+                unlink($old_original_file_path);
             }
         }
 
-        $old_original_file_path = storage_path('app/public/' . $original_path . '/' . $old_value->value);
-        if(file_exists($old_original_file_path))
-        {
-            unlink($old_original_file_path);
-        }
-        
         // Deleting folders
         $foldersPath = storage_path('app/public/images/' . $node->id);
         self::rrmdir($foldersPath);
