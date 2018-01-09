@@ -1,0 +1,17 @@
+body.forbidden {
+	background: #da3e16;
+	color: #fff;
+	height: 100%;
+}
+
+body.forbidden .center {
+	position: absolute;
+	left: 0; right: 0;
+	top: 50%;
+	transform: translate(0, -50%);
+}
+
+body.forbidden h1 {
+	font-size: 32px;
+	font-weight: bold;
+}

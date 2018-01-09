@@ -6,7 +6,7 @@
 			class="form-control input-sm" 
 			name="{{ $field->name }}[{{ $language->id }}]" 
 			id="{{ $field->name }}-{{ $language->id }}"
-			>{{ old($field->name.'['.$language->id.']') ?: $value }}</textarea>
+			>{{ old($field->name.'.'.$language->id) ?: $value }}</textarea>
 
 		<script>
 			CKEDITOR.replace( '{{ $field->name }}-{{ $language->id }}' );
