@@ -30,5 +30,12 @@
       "psr-4": {
           "RunsiteCMF\\CMF\\": "src/"
         }
+    },
+
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Runsite\\CMF\\RunsiteCMFServiceProvider"
+            ]
     }
 }
