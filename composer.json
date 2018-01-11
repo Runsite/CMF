@@ -37,5 +37,6 @@
             "providers": [
                 "Runsite\\CMF\\RunsiteCMFServiceProvider"
             ]
+        }
     }
 }
