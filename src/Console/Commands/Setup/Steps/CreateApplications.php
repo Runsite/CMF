@@ -13,6 +13,7 @@ class CreateApplications
         'users',
         'languages',
         'nodes',
+        'translations',
     ];
 
     public function handle()

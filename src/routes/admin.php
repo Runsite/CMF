@@ -149,6 +149,12 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::resource('groups', 'GroupsController');
         });
 
+        Route::group(['namespace'=>'Translation', 'prefix'=>'translations', 'as'=>'translations.', 'middleware'=>['application-access:translations:read']], function() {
+            Route::get('/', ['as'=>'index', 'uses'=>'TranslationsController@index']);
+            Route::get('/edit/{translation}', ['as'=>'edit', 'uses'=>'TranslationsController@edit']);
+            Route::patch('/update/{translation}', ['as'=>'update', 'uses'=>'TranslationsController@update']);
+        });
+
         Route::group(['prefix'=>'nodes', 'namespace'=>'Nodes', 'as'=>'nodes.', 'middleware'=>['application-access:nodes:read']], function() {
             Route::get('{model}/{parent_id}/create', ['as'=>'create', 'uses'=>'NodesController@create']);
             Route::post('{model}/{parent_node}/store', ['as'=>'store', 'uses'=>'NodesController@store'])->middleware('application-access:nodes:edit');

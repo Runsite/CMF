@@ -67,6 +67,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
     {
         require_once __DIR__ . '/Helpers/M.php';
         require_once __DIR__ . '/Helpers/lPath.php';
+        require_once __DIR__ . '/Helpers/t.php';
 
         $this->commands([
             Console\Commands\Setup\Setup::class,
