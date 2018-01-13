@@ -1,5 +1,5 @@
 {
-    "name": "runsite-cmf/cmf",
+    "name": "runsite/cmf",
     "require": {
         "php": ">=7.0.0",
         "illuminate/support": "5.5.*",
