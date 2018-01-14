@@ -4,6 +4,12 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
 
     Auth::routes();
 
+    Route::group(['prefix'=>'invite', 'as'=>'admin.invite.', 'namespace'=>'Users'], function() {
+        Route::get('register/{token}', ['as'=>'form', 'uses'=>'InviteController@form']);
+        Route::patch('register/{token}', ['as'=>'register', 'uses'=>'InviteController@register']);
+    });
+    
+
     Route::group(['middleware' => 'auth', 'as' => 'admin.'], function() {
 
         Route::get('/', function() {
@@ -147,6 +153,13 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
         Route::group(['namespace'=>'Users'], function() {
             Route::resource('users', 'UsersController');
             Route::resource('groups', 'GroupsController');
+
+            Route::group(['prefix'=>'users/invite', 'as'=>'users.invite.'], function() {
+                Route::get('create', ['as'=>'create', 'uses'=>'InviteController@create']);
+                Route::get('show/{invite}', ['as'=>'show', 'uses'=>'InviteController@show']);
+                Route::post('/', ['as'=>'store', 'uses'=>'InviteController@store']);
+                Route::delete('destroy/{id}', ['as'=>'destroy', 'uses'=>'InviteController@destroy']);
+            });
         });
 
         Route::group(['namespace'=>'Translation', 'prefix'=>'translations', 'as'=>'translations.', 'middleware'=>['application-access:translations:read']], function() {

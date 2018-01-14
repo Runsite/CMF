@@ -4,6 +4,8 @@
 
 <div class="xs-p-15">
     <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-plus"></i> {{ trans('runsite::users.New user') }}</a>
+
+    <a href="{{ route('admin.users.invite.create') }}" class="btn btn-default btn-sm ripple" data-ripple-color="#333"><i class="fa fa-plus"></i> {{ trans('runsite::users.invite.New invite') }}</a>
 </div>
 
 <div class="table-responsive">

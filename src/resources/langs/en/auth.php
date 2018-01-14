@@ -21,4 +21,12 @@ return [
 	'You can specify your current password' => 'You can specify your current password',
 	'The password has been successfully changed' => 'The password has been successfully changed',
 	'Too many invalid authorizations recently' => 'Too many invalid authorizations recently',
+
+	'invite' => [
+		'Register' => 'Register',
+		'You have the invite for this admin area' => 'You have the invite for this admin area',
+		'Fill the form, please and click Register button' => 'Fill the form, please and click Register button',
+		'Expired' => 'Expired',
+		'Your invite is already expired' => 'Your invite is already expired',
+	],
 ];

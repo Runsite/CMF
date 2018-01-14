@@ -15,4 +15,12 @@ return [
 	'User is updated' => 'User is updated',
 	'User is deleted' => 'User is deleted',
 	'Are you sure' => 'Are you sure',
+
+	'invite' => [
+		'New invite' => 'New invite',
+		'Invite is created' => 'Invite is created',
+		'Expires at' => 'Expires at',
+		'Invite form user' => 'Invite form user',
+		'Registration complete' => 'Registration complete',
+	],
 ];
