@@ -176,11 +176,13 @@ class NodesController extends BaseAdminController
 
 		$prev_node = M($model->name, false, $active_language_tab)
 			->where($order_column, $direction_left == 'asc' ? '>' : '<', $current_position_value)
+			->where('parent_id', $node->parent_id)
 			->orderBy($order_column, $direction_left == 'desc' ? 'desc' : 'asc')
 			->first();
 
 		$next_node = M($model->name, false, $active_language_tab)
 			->where($order_column, $direction_right == 'desc' ? '>' : '<', $current_position_value)
+			->where('parent_id', $node->parent_id)
 			->orderBy($order_column, $direction_right == 'desc' ? 'asc' : 'desc')
 			->first();
 		// [end] Left/Right node navigation
