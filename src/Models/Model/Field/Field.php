@@ -294,7 +294,14 @@ class Field extends Eloquent
             return $this->type()::defaultValue();
         }
 
-        return $dynamic->where('language_id', $language->id)->first()->{$this->name};
+        $value = $dynamic->where('language_id', $language->id)->first();
+
+        if($value)
+        {
+            return $value->{$this->name};
+        }
+
+        return null;
     }
 
     public function prevField()

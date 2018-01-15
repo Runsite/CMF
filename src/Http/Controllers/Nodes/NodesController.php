@@ -13,6 +13,7 @@ use Runsite\CMF\Models\Dynamic\Language;
 use Auth;
 use LaravelLocalization;
 use Artisan;
+use DB;
 
 class NodesController extends BaseAdminController
 {
@@ -311,6 +312,19 @@ class NodesController extends BaseAdminController
 		foreach($languages as $language)
 		{
 			$dynamic = $node->dynamic()->where('language_id', $language->id)->first();
+
+			if(! $dynamic)
+			{
+				DB::table($node->model->tableName())->insert([
+					'node_id' => $node->id,
+					'language_id' => $language->id,
+					'created_at' => $node->created_at,
+					'updated_at' => $node->updated_at,
+				]);
+
+				$dynamic = $node->dynamic()->where('language_id', $language->id)->first();
+			}
+
 			foreach($fields as $field)
 			{
 				if($request->has($field->name.'.'.$language->id) or ($field->is_common and $request->has($field->name.'.'.$defaultLanguage->id)))

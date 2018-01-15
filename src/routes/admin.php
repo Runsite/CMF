@@ -168,6 +168,10 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::patch('/update/{translation}', ['as'=>'update', 'uses'=>'TranslationsController@update']);
         });
 
+        Route::group(['namespace'=>'Language', 'middleware'=>['application-access:languages:read']], function() {
+            Route::resource('languages', 'LanguagesController');
+        });
+
         Route::group(['prefix'=>'nodes', 'namespace'=>'Nodes', 'as'=>'nodes.', 'middleware'=>['application-access:nodes:read']], function() {
             Route::get('{model}/{parent_id}/create', ['as'=>'create', 'uses'=>'NodesController@create']);
             Route::post('{model}/{parent_node}/store', ['as'=>'store', 'uses'=>'NodesController@store'])->middleware('application-access:nodes:edit');
