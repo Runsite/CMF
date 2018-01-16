@@ -25,7 +25,7 @@ return [
 	'settings' => [
 		'Paths' => 'Paths',
 		'Dependencies' => 'Dependencies',
-
+		'Access' => 'Access',
 	],
 
 	'paths' => [
@@ -36,5 +36,13 @@ return [
 	'dependencies' => [
 		'The node dependency is created' => 'The node dependency is created',
 		'The node dependency is deleted' => 'The node dependency is deleted',
+	],
+
+	'access' => [
+		'Group name' => 'Group name',
+		'Read' => 'Read',
+		'Edit' => 'Edit',
+		'Update' => 'Update',
+		'Access is updated' => 'Access is updated',
 	],
 ];

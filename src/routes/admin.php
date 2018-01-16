@@ -203,6 +203,13 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                         Route::patch('{node}/{depended_model_id}/down', ['as'=>'down', 'uses'=>'DependenciesController@moveDown']);
                     });
                 });
+
+                Route::group(['as'=>'access.'], function() {
+                    // NODE ACCESS
+                    Route::get('{node}/access',    ['as'=>'edit',   'uses'=>'AccessController@edit']);
+                    Route::patch('{node}/access',  ['as'=>'update', 'uses'=>'AccessController@update'])
+                        ->middleware('application-access:nodes:edit');
+                });
             });
         });
 

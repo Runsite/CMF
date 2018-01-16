@@ -90,7 +90,7 @@ class Node extends Eloquent
             AccessNode::create([
                 'group_id' => $group->id,
                 'node_id' => $node->id,
-                'access' => 3,
+                'access' => $node->parent ? $group->getAccess($node->parent)->access : 3,
             ]);
         }
 

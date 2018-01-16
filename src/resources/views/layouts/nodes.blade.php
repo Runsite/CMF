@@ -107,6 +107,12 @@
 												{{ trans('runsite::nodes.settings.Dependencies') }}
 											</a>
 										</li>
+
+										<li>
+											<a href="{{ route('admin.nodes.settings.access.edit', $node) }}">
+												{{ trans('runsite::nodes.settings.Access') }}
+											</a>
+										</li>
 									</ul>
 								</li>
 							@endif
