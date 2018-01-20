@@ -45,4 +45,8 @@ return [
 		'Update' => 'Update',
 		'Access is updated' => 'Access is updated',
 	],
+
+	'analytics' => [
+		'Analytics' => 'Analytics',
+	],
 ];

@@ -113,6 +113,15 @@
 												{{ trans('runsite::nodes.settings.Access') }}
 											</a>
 										</li>
+
+										@if(isset($depended_model) and $depended_model)
+											<li>
+												<a href="{{ route('admin.nodes.analytics.show', ['node'=>$node, 'depended_model'=>$depended_model]) }}">
+													{{ trans('runsite::nodes.analytics.Analytics') }}
+												</a>
+											</li>
+										@endif
+										
 									</ul>
 								</li>
 							@endif

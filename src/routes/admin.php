@@ -210,6 +210,12 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                     Route::patch('{node}/access',  ['as'=>'update', 'uses'=>'AccessController@update'])
                         ->middleware('application-access:nodes:edit');
                 });
+
+            });
+
+            Route::group(['as'=>'analytics.'], function() {
+                // NODE ANALYTICS
+                Route::get('{node}/analytics/{depended_model}',    ['as'=>'show',   'uses'=>'AnalyticsController@show']);
             });
         });
 

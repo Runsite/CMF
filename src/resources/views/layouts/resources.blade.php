@@ -58,6 +58,7 @@
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script>
     $(document).ready(function () {
       $('.sidebar-menu').tree();

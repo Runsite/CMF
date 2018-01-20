@@ -269,4 +269,41 @@ class Node extends Eloquent
         return $this->treeChildren()->with('currentLanguagePath')->get();
     }
 
+    public function dependedModels(Model $depended_model)
+    {
+        $depended_models = [];
+
+        $dependencies = $this->dependencies()
+        ->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_node_dependencies.depended_model_id')
+        ->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
+        ->where('rs_group_model_access.access', '>=', 1)
+        ->get();
+
+        foreach($dependencies as $k=>$dependency)
+        {
+            $depended_models[$dependency->id] = $dependency;
+            if(!$depended_model->id and !$k)
+            {
+                $depended_model->id = $dependency->id;
+            }
+        }
+
+        $dependencies = $this->model->dependencies()
+        ->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_model_dependencies.depended_model_id')
+        ->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
+        ->where('rs_group_model_access.access', '>=', 1)
+        ->get();
+
+        foreach($dependencies as $k=>$dependency)
+        {
+            $depended_models[$dependency->id] = $dependency;
+            if(!$depended_model->id and !$k)
+            {
+                $depended_model->id = $dependency->id;
+            }
+        }
+
+        return $depended_models;
+    }
+
 }
