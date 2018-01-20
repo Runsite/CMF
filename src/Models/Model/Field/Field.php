@@ -15,7 +15,8 @@ use Runsite\CMF\Models\{
     Model\Model,
     User\Access\AccessField,
     User\Group,
-    Dynamic\Language
+    Dynamic\Language,
+    Node\Node
 };
 
 use Runsite\CMF\Models\Model\Field\FieldTypes\{
@@ -90,11 +91,11 @@ class Field extends Eloquent
         return $this->settings()->where('parameter', $parameter)->first();
     }
 
-    public function getControlPath()
+    public function getControlPath(Node $node = null)
     {
         $base = $this->types[$this->type_id]::$displayName.'.';
 
-        if(! Auth::user()->access()->model($this->model)->edit)
+        if(! Auth::user()->access()->model($this->model)->edit or ($node and ! Auth::user()->access()->node($node)->edit))
         {
             return $base.'.readonly';
         }

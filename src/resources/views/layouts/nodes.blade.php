@@ -29,7 +29,7 @@
 		@endif
 	@endforeach
 
-	@if(isset($depended_models_create) and $depended_models_create)
+	@if(isset($depended_models_create) and $depended_models_create and Auth::user()->access()->node($node)->edit)
 		<li>
 			<a class="ripple" href="#" data-toggle="dropdown">
 				<small><i class="fa fa-plus"></i></small>

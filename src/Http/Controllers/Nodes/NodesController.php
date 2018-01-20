@@ -22,12 +22,13 @@ class NodesController extends BaseAdminController
 	 */
 	public function create(Model $model, int $parent_id): View
 	{
-		if(! Auth::user()->access()->model($model)->edit)
+		$node = Node::findOrFail($parent_id);
+		
+		if(! Auth::user()->access()->model($model)->edit or ! Auth::user()->access()->node($node)->edit)
 		{
 			return view('runsite::errors.forbidden');
 		}
 
-		$node = Node::findOrFail($parent_id);
 		$languages = Language::get();
 		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
 		$breadcrumbs = $node->breadcrumbs();
@@ -44,7 +45,7 @@ class NodesController extends BaseAdminController
 	 */
 	public function store(Request $request, Model $model, Node $parent_node)
 	{
-		if(! Auth::user()->access()->model($model)->edit)
+		if(! Auth::user()->access()->model($model)->edit or ! Auth::user()->access()->node($parent_node)->edit)
 		{
 			return view('runsite::errors.forbidden');
 		}

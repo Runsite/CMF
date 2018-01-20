@@ -1,7 +1,7 @@
 <div class="form-group">
 	<label class="col-sm-2" for="">{{ $field->display_name }}</label>
 	<div class="col-sm-10">
-		@if($dynamic->where('language_id', $language->id)->first()->{$field->name})
+		@if($value)
 			{{ trans('runsite::models.fields.Yes') }}
 		@else 
 			{{ trans('runsite::models.fields.No') }}

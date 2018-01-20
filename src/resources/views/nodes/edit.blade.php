@@ -6,9 +6,13 @@
 
 @section('node')
 	@include('runsite::nodes.form')
-	<div class="form-group xs-mb-0">
-		<div class="col-sm-10 col-sm-push-2">
-			<button type="submit" class="btn btn-primary btn-sm ripple">{{ trans('runsite::nodes.Update') }}</button>
+
+	@if(Auth::user()->access()->node($node)->edit)
+		<div class="form-group xs-mb-0">
+			<div class="col-sm-10 col-sm-push-2">
+				<button type="submit" class="btn btn-primary btn-sm ripple">{{ trans('runsite::nodes.Update') }}</button>
+			</div>
 		</div>
-	</div>
+	@endif
+
 @endsection
