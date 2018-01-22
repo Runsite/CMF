@@ -24,7 +24,7 @@
                 <tr>
                     <td>{{ $user->id }}</td>
                     <td>
-                        <a href="{{ route('admin.users.edit', $user->id) }}" style="display: block;"><b>{{ $user->name }}</b></a>
+                        <a class="ripple" data-ripple-color="#333" href="{{ route('admin.users.edit', $user->id) }}" style="display: block;"><b>{{ $user->name }}</b></a>
                     </td>
                     <td><span class="label label-default">{{ $user->email }}</span></td>
                     <td>

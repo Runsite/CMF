@@ -21,7 +21,7 @@
                 <tr>
                     <td>{{ $group->id }}</td>
                     <td>
-                        <a href="{{ route('admin.groups.edit', $group->id) }}" style="display: block;"><b>{{ $group->name }}</b></a>
+                        <a class="ripple" data-ripple-color="#333" href="{{ route('admin.groups.edit', $group->id) }}" style="display: block;"><b>{{ $group->name }}</b></a>
                     </td>
                     <td><span class="text-muted">{{ $group->description }}</span></td>
 

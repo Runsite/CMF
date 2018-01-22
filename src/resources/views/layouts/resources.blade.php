@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
-    {{-- <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/Ionicons/css/ionicons.min.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/dist/css/AdminLTE.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/dist/css/skins/skin-black.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/iCheck/square/blue.css') }}">
@@ -42,7 +41,6 @@
     <script src="{{ asset('vendor/runsite/asset/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-    {{-- <script src="{{ asset('vendor/runsite/asset/bower_components/fastclick/lib/fastclick.js') }}"></script> --}}
     <script src="{{ asset('vendor/runsite/asset/dist/js/adminlte.js') }}"></script>
     {{-- <script src="{{ asset('vendor/runsite/dist/js/demo.js') }}"></script> --}}
     <script src="{{ asset('vendor/runsite/asset/plugins/iCheck/icheck.min.js') }}"></script>
