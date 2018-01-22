@@ -344,4 +344,9 @@ class Field extends Eloquent
 
         return $values;
     }
+
+    public function getLength()
+    {
+        return DB::connection()->getDoctrineColumn($this->model->tableName(), $this->name)->getLength();
+    }
 }

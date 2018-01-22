@@ -35,6 +35,25 @@
     <![endif]-->
     <!-- Google Font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <style>
+        .input-progress-wrapper {
+            width: 100%;
+            background: #eee;
+            position: relative;
+            height: 2px;
+            opacity: 0;
+        }
+
+        .input-progress {
+            position: absolute;
+            left: 0;
+            top: 0; bottom: 0;
+            width: 0%;
+            background: #347ffb;
+            transition: width 100ms;
+        }
+    </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
     @yield('content')
@@ -58,6 +77,20 @@
     <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js') }}"></script>
     <script>
     $(document).ready(function () {
+
+        $('input.has-progress').on('keyup focus', function() {
+            var currentLength = $(this).val().length;
+            var maxLength = $(this).attr('maxlength');
+            var percent = currentLength * 100 / maxLength;
+            $(this).parent().find('.input-progress').css('width', percent+'%');
+            $(this).parent().find('.input-progress-wrapper').css('opacity', 1);
+        });
+
+        $('input.has-progress').on('blur', function() {
+            $(this).parent().find('.input-progress-wrapper').css('opacity', 0);
+        });
+
+
       $('.sidebar-menu').tree();
       $('.icheck input').iCheck({
         checkboxClass: 'icheckbox_square-blue',
