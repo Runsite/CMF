@@ -2,7 +2,7 @@
 @section('content')
 <div class="wrapper">
   <header class="main-header">
-    <a href="{{ route('admin.boot') }}" class="logo ripple">
+    <a href="{{ route('admin.boot') }}" class="logo ripple hidden-xs">
       <span class="logo-mini"><b>R</b>S</span>
       <span class="logo-lg"><b>runsite</b></span>
     </a>
