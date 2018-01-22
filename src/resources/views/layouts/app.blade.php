@@ -117,7 +117,7 @@
 
       @foreach($childNodes as $childNode)
       {{-- {{ dd($node->path->name, $childNode->path->name) }} --}}
-        <li class="{{ (isset($node) and (str_is($childNode->path->name, $node->path->name) or str_is($childNode->path->name.'/*', $node->path->name))) ? 'active' : null }}">
+        <li class="{{ (isset($node) and (str_is($childNode->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($childNode->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
             <i class="fa fa-archive"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
