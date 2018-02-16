@@ -51,7 +51,7 @@
 					<tr class="{{ (Session::has('highlight') and Session::get('highlight') == $fieldItem->id) ? 'success' : null }}">
 						<td>{{ $fieldItem->id }}</td>
 						<td>
-							<a href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'id'=>$fieldItem->id]) }}" style="display: block;"><b>{{ $fieldItem->display_name }}</b></a>
+							<a class="ripple" data-ripple-color="#333" href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'id'=>$fieldItem->id]) }}" style="display: block;"><b>{{ $fieldItem->display_name }}</b></a>
 						</td>
 						<td><span class="label label-success">{{ $fieldItem->name }}</span></td>
 						<td><span class="label label-default">{{ $fieldItem->types[$fieldItem->type_id]::$displayName }}</span></td>
