@@ -66,6 +66,7 @@ return [
         'Delete field' => 'Delete field',
         'Close' => 'Close',
         'Templates' => 'Templates',
+        'Other fields' => 'Other fields',
 
         'settings' => [
             'control' => 'Control',

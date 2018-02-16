@@ -93,7 +93,8 @@ class FieldsController extends BaseAdminController
      */
     public function edit(Model $model, Field $field)
     {
-        return view('runsite::models.fields.edit', compact('model', 'field'))->withApplication($this->application);
+        $fields = $model->fields()->orderBy('position', 'asc')->get();
+        return view('runsite::models.fields.edit', compact('model', 'field', 'fields'))->withApplication($this->application);
     }
 
     /**

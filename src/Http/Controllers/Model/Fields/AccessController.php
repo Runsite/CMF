@@ -35,8 +35,9 @@ class AccessController extends BaseAdminController
 	{
 		$access = $field->access;
 		$groups = Group::get();
+		$fields = $model->fields()->orderBy('position', 'asc')->get();
 
-		return view('runsite::models.fields.access.edit', compact('field', 'access', 'model', 'groups'))->withApplication($this->application);
+		return view('runsite::models.fields.access.edit', compact('field', 'access', 'model', 'groups', 'fields'))->withApplication($this->application);
 	}
 
 	/**

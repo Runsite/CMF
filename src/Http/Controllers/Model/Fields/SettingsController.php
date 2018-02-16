@@ -48,7 +48,9 @@ class SettingsController extends BaseAdminController
             $column = $this->getColumn($model->tableName(), $field->name);
         }
 
-        return view('runsite::models.fields.settings.edit', compact('field', 'settings', 'model', 'column'))->withApplication($this->application);
+        $fields = $model->fields()->orderBy('position', 'asc')->get();
+
+        return view('runsite::models.fields.settings.edit', compact('field', 'settings', 'model', 'column', 'fields'))->withApplication($this->application);
     }
 
     /**
