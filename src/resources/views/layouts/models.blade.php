@@ -134,13 +134,26 @@
                             @if(!$field->prevField()) disabled @endif
                             >
                               <i class="fa fa-caret-left"></i>
+                              @if($field->prevField())
+                                &nbsp;<span class="visible-lg-inline">
+                                  {{ $field->prevField()->name }}
+                                </span>
+                              @endif
                           </a>
+
+                          <a href="javascript:void(0);" class="btn btn-default btn-sm disabled">{{ $field->name }}</a>
                           
                           <a 
                             href="{{ $field->nextField() ? route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->nextField()->id]) : null }}" 
                             class="btn btn-default btn-sm ripple" data-ripple-color="#898989"
                             @if(!$field->nextField()) disabled @endif
                             >
+                            @if($field->nextField())
+                              <span class="visible-lg-inline">
+                                {{ $field->nextField()->name }}
+                              </span>&nbsp;
+                            @endif
+                            
                               <i class="fa fa-caret-right"></i>
                           </a>
                         </div>
