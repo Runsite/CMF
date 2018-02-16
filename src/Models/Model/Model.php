@@ -14,10 +14,44 @@ use Runsite\CMF\Models\{
 	User\Group
 };
 
+use Runsite\CMF\Models\Model\Field\FieldTemplates\{
+	NameTemplate,
+	SEOTitleTemplate,
+	SEODescriptionTemplate,
+	ImageTemplate,
+	PubdateTemplate,
+	ContentTemplate
+};
+
 class Model extends Eloquent
 {
 	protected $table = 'rs_models';
 	protected $fillable = ['name', 'display_name', 'display_name_plural'];
+
+	public $fieldTemplates = [
+		1 => NameTemplate::class,
+		2 => SEOTitleTemplate::class,
+		3 => SEODescriptionTemplate::class,
+		4 => ImageTemplate::class,
+		5 => PubdateTemplate::class,
+		6 => ContentTemplate::class,
+	];
+
+	public function getAvailableFieldTemplates() : array
+	{
+		$results = [];
+
+		foreach($this->fieldTemplates as $template_id=>$fieldTemplate)
+		{
+			$fieldTemplate = new $fieldTemplate;
+			if(! Field::where('name', $fieldTemplate->name)->where('model_id', $this->id)->count())
+			{
+				$results[$template_id] = $fieldTemplate;
+			}
+		}
+
+		return $results;
+	}
 
 	/**
 	 * Get name of model table

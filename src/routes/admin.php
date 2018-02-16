@@ -100,6 +100,8 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                         ->middleware('application-access:models:edit');
                     Route::delete('{model}/fields/{field}/destroy', ['as'=>'destroy', 'uses'=>'FieldsController@destroy'])
                         ->middleware('application-access:models:delete');
+                    Route::post('{model}/fields/by-template/{template_id}', ['as'=>'store_by_template', 'uses'=>'FieldsController@storeByTemplate'])
+                        ->middleware('application-access:models:edit');
 
                     Route::group(['as'=>'settings.'], function() {
                         // MODEL FIELD SETTINGS

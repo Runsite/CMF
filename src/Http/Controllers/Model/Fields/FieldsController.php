@@ -29,7 +29,8 @@ class FieldsController extends BaseAdminController
     public function index(Model $model)
     {
         $fields = $model->fields()->orderBy('position', 'asc')->get();
-        return view('runsite::models.fields.index', compact('model', 'fields'))->withApplication($this->application);
+        $fieldTemplates = $model->getAvailableFieldTemplates();
+        return view('runsite::models.fields.index', compact('model', 'fields', 'fieldTemplates'))->withApplication($this->application);
     }
 
     /**
@@ -62,6 +63,15 @@ class FieldsController extends BaseAdminController
         ]);
 
         Field::create($data);
+        return redirect()->route('admin.models.fields.index', $model->id)->with('success', trans('runsite::models.The model field is created'));
+    }
+
+    public function storeByTemplate(Request $request, Model $model, int $template_id)
+    {
+        $template = new $model->fieldTemplates[$template_id];
+
+        $template->install($model);
+
         return redirect()->route('admin.models.fields.index', $model->id)->with('success', trans('runsite::models.The model field is created'));
     }
 

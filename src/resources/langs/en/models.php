@@ -18,6 +18,7 @@ return [
     'Display name plural' => 'Display name plural',
     'The model is created' => 'The model is created',
     'The model is updated' => 'The model is updated',
+    'The model field is created' => 'The model field is created',
     'Access' => 'Access',
 
     'settings' => [
@@ -64,6 +65,7 @@ return [
         'Are you sure you want to delete the field' => 'Are you sure you want to delete the field',
         'Delete field' => 'Delete field',
         'Close' => 'Close',
+        'Templates' => 'Templates',
 
         'settings' => [
             'control' => 'Control',
