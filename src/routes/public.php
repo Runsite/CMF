@@ -4,7 +4,7 @@ use Runsite\CMF\Models\Node\Path;
 use Runsite\CMF\Helpers\GlobalScope;
 //, 'middleware' => ['localize', 'localeSessionRedirect', 'localizationRedirect' ]
 
-Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localize', 'localeSessionRedirect', 'localizationRedirect' ], 'namespace' => 'App\Http\Controllers'], function() {
+Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'localize', 'localeSessionRedirect', 'localizationRedirect' ], 'namespace' => 'App\Http\Controllers'], function() {
 
     $requestPath = str_replace(\Request::root(), '', LaravelLocalization::getNonLocalizedURL(\Request::path()));
     if(! $requestPath)

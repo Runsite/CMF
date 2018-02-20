@@ -8,10 +8,13 @@ use Illuminate\{
 };
 use Runsite\CMF\Helpers\GlobalScope;
 use StdClass;
+use Auth;
 
 class RunsiteCMFBaseController extends BaseController
 {
     use ValidatesRequests;
+
+    protected $authUser;
 
     protected $node = null;
     protected $fields = null;
@@ -21,18 +24,8 @@ class RunsiteCMFBaseController extends BaseController
     {
         $scope = new GlobalScope;
 
-        $this->node = $scope->get('_runsite_cmf_node_');
-
-        if($this->node)
-        {
-            $this->fields = M($this->node->model->name)->where('node_id', $this->node->id)->first();
-        }
-
-        if(!$this->fields or (isset($this->fields->is_active) and !$this->fields->is_active))
-        {
-            // Aborting request, because "is_active" parameter exists and is false
-            return abort(404);
-        }
+        $this->node = $scope->get('_runsite_cmf_node_') or abort(404);
+        $this->fields = M($this->node->model->name, false)->where('node_id', $this->node->id)->first() or abort(404);
 
         $this->seo = new StdClass();
 
@@ -44,6 +37,15 @@ class RunsiteCMFBaseController extends BaseController
 
     public function view($view, $params=null)
     {
+        if(!$this->fields->is_active)
+        {
+            if(!Auth::user() or request('mode') != 'preview')
+            {
+                // Aborting request, because "is_active" parameter exists and is false
+                return abort(404);
+            }
+        }
+
         $p = [
             'node'     => $this->node,
             'fields'   => $this->fields,
