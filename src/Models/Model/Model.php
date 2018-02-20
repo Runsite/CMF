@@ -208,7 +208,7 @@ class Model extends Eloquent
 			$model_file_path = app_path('Models\\'.$model->className().'.php');
 			if(file_exists($model_file_path))
 			{
-				$class = file_get_contents();
+				$class = file_get_contents($model_file_path);
 				$class = str_replace('class ' . $model->className() . ' extends', 'class ' . $this->className() . ' extends', $class);
 				file_put_contents(app_path('Models\\'.$this->className().'.php'), $class);
 				unlink($model_file_path);
