@@ -215,7 +215,15 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             });
         });
 
-
+        Route::group(['prefix'=>'elfinder'], function() {
+            Route::get('/',  ['as' => 'elfinder.index', 'uses' =>'\Barryvdh\Elfinder\ElfinderController@showIndex'])->middleware('application-access:elfinder:read');
+            Route::any('connector', ['as' => 'elfinder.connector', 'uses' => '\Barryvdh\Elfinder\ElfinderController@showConnector'])->middleware('application-access:elfinder:read');
+            Route::get('popup/{input_id}', ['as' => 'elfinder.popup', 'uses' => '\Barryvdh\Elfinder\ElfinderController@showPopup'])->middleware('application-access:elfinder:read');
+            Route::get('filepicker/{input_id}', ['as' => 'elfinder.filepicker', 'uses' => '\Barryvdh\Elfinder\ElfinderController@showFilePicker'])->middleware('application-access:elfinder:read');
+            Route::get('tinymce', ['as' => 'elfinder.tinymce', 'uses' => '\Barryvdh\Elfinder\ElfinderController@showTinyMCE'])->middleware('application-access:elfinder:read');
+            Route::get('tinymce4', ['as' => 'elfinder.tinymce4', 'uses' => '\Barryvdh\Elfinder\ElfinderController@showTinyMCE4'])->middleware('application-access:elfinder:read');
+            Route::get('ckeditor', ['as' => 'elfinder.ckeditor', 'uses' => '\Barryvdh\Elfinder\ElfinderController@showCKeditor4'])->middleware('application-access:elfinder:read');
+        });
 
     });
 

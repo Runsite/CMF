@@ -11,7 +11,7 @@ use Runsite\CMF\Console\Commands\Setup\Verifications\FilesAccess;
 use Runsite\CMF\Console\Commands\Setup\Steps\ClearApp;
 use Runsite\CMF\Console\Commands\Setup\Steps\ArtisanMigrate;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateApplications;
-use Runsite\CMF\Console\Commands\Setup\Steps\CreateDeveloperUser;
+use Runsite\CMF\Console\Commands\Setup\Steps\CreateDevelopersGroup;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateRootModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateFirstLanguage;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateRootNode;
@@ -23,6 +23,9 @@ use Runsite\CMF\Console\Commands\Setup\Steps\CreatePageModel;
 use Runsite\CMF\Console\Commands\Setup\Steps\CreateDependencies;
 use Runsite\CMF\Console\Commands\Setup\Steps\PublishVendor;
 use Runsite\CMF\Console\Commands\Setup\Steps\StoragePreparation;
+
+use Runsite\CMF\Models\User\Group;
+use Runsite\CMF\Models\User\User;
 
 class Setup extends Command
 {
@@ -38,7 +41,7 @@ class Setup extends Command
         ClearApp::class,
         ArtisanMigrate::class,
         CreateApplications::class,
-        CreateDeveloperUser::class,
+        CreateDevelopersGroup::class,
         CreateRootModel::class,
         CreateFirstLanguage::class,
         CreateRootNode::class,
@@ -108,9 +111,36 @@ class Setup extends Command
         $bar->setMessage('Installation complete!');
         $bar->finish();
 
-        $this->comment('');
+        $this->clearCLI();
+
+        $this->comment('=================================');
+        $this->comment('=== Create the developer user ===');
+        $this->comment('=================================');
+
+        $data['name'] = $this->ask('What is your name?');
+        $data['email'] = $this->ask('Enter your email');
+        $data['password'] = $this->secret('Enter new password');
+        $data['password_confirmation'] = $this->secret('Enter new password again');
+
+        while($data['password_confirmation'] != $data['password'])
+        {
+          $this->error('Passwords do not match.');
+          $user['password_confirmation'] = $this->secret('Enter new password again');
+        }
+
+        $data['password'] = bcrypt($data['password']);
+
+        $group = Group::first();
+        $user = User::create($data);
+
+        $user->assignGroup($group);
+
         $this->comment('Thank you for trying!');
         $this->comment('We really need support in this project. You can create a fork and develop the project together with us, giving us the pull-requests.');
+
+        // $this->comment('');
+        // $this->comment('Thank you for trying!');
+        // $this->comment('We really need support in this project. You can create a fork and develop the project together with us, giving us the pull-requests.');
 
     }
 
@@ -150,6 +180,15 @@ class Setup extends Command
         DB::statement("DROP TABLE $droplist");
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');
         DB::commit();
+      }
+    }
+
+    private function clearCLI()
+    {
+      if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+          system('cls');
+      } else {
+          system('clear');
       }
     }
 

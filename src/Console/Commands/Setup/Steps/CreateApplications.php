@@ -14,6 +14,7 @@ class CreateApplications
         'languages',
         'nodes',
         'translations',
+        'elfinder',
     ];
 
     public function handle()
