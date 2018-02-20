@@ -15,6 +15,20 @@
             </ul>
             <div class="tab-content no-padding">
               <div class="tab-pane active">
+
+                @if(Route::current()->getName() == 'admin.groups.edit' or Route::current()->getName() == 'admin.groups.access.edit')
+                  <div class="xs-p-15 xs-pb-0">
+                    <div class="btn-group">
+                      <a href="{{ route('admin.groups.edit', $group->id) }}" class="btn btn-{{ Route::current()->getName() == 'admin.groups.edit' ? 'primary' : 'default' }} btn-sm ripple" @if(Route::current()->getName() != 'admin.groups.edit') data-ripple-color="#898989" @endif>
+                        <i class="fa fa-pencil-square-o"></i> {{ trans('runsite::groups.Edit') }}
+                      </a>
+                      <a href="{{ route('admin.groups.access.edit', $group->id) }}" class="btn btn-{{ Route::current()->getName() == 'admin.groups.access.edit' ? 'primary' : 'default' }} btn-sm ripple" @if(Route::current()->getName() != 'admin.groups.access.edit') data-ripple-color="#898989" @endif>
+                        <i class="fa fa-pencil-square-o"></i> {{ trans('runsite::groups.Access') }}
+                      </a>
+                    </div>
+                  </div>
+                @endif
+
                 @yield('user')
               </div>
             </div>

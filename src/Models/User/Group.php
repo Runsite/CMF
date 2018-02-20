@@ -80,6 +80,21 @@ class Group extends Eloquent
         return $this->getAccessModel($model)->access >= 3;
     }
 
+    public function getAccessApplication(Application $application)
+    {
+        return AccessApplication::where('group_id', $this->id)->where('application_id', $application->id)->first();
+    }
+
+    public function canReadApplication(Application $application)
+    {
+        return $this->getAccessApplication($application)->access >= 1;
+    }
+
+    public function canManageApplication(Application $application)
+    {
+        return $this->getAccessApplication($application)->access >= 2;
+    }
+
     public static function create(array $attributes = [])
     {
         $group = parent::query()->create($attributes);

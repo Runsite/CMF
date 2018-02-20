@@ -11,4 +11,10 @@ return [
 	'Delete' => 'Delete',
 	'Are you sure' => 'Are you sure',
 	'Group is deleted' => 'Group is deleted',
+	'Edit' => 'Edit',
+	'Access' => 'Access',
+
+	'access' => [
+		'Access is updated' => 'Access is updated',
+	],
 ];

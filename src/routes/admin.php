@@ -156,6 +156,13 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::resource('users', 'UsersController');
             Route::resource('groups', 'GroupsController');
 
+            Route::group(['prefix'=>'groups', 'as'=>'groups.access.'], function() {
+                // MODEL ACCESS
+                Route::get('{group}/access',    ['as'=>'edit',   'uses'=>'GroupAccessController@edit']);
+                Route::patch('{group}/access',  ['as'=>'update', 'uses'=>'GroupAccessController@update'])
+                    ->middleware('application-access:users:edit');
+            });
+
             Route::group(['prefix'=>'users/invite', 'as'=>'users.invite.'], function() {
                 Route::get('create', ['as'=>'create', 'uses'=>'InviteController@create']);
                 Route::get('show/{invite}', ['as'=>'show', 'uses'=>'InviteController@show']);
