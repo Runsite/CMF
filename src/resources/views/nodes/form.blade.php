@@ -74,7 +74,7 @@
 				<div class="form-group sm-mb-0">
 					<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Absolute path') }}</small></div>
 					<div class="col-sm-10">
-						<small class="text-muted">/{{ $language->locale }}{{ $itemForExtraInfo->node->path()->where('language_id', $language->id)->first()->name }}</small>
+						<small class="text-muted">{{ $itemForExtraInfo->node->path()->where('language_id', $language->id)->first()->name }}</small>
 					</div>
 				</div>
 				<div class="form-group sm-mb-0">
