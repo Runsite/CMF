@@ -9,7 +9,7 @@
 							<input type="radio" /> {{ trans('runsite::nodes.groups.Main') }}
 							@foreach($model->fields as $field)
 								@if(!$field->group_id and $errors->has($field->name . '.' . $language->id))
-									<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
+									&nbsp;<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
 									@break
 								@endif
 							@endforeach
@@ -19,7 +19,7 @@
 								<input type="radio" /> {{ $group->name }}
 								@foreach($model->fields as $field)
 									@if($field->group_id == $group->id and $errors->has($field->name . '.' . $language->id))
-										<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
+										&nbsp;<i class="fa fa-exclamation-circle text-danger animated tada" aria-hidden="true"></i>
 										@break
 									@endif
 								@endforeach
