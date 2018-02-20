@@ -12,10 +12,10 @@
 					<div class="form-group">
 						<div class="input-group">
 						  <span class="input-group-addon bg-gray"><small class="text-mted">{{ $path->rootName }}</small></span>
-						  <input
-							type="text"
-							class="form-control input-sm"
-							name="path[{{ $language->id }}][{{ $path->id }}]"
+						  <input 
+							type="text" 
+							class="form-control input-sm" 
+							name="path[{{ $language->id }}][{{ $path->id }}]" 
 							value="{{ $path->baseName }}">
 						</div>
 						
