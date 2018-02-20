@@ -11,4 +11,10 @@ return [
 	'Are you sure' => 'Are you sure',
 	'Create' => 'Create',
 	'Update' => 'Update',
+	'Available in config' => 'Available in config',
+	'Not available' => 'Not available',
+	'Add or uncomment section with this locale in' => 'Add or uncomment section with this locale in',
+	'You have unsupported locales in configuration file' => 'You have unsupported locales in configuration file',
+	'Comment it in' => 'Comment it in',
+	'or add locale to panel' => 'or add locale to panel',
 ];

@@ -118,6 +118,8 @@
     <script>
     $(document).ready(function () {
 
+        $('[data-toggle=tooltip]').tooltip();
+
         $('input.has-progress').on('keyup focus', function() {
             var currentLength = $(this).val().length;
             var maxLength = $(this).attr('maxlength');
