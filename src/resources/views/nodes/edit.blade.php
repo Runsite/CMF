@@ -16,3 +16,14 @@
 	@endif
 
 @endsection
+
+@section('node_model')
+	@if(Auth::user()->access()->application($modelsApplication)->read)
+		<li>
+			<a class="ripple" href="{{ route('admin.models.edit', $model->id) }}">
+				<small><i class="fa fa-circle-o text-red"></i>&nbsp;{{ $model->name }}</small>
+			</a>
+		</li>
+	@endif
+
+@endsection

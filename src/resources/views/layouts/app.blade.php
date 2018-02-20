@@ -38,6 +38,7 @@
             </ul>
           </li> --}}
 
+          @yield('node_model')
 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle text-uppercase ripple" data-toggle="dropdown">

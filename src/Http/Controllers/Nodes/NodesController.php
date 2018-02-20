@@ -10,6 +10,7 @@ use Runsite\CMF\Http\Controllers\BaseAdminController;
 use Runsite\CMF\Models\Node\Node;
 use Runsite\CMF\Models\Model\Model;
 use Runsite\CMF\Models\Dynamic\Language;
+use Runsite\CMF\Models\Application;
 use Auth;
 use LaravelLocalization;
 use Artisan;
@@ -158,6 +159,8 @@ class NodesController extends BaseAdminController
 			return view('runsite::errors.forbidden');
 		}
 
+		$modelsApplication = Application::where('name', 'models')->first();
+
 		$dynamic = $node->dynamic()->get();
 		$model = $node->model;
 		$languages = Language::get();
@@ -255,7 +258,7 @@ class NodesController extends BaseAdminController
 			
 		}
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'modelsApplication'));
 	}
 
 	/**
