@@ -53,6 +53,46 @@
             background: #347ffb;
             transition: width 100ms;
         }
+
+        .input-image-wrapper {
+            border: 2px dashed #347ffb;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+            background: rgba(0,0,0, 0.0);
+            transition: background 200ms, border-color 100ms;
+        }
+
+        .input-image-wrapper.input-image-selected {
+            border-color: #00a65a;
+        }
+
+        .input-image-wrapper:hover {
+            background: rgba(0,0,0, 0.05);
+            border-color: #1b6ffb;
+        }
+
+        .input-image-wrapper:active {
+            background: rgba(0,0,0, 0.1);
+            transition: background 50ms;
+        }
+
+        .input-image-wrapper input[type=file] {
+            position: absolute;
+            z-index: 1;
+            left: -50px; width: calc(100% + 50px);
+            top: -50px; height: calc(100% + 50px);
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0;
+        }
+
+        .input-image-wrapper span {
+            display: block;
+            padding: 15px 50px;
+        }
+
     </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">

@@ -68,6 +68,7 @@ return [
         'Close' => 'Close',
         'Templates' => 'Templates',
         'Other fields' => 'Other fields',
+        'Select file' => 'Select file',
 
         'settings' => [
             'control' => 'Control',
