@@ -68,19 +68,25 @@
 		
 		
 		@if(isset($dynamic))
-			@php($itemForDates = $dynamic->where('language_id', $language->id)->first())
+			@php($itemForExtraInfo = $dynamic->where('language_id', $language->id)->first())
 
-			@if($itemForDates)
+			@if($itemForExtraInfo)
+				<div class="form-group sm-mb-0">
+					<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Absolute path') }}</small></div>
+					<div class="col-sm-10">
+						<small class="text-muted">/{{ $language->locale }}{{ $itemForExtraInfo->node->path()->where('language_id', $language->id)->first()->name }}</small>
+					</div>
+				</div>
 				<div class="form-group sm-mb-0">
 					<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Created at') }}</small></div>
 					<div class="col-sm-10">
-						<small class="text-muted">{{ $itemForDates->created_at->format('d.m.Y H:i') }}</small>
+						<small class="text-muted">{{ $itemForExtraInfo->created_at->format('d.m.Y H:i') }}</small>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Updated at') }}</small></div>
 					<div class="col-sm-10">
-						<small class="text-muted">{{ $itemForDates->updated_at->format('d.m.Y H:i') }}</small>
+						<small class="text-muted">{{ $itemForExtraInfo->updated_at->format('d.m.Y H:i') }}</small>
 					</div>
 				</div>
 			@endif

@@ -17,6 +17,7 @@ return [
 	'Node can not be removed' => 'Node can not be removed',
 	'Created at' => 'Created at',
 	'Updated at' => 'Updated at',
+	'Absolute path' => 'Absolute path',
 
 	'groups' => [
 		'Main' => 'Main',
