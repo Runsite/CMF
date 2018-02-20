@@ -43,6 +43,7 @@ class SettingsController extends BaseAdminController
             'nodes_ordering' => 'required|string|max:255',
             'dynamic_model' => 'nullable|string|max:255',
             'use_response_cache' => 'nullable|boolean',
+            'slug_autogeneration' => 'nullable|boolean',
         ]);
 
         $model->settings->update($data);

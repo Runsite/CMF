@@ -19,6 +19,7 @@ class CreateModelSettingsTable extends Migration
             $table->integer('model_id')->references('id')->on('rs_models')->unsigned();
             $table->boolean('show_in_admin_tree')->default(true);
             $table->boolean('use_response_cache')->default(false);
+            $table->boolean('slug_autogeneration')->default(false);
             $table->string('nodes_ordering');
             $table->string('dynamic_model')->nullable()->default(null);
             $table->timestamps();

@@ -52,6 +52,20 @@
                 @endif
             </div>
 
+            <div class="form-group {{ $errors->has('slug_autogeneration') ? ' has-error' : '' }}">
+                {{ Form::label('slug_autogeneration', trans('runsite::models.settings.Generate new slug automaticly')) }}
+                <input type="hidden" name="slug_autogeneration" value="0">
+                <div class="runsite-checkbox">
+                    {{ Form::checkbox('slug_autogeneration', 1, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+                    <label for="slug_autogeneration"></label>
+                </div>
+                @if ($errors->has('slug_autogeneration'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('slug_autogeneration') }}</strong>
+                    </span>
+                @endif
+            </div>
+
             @if(Auth::user()->access()->application($application)->edit)
                 <button class="btn btn-primary btn-sm ripple">{{ trans('runsite::models.Update') }}</button>
             @endif

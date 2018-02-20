@@ -15,6 +15,7 @@ use Auth;
 use LaravelLocalization;
 use Artisan;
 use DB;
+use ResponseCache;
 
 class NodesController extends BaseAdminController
 {
@@ -140,7 +141,7 @@ class NodesController extends BaseAdminController
 			$node->{$language->locale}->save();
 		}
 
-		Artisan::call('responsecache:flush');
+		ResponseCache::clear();
 
 		// Redirecting with success message
 		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node, 'depended_model_id'=>$model->id])
@@ -357,7 +358,7 @@ class NodesController extends BaseAdminController
 			$dynamic->save();
 		}
 
-		Artisan::call('responsecache:flush');
+		ResponseCache::clear();
 
 		return redirect(route('admin.nodes.edit', $node->id))
 			->with('success', trans('runsite::nodes.The node is updated'));
@@ -377,7 +378,7 @@ class NodesController extends BaseAdminController
 
 		$node->delete();
 
-		Artisan::call('responsecache:flush');
+		ResponseCache::clear();
 
 		// Redirecting with success message
 		return redirect(route('admin.nodes.edit', ['node'=>$parent_node]))
@@ -398,7 +399,7 @@ class NodesController extends BaseAdminController
 	{
 		$node->moveUp();
 
-		Artisan::call('responsecache:flush');
+		ResponseCache::clear();
 
 		return redirect()
 			->route('admin.nodes.edit', ['node'=>$node->parent, 'depended_model_id'=>$depended_model_id])
@@ -414,7 +415,7 @@ class NodesController extends BaseAdminController
 	{
 		$node->moveDown();
 
-		Artisan::call('responsecache:flush');
+		ResponseCache::clear();
 
 		return redirect()
 			->route('admin.nodes.edit', ['node'=>$node->parent, 'depended_model_id'=>$depended_model_id])
