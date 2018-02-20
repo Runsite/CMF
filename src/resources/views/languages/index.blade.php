@@ -43,7 +43,7 @@
                                 <i class="fa fa-check"></i>
                             </span>
                         @else
-                            <span class="label label-danger" data-toggle="tooltip" title="{{ trans('runsite::languages.Add or uncomment section with this locale in') }} config/laravellocalization.php">
+                            <span style="display: inline-block;" class="label label-danger animated tada" data-toggle="tooltip" title="{{ trans('runsite::languages.Add or uncomment section with this locale in') }} config/laravellocalization.php">
                                 <i class="fa fa-warning"></i> 
                                 {{ trans('runsite::languages.Not available') }}
                             </span>
