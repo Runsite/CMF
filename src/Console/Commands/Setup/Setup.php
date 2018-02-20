@@ -67,7 +67,12 @@ class Setup extends Command
         {
           if(config('app.env') != 'testing')
           {
-            if ($this->confirm('Database "'.$this->database.'" is not empty. Do you want to remove all tables in this database?')) {
+            $option = $this->menu('Database "'.$this->database.'" is not empty. Do you want to remove all tables in this database?', [
+                'Cancel installation',
+                'Yes, I want to remove all tables in this database and continue installation',
+            ])->open();
+
+            if ($option == 1) {
                 $this->dropAllTablesInDb();
             }
             else
