@@ -21,4 +21,6 @@ return [
 	'Delete language' => 'Delete language',
 	'You can not delete the current language' => 'You can not delete the current language',
 	'Current language' => 'Current language',
+	'App locale' => 'App locale',
+	'Fallback locale' => 'Fallback locale',
 ];

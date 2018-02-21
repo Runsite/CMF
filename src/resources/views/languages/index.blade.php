@@ -26,6 +26,8 @@
             <tr>
                 <th>#</th>
                 <th>{{ trans('runsite::languages.Display name') }}</th>
+                <th>{{ trans('runsite::languages.App locale') }}</th>
+                <th>{{ trans('runsite::languages.Fallback locale') }}</th>
                 <th>{{ trans('runsite::languages.Available in config') }}</th>
                 <th>{{ trans('runsite::languages.Delete') }}</th>
             </tr>
@@ -46,6 +48,20 @@
                             <span style="display: inline-block;" class="label label-danger animated tada" data-toggle="tooltip" title="{{ trans('runsite::languages.Add or uncomment section with this locale in') }} config/laravellocalization.php">
                                 <i class="fa fa-warning"></i> 
                                 {{ trans('runsite::languages.Not available') }}
+                            </span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($language->locale == config('app.locale'))
+                            <span class="label label-success">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($language->locale == config('app.fallback_locale'))
+                            <span class="label label-success">
+                                <i class="fa fa-check"></i>
                             </span>
                         @endif
                     </td>
