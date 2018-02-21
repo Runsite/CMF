@@ -50,9 +50,12 @@
                         @endif
                     </td>
                     <td>
-                        {!! Form::open(['url'=>route('admin.languages.destroy', $language), 'method'=>'delete']) !!}
-                            <button onclick="return confirm('{{ trans('runsite::languages.Are you sure') }}?')" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
-                        {!! Form::close() !!}
+                        @if(laravellocalization::getCurrentLocale() != $language->locale)
+                            <button type="button" data-toggle="modal" data-target="#destroy-language-{{ $language->id }}" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                        @else
+                            <span class="label label-warning" data-toggle="tooltip" title="{{ trans('runsite::languages.You can not delete the current language') }}">{{ trans('runsite::languages.Current language') }}</span>
+                        @endif
+                        
                     </td>
                 </tr>
             @endforeach
@@ -62,4 +65,27 @@
 <div class="xs-pl-15">
     {!! $languages->links() !!}
 </div>
+
+@foreach($languages as $languageItem)
+    @if(laravellocalization::getCurrentLocale() != $languageItem->locale)
+        <div class="modal modal-danger fade" tabindex="-1" role="dialog" id="destroy-language-{{ $languageItem->id }}">
+          <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('runsite::languages.Close') }}"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ trans('runsite::languages.Are you sure') }}?</h4>
+              </div>
+              <div class="modal-body">
+                <p>{{ trans('runsite::languages.Are you sure you want to delete language') }} "{{ $languageItem->display_name }}"?</p>
+              </div>
+              <div class="modal-footer">
+                {!! Form::open(['url'=>route('admin.languages.destroy', $languageItem), 'method'=>'delete']) !!}
+                    <button type="submit" class="btn btn-default btn-sm ripple" data-ripple-color="#ccc">{{ trans('runsite::languages.Delete language') }}</button>
+                {!! Form::close() !!}
+              </div>
+            </div>
+          </div>
+        </div>
+    @endif
+@endforeach
 @endsection

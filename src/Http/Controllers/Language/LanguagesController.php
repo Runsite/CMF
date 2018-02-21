@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Runsite\CMF\Http\Controllers\BaseAdminController;
 use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Traits\Applicable;
+use LaravelLocalization;
 
 class LanguagesController extends BaseAdminController
 {
@@ -106,6 +107,11 @@ class LanguagesController extends BaseAdminController
      */
     public function destroy(Language $language)
     {
+        if(LaravelLocalization::getCurrentLocale() == $language->locale)
+        {
+            return redirect()->back();
+        }
+        
         $language->delete();
         return redirect()->route('admin.languages.index')->with('success', trans('runsite::languages.The language is deleted'));
     }
