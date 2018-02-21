@@ -44,10 +44,26 @@
             <a href="#" class="dropdown-toggle text-uppercase ripple" data-toggle="dropdown">
               {{-- {{ LaravelLocalization::getCurrentLocale() }}  --}}
               <i class="fa fa-language"></i>
+              @if($languagesHaveErrors)
+                &nbsp;<i class="fa fa-warning text-red"></i>
+              @endif
             </a>
             <ul class="dropdown-menu">
-              @foreach(LaravelLocalization::getSupportedLocales() as $locale=>$info)
+              {{-- @foreach(LaravelLocalization::getSupportedLocales() as $locale=>$info)
                 <li><a href="{{ LaravelLocalization::getLocalizedURL($locale) }}">{{ $info['name'] }}</a></li>
+              @endforeach --}}
+              @foreach($allLanguages as $allLanguagesItem)
+                <li>
+                  <a href="{{ $allLanguagesItem->hasConfig() ?  LaravelLocalization::getLocalizedURL($allLanguagesItem->locale) : 'javascript:void(0);' }}">
+                    {{ $allLanguagesItem->display_name }}
+                    @if(!$allLanguagesItem->hasConfig())
+                      <span class="label label-danger" title="{{ trans('runsite::languages.Not available') }}" data-toggle="tooltip">
+                        <i class="fa fa-warning"></i>
+                      </span>
+                      
+                    @endif
+                  </a>
+                </li>
               @endforeach
             </ul>
           </li>

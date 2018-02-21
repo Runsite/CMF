@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Language extends Eloquent
 {
-    protected $table = 'rs_languages';
-    protected $fillable = ['locale', 'display_name', 'is_active'];
+	protected $table = 'rs_languages';
+	protected $fillable = ['locale', 'display_name', 'is_active'];
+
+	public function hasConfig()
+	{
+		return (bool) config('laravellocalization.supportedLocales.'.$this->locale);
+	}
 }
