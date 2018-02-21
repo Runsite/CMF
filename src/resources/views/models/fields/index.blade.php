@@ -4,25 +4,31 @@
 
 	@if(Auth::user()->access()->application($application)->edit)
 		<div class="xs-p-15">
-			<a href="{{ route('admin.models.fields.create', $model->id) }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-plus"></i> {{ trans('runsite::models.fields.New field') }}</a>
+			
 
 			@if(count($fieldTemplates))
 				<div class="btn-group">
-					<button type="button" class="btn btn-default btn-sm dropdown-toggle ripple" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						{{ trans('runsite::models.fields.Templates') }} <span class="caret"></span>
-					</button>
-					<ul class="dropdown-menu">
-						@foreach($fieldTemplates as $template_id=>$fieldTemplate)
-							<li>
-								{!! Form::open(['url'=>route('admin.models.fields.store_by_template', ['model'=>$model, 'template_id'=>$template_id]), 'method'=>'post', 'class'=>'hidden']) !!}
+					<a href="{{ route('admin.models.fields.create', $model->id) }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-plus"></i> {{ trans('runsite::models.fields.New field') }}</a>
+
+					<div class="btn-group">
+						<button type="button" class="btn btn-default btn-sm dropdown-toggle ripple" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							{{ trans('runsite::models.fields.Templates') }} <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							@foreach($fieldTemplates as $template_id=>$fieldTemplate)
+								<li>
+									{!! Form::open(['url'=>route('admin.models.fields.store_by_template', ['model'=>$model, 'template_id'=>$template_id]), 'method'=>'post', 'class'=>'hidden']) !!}
+										
+									{!! Form::close() !!}
+									<a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()">{{ $fieldTemplate->display_name }} - [<small>{{ $fieldTemplate->getTypeName() }}</small>]</a>
 									
-								{!! Form::close() !!}
-								<a href="javascript:void(0)" onclick="$(this).parent().find('form').submit()">{{ $fieldTemplate->display_name }} - [<small>{{ $fieldTemplate->getTypeName() }}</small>]</a>
-								
-							</li>
-						@endforeach
-					</ul>
+								</li>
+							@endforeach
+						</ul>
+					</div>
 				</div>
+			@else
+				<a href="{{ route('admin.models.fields.create', $model->id) }}" class="btn btn-primary btn-sm ripple"><i class="fa fa-plus"></i> {{ trans('runsite::models.fields.New field') }}</a>
 			@endif
 		</div>
 	@endif
