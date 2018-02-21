@@ -8,7 +8,7 @@ class ArtisanMigrate {
 
   public $message = 'Runing migrations';
 
-  public function handle()
+  public function handle($options)
   {
     return Artisan::call('migrate');
   }

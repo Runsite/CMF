@@ -10,7 +10,7 @@ class CreateAdminSectionModel
 {
     public $message = 'Creating admin section model';
 
-    public function handle()
+    public function handle($options)
     {
         $model = Model::create(['name' => 'admin_section', 'display_name' => 'Admin section', 'display_name_plural' => 'Admin sections']);
 

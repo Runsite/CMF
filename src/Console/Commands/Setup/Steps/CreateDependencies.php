@@ -9,7 +9,7 @@ class CreateDependencies
 {
 	public $message = 'Creating model dependencies';
 
-	public function handle()
+	public function handle($options)
 	{
 		$root = Model::where('name', 'root')->first();
 		$section = Model::where('name', 'section')->first();

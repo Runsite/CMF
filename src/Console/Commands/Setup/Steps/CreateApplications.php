@@ -17,7 +17,7 @@ class CreateApplications
         'elfinder',
     ];
 
-    public function handle()
+    public function handle($options)
     {
         foreach($this->applications as $application)
         {

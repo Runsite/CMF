@@ -10,7 +10,7 @@ class CreateSectionModel
 {
     public $message = 'Creating section model';
 
-    public function handle()
+    public function handle($options)
     {
         $model = Model::create(['name' => 'section', 'display_name' => 'Section', 'display_name_plural' => 'Sections'], true, true);
         $group = FieldGroup::create(['name' => 'SEO', 'model_id' => $model->id]);

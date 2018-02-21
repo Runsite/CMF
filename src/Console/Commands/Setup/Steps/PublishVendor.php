@@ -8,7 +8,7 @@ class PublishVendor
 {
 	public $message = 'Publishing vendor (It may take some time)';
 
-	public function handle()
+	public function handle($options)
 	{
 		Artisan::call('vendor:publish', [
 			'--provider' => 'Runsite\CMF\RunsiteCMFServiceProvider',

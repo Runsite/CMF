@@ -5,6 +5,7 @@ namespace Runsite\CMF\Console\Commands\Setup;
 use Illuminate\Console\Command;
 use Artisan;
 use DB;
+use Runsite\CMF\Models\Dynamic\Language;
 
 use Runsite\CMF\Console\Commands\Setup\Verifications\FilesAccess;
 
@@ -55,6 +56,18 @@ class Setup extends Command
         StoragePreparation::class,
     ];
 
+    protected $options = [
+      'app_locale' => [
+        'locale' => null,
+        'display_name' => null,
+      ],
+
+      'fallback_locale' => [
+        'locale' => null,
+        'display_name' => null,
+      ],
+    ];
+
     public function __construct()
     {
         parent::__construct();
@@ -89,6 +102,22 @@ class Setup extends Command
             $this->dropAllTablesInDb();
           }
         }
+
+
+        $this->options['app_locale']['locale'] = $this->ask('Enter main app locale');
+        $this->options['app_locale']['display_name'] = $this->ask('Enter main app locale display name');
+
+        $this->options['fallback_locale']['locale'] = $this->ask('Enter fallback locale');
+
+        if($this->options['fallback_locale']['locale'] != $this->options['app_locale']['locale'])
+        {
+          $this->options['fallback_locale']['display_name'] = $this->ask('Enter fallback locale display name');
+        }
+        else
+        {
+          $this->options['fallback_locale']['display_name'] = $this->options['app_locale']['locale'];
+        }
+        
         
 
 
@@ -105,7 +134,7 @@ class Setup extends Command
           $class = new $class;
           $bar->setMessage($class->message);
           $bar->advance();
-          $class->handle();
+          $class->handle($this->options);
         }
 
         $bar->setMessage('Installation complete!');

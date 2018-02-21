@@ -11,7 +11,7 @@ class CreateSettingsNode
 {
     public $message = 'Creating settings node';
 
-    public function handle()
+    public function handle($options)
     {
         $model = Model::where('name', 'admin_section')->first();
         $node = Node::create(['parent_id'=>1, 'model_id'=>$model->id], 'Settings');

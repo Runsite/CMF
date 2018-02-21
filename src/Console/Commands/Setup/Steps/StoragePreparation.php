@@ -8,7 +8,7 @@ class StoragePreparation
 {
 	public $message = 'Storage preparation';
 
-	public function handle()
+	public function handle($options)
 	{
 		Artisan::call('storage:link');
 	}

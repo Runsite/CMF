@@ -6,7 +6,7 @@ class ClearApp {
 
     public $message = 'Cleaning app';
 
-    public function handle()
+    public function handle($options)
     {
         if(file_exists(app_path('User.php')))
         {

@@ -11,7 +11,7 @@ class CreateRootNode
 {
     public $message = 'Creating root node';
 
-    public function handle()
+    public function handle($options)
     {
         $model = Model::where('name', 'root')->first();
         $node = Node::create(['parent_id'=>null, 'model_id'=>$model->id], 'Home page');

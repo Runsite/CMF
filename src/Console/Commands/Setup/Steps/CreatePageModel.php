@@ -10,7 +10,7 @@ class CreatePageModel
 {
     public $message = 'Creating page model';
 
-    public function handle()
+    public function handle($options)
     {
         $model = Model::create(['name' => 'page', 'display_name' => 'Page', 'display_name_plural' => 'Pages'], true, true);
         $group = FieldGroup::create(['name' => 'SEO', 'model_id' => $model->id]);

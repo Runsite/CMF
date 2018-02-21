@@ -11,7 +11,7 @@ class GivePermissions
 {
     public $message = 'Giving permissions';
 
-    public function handle()
+    public function handle($options)
     {
         $group = Group::findOrFail(1);
         $node = Node::findOrFail(1);

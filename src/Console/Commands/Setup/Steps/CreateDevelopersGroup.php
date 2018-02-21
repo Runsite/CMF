@@ -8,7 +8,7 @@ class CreateDevelopersGroup
 {
     public $message = 'Creating developers group';
 
-    public function handle()
+    public function handle($options)
     {
         $group = Group::create([
             'name' => 'Developer',

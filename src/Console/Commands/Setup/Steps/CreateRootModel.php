@@ -10,7 +10,7 @@ class CreateRootModel
 {
     public $message = 'Creating root model';
 
-    public function handle()
+    public function handle($options)
     {
         $model = Model::create(['name' => 'root', 'display_name' => 'Root', 'display_name_plural' => 'Roots'], true, true);
         $group = FieldGroup::create(['name' => 'SEO', 'model_id' => $model->id]);
