@@ -117,18 +117,20 @@
 								</li>
 							@endif
 
-							<li class="pull-right">
-								<a href="#" data-toggle="dropdown"><i class="fa fa-eye"></i></a>
-								<ul class="dropdown-menu">
-									@foreach($languages as $languagePreview)
-										<li>
-											<a href="{{ lPath($node->path->name, $languagePreview->locale) }}?mode=preview" target="_blank">
-												{{ $languagePreview->display_name }}
-											</a>
-										</li>
-									@endforeach
-								</ul>
-							</li>
+							@if(Route::current()->getName() == 'admin.nodes.edit')
+								<li class="pull-right">
+									<a href="#" data-toggle="dropdown"><i class="fa fa-eye"></i></a>
+									<ul class="dropdown-menu">
+										@foreach($languages as $languagePreview)
+											<li>
+												<a href="{{ lPath($node->path->name, $languagePreview->locale) }}?mode=preview" target="_blank">
+													{{ $languagePreview->display_name }}
+												</a>
+											</li>
+										@endforeach
+									</ul>
+								</li>
+							@endif
 						</ul>
 						
 						<div class="tab-content">
