@@ -26,7 +26,6 @@
             <tr>
                 <th>#</th>
                 <th>{{ trans('runsite::languages.Display name') }}</th>
-                <th>{{ trans('runsite::languages.App locale') }}</th>
                 <th>{{ trans('runsite::languages.Fallback locale') }}</th>
                 <th>{{ trans('runsite::languages.Available in config') }}</th>
                 <th>{{ trans('runsite::languages.Delete') }}</th>
@@ -39,6 +38,14 @@
                     <td>
                         <a class="ripple" data-ripple-color="#333" href="{{ route('admin.languages.edit', $language) }}" style="display: block;"><b>{{ $language->display_name }} ({{ $language->locale }})</b></a>
                     </td>
+                    
+                    <td>
+                        @if($language->locale == config('app.fallback_locale'))
+                            <span class="label label-success">
+                                <i class="fa fa-check"></i>
+                            </span>
+                        @endif
+                    </td>
                     <td>
                         @if(config('laravellocalization.supportedLocales.'.$language->locale))
                             <span class="label label-success">
@@ -48,20 +55,6 @@
                             <span style="display: inline-block;" class="label label-danger animated tada" data-toggle="tooltip" title="{{ trans('runsite::languages.Add or uncomment section with this locale in') }} config/laravellocalization.php">
                                 <i class="fa fa-warning"></i> 
                                 {{ trans('runsite::languages.Not available') }}
-                            </span>
-                        @endif
-                    </td>
-                    <td>
-                        @if($language->locale == config('app.locale'))
-                            <span class="label label-success">
-                                <i class="fa fa-check"></i>
-                            </span>
-                        @endif
-                    </td>
-                    <td>
-                        @if($language->locale == config('app.fallback_locale'))
-                            <span class="label label-success">
-                                <i class="fa fa-check"></i>
                             </span>
                         @endif
                     </td>
