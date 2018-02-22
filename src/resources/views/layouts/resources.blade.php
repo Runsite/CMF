@@ -127,25 +127,28 @@
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
     @yield('content')
-    <script src="{{ asset('vendor/runsite/asset/bower_components/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/dist/js/adminlte.js') }}"></script>
-    {{-- <script src="{{ asset('vendor/runsite/dist/js/demo.js') }}"></script> --}}
-    <script src="{{ asset('vendor/runsite/asset/plugins/iCheck/icheck.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/cropper/cropper.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/bootstrap-toggle/bootstrap-toggle.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/ripple/ripple.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/noty/noty.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/pace/pace.min.js') }}"></script>
+    
     <script src="{{ asset('vendor/runsite/asset/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
-    {{-- <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.'.LaravelLocalization::setLocale().'.min.js') }}"></script> --}}
-    <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js') }}"></script>
-    <script src="{{ asset('vendor/runsite/asset/plugins/highlight/highlight.pack.js') }}"></script>
+
+    {!! Minify::javascript([
+        '/vendor/runsite/asset/bower_components/jquery/dist/jquery.min.js',
+        '/vendor/runsite/asset/bower_components/bootstrap/dist/js/bootstrap.min.js',
+        '/vendor/runsite/asset/bower_components/jquery-slimscroll/jquery.slimscroll.min.js',
+        '/vendor/runsite/asset/dist/js/adminlte.js',
+        '/vendor/runsite/asset/plugins/cropper/cropper.min.js',
+        '/vendor/runsite/asset/plugins/bootstrap-toggle/bootstrap-toggle.min.js',
+        '/vendor/runsite/asset/plugins/ripple/ripple.js',
+        '/vendor/runsite/asset/plugins/noty/noty.min.js',
+        '/vendor/runsite/asset/plugins/jquery-cookie/jquery.cookie.js',
+        '/vendor/runsite/asset/plugins/pace/pace.min.js',
+        '/vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js',
+        '/vendor/runsite/asset/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js',
+        '/vendor/runsite/asset/bower_components/select2/dist/js/select2.full.min.js',
+        '/vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js',
+        '/vendor/runsite/asset/plugins/highlight/highlight.pack.js',
+        '/vendor/runsite/asset/plugins/iCheck/icheck.min.js',
+    ]) !!}
+
     <script>
     $(document).ready(function () {
 

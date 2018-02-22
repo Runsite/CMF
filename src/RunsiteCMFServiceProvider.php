@@ -25,10 +25,11 @@ class RunsiteCMFServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Config::set('minify.config.css_build_path')
         config([
-            'minify.config.css_build_path' => '/vendor/runsite/asset/builds/',
-            'minify.config.css_url_path' => '/vendor/runsite/asset/builds/',
+            'minify.config.css_build_path' => '/vendor/runsite/asset/builds-css/',
+            'minify.config.css_url_path' => '/vendor/runsite/asset/builds-css/',
+            'minify.config.js_build_path' => '/vendor/runsite/asset/builds-js/',
+            'minify.config.js_url_path' => '/vendor/runsite/asset/builds-js/',
         ]);
 
         $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
