@@ -6,7 +6,7 @@
 
             <div class="form-group {{ $errors->has('nodes_ordering') ? ' has-error' : '' }}">
                 {{ Form::label('nodes_ordering', trans('runsite::models.settings.Nodes ordering')) }}
-                {{ Form::text('nodes_ordering', null, ['class'=>'form-control input-sm', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+                {{ Form::text('nodes_ordering', null, ['class'=>'form-control input-sm', 'autofocus'=>'true', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
                 @if ($errors->has('nodes_ordering'))
                     <span class="help-block">
                         <strong>{{ $errors->first('nodes_ordering') }}</strong>

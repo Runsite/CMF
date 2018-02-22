@@ -1,6 +1,6 @@
 <div class="form-group {{ $errors->has('locale') ? ' has-error' : '' }}">
     {{ Form::label('locale', trans('runsite::languages.Locale')) }}
-    {{ Form::text('locale', null, ['class'=>'form-control input-sm']) }}
+    {{ Form::text('locale', null, ['class'=>'form-control input-sm', 'autofocus'=>'true']) }}
     @if ($errors->has('locale'))
         <span class="help-block">
             <strong>{{ $errors->first('locale') }}</strong>

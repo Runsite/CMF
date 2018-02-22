@@ -1,6 +1,6 @@
 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
     {{ Form::label('name', trans('runsite::models.Name')) }}
-    {{ Form::text('name', null, ['class'=>'form-control input-sm', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+    {{ Form::text('name', null, ['class'=>'form-control input-sm', 'autofocus'=>'true', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
     @if ($errors->has('name'))
         <span class="help-block">
             <strong>{{ $errors->first('name') }}</strong>

@@ -11,7 +11,7 @@
 
             <div class="form-group {{ $errors->has('get') ? ' has-error' : '' }}">
                 {{ Form::label('get', trans('runsite::models.methods.GET')) }}
-                {{ Form::text('get', null, ['class'=>'form-control input-sm', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+                {{ Form::text('get', null, ['class'=>'form-control input-sm', 'autofocus'=>'true', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
                 @if ($errors->has('get'))
                     <span class="help-block">
                         <strong>{{ $errors->first('get') }}</strong>

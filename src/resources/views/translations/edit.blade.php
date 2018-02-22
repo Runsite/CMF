@@ -8,10 +8,10 @@
         <div class="box-body">
             
             {!! Form::open(['url'=>route('admin.translations.update', $translation), 'method'=>'patch']) !!}
-            @foreach($languages as $language)
+            @foreach($languages as $k=>$language)
                 <div class="form-group">
                     <label for="">{{ $language->display_name }}</label>
-                    <input type="text" class="form-control input-sm" name="values[{{ $language->id }}]" value="{{ $translations->where('language_id', $language->id)->first() ? $translations->where('language_id', $language->id)->first()->value : null }}">
+                    <input {{ !$k ? 'autofocus' : null }} type="text" class="form-control input-sm" name="values[{{ $language->id }}]" value="{{ $translations->where('language_id', $language->id)->first() ? $translations->where('language_id', $language->id)->first()->value : null }}">
                 </div>
             @endforeach
 
