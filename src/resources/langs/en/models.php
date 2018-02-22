@@ -38,6 +38,12 @@ return [
         'The model methods are updated' => 'The model methods are updated',
         'Update' => 'Update',
         'You can configure 4 default methods for sections of this model' => 'You can configure 4 default methods for sections of this model',
+
+        'errors' => [
+            'String must contain @' => 'String must contain @',
+            'Сontroller does not exist' => 'Сontroller does not exist',
+            'Method does not exist' => 'Method does not exist',
+        ],
     ],
 
     'fields' => [
