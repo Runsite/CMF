@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Admin | {{ config('app.name') }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
+    
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/dist/css/AdminLTE.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/dist/css/skins/skin-black.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/iCheck/square/blue.css') }}">
@@ -38,6 +40,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <style>
+        .fa {
+            font-size: 14px;
+            width: 15px;
+        }
         .input-progress-wrapper {
             width: 100%;
             background: #eee;
