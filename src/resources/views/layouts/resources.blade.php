@@ -6,7 +6,30 @@
     <title>Admin | {{ config('app.name') }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
+    {!! Minify::stylesheet([
+        '/vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css',
+        '/vendor/runsite/asset/bower_components/select2/dist/css/select2.min.css',
+        '/vendor/runsite/asset/bower_components/bootstrap/dist/css/bootstrap.min.css',
+        '/vendor/runsite/asset/dist/css/AdminLTE.css',
+        '/vendor/runsite/asset/dist/css/skins/skin-black.css',
+        '/vendor/runsite/asset/plugins/iCheck/square/blue.css',
+        '/vendor/runsite/asset/plugins/cropper/cropper.min.css',
+        '/vendor/runsite/asset/plugins/sass-space/sass-space.css',
+        '/vendor/runsite/asset/plugins/bootstrap-toggle/bootstrap-toggle.min.css',
+        '/vendor/runsite/asset/plugins/responsive-align/responsive-align.css',
+        '/vendor/runsite/asset/plugins/ripple/ripple.css',
+        '/vendor/runsite/asset/plugins/bootstrap-languages/languages.min.css',
+        '/vendor/runsite/asset/plugins/errors/forbidden.css',
+        '/vendor/runsite/asset/plugins/runsite-checkbox/runsite-checkbox.css',
+        '/vendor/runsite/asset/plugins/noty/noty.css',
+        '/vendor/runsite/asset/plugins/animate/animate.css',
+        '/vendor/runsite/asset/plugins/pace/pace.css',
+        '/vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
+        '/vendor/runsite/asset/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
+        '/vendor/runsite/asset/plugins/highlight/styles/github.css',
+    ]) !!}
+
+    {{-- <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
     
@@ -26,7 +49,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/pace/pace.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/highlight/styles/github.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/highlight/styles/github.css') }}"> --}}
 
     <script src="{{ asset('vendor/runsite/asset/plugins/ckeditor/ckeditor.js') }}"></script>
     
