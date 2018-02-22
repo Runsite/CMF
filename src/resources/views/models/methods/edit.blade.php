@@ -1,6 +1,6 @@
-@extends('runsite::layouts.models')
+@extends('runsite::layouts.methods')
 
-@section('model')
+@section('methods')
     <div class="xs-p-15 xs-pb-15">
         {!! Form::model($methods, ['url'=>route('admin.models.methods.update', $methods->model->id), 'method'=>'patch']) !!}
  

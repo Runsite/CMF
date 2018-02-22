@@ -38,6 +38,7 @@ return [
         'The model methods are updated' => 'The model methods are updated',
         'Update' => 'Update',
         'You can configure 4 default methods for sections of this model' => 'You can configure 4 default methods for sections of this model',
+        'Edit' => 'Edit',
 
         'errors' => [
             'String must contain @' => 'String must contain @',

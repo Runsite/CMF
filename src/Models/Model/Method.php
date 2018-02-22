@@ -20,7 +20,7 @@ class Method extends Eloquent
 		{
 			return true;
 		}
-		
+
 		if(! str_is('*@*', $this->{$method}))
 		{
 			return trans('runsite::models.methods.errors.String must contain @');
@@ -43,7 +43,22 @@ class Method extends Eloquent
 		}
 
 		return true;
+	}
 
+	public function getControllers()
+	{
+		$controllers = [];
 
+		foreach(['get', 'post', 'patch', 'delete'] as $method)
+		{
+			if($this->{$method} and $this->validMethod($method) === true)
+			{
+				$string_parts = explode('@', $this->{$method});
+				$class_name = $string_parts[0];
+				$controllers[$class_name] = $class_name;
+			}
+		}
+
+		return $controllers;
 	}
 }

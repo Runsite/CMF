@@ -84,6 +84,7 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                 Route::group(['as'=>'methods.'], function() {
                     // MODEL METHODS
                     Route::get('{model}/methods',   ['as'=>'edit',   'uses'=>'MethodsController@edit']);
+                    Route::get('{model}/methods/{controller}',   ['as'=>'controller',   'uses'=>'MethodsController@controller']);
                     Route::patch('{model}/methods', ['as'=>'update', 'uses'=>'MethodsController@update'])
                         ->middleware('application-access:models:edit');
                 });

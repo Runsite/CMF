@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/pace/pace.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/plugins/highlight/styles/github.css') }}">
 
     <script src="{{ asset('vendor/runsite/asset/plugins/ckeditor/ckeditor.js') }}"></script>
     
@@ -115,8 +116,13 @@
     <script src="{{ asset('vendor/runsite/asset/bower_components/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/select2.full.min.js') }}"></script>
     <script src="{{ asset('vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js') }}"></script>
+    <script src="{{ asset('vendor/runsite/asset/plugins/highlight/highlight.pack.js') }}"></script>
     <script>
     $(document).ready(function () {
+
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
 
         $('[data-toggle=tooltip]').tooltip();
 
