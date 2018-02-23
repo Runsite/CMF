@@ -69,6 +69,15 @@ class SettingsController extends BaseAdminController
             $this->validate($request, [
                 'related_model_name' => 'required|exists:rs_models,name',
             ]);
+
+            // Verification existing "name" field
+            $relatedModel = Model::where('name', $request->related_model_name)->first();
+            if(! Field::where('model_id', $relatedModel)->where('name', 'name')->count())
+            {
+                return redirect()->back()->withInput()->withErrors([
+                    'related_model_name' => trans('runsite::models.fields.errors.The model should contain a field "name"'),
+                ]);
+            }
         }
 
         Setting::where('field_id', $field->id)->delete();

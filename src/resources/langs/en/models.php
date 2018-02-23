@@ -98,6 +98,10 @@ return [
             'Edit' => 'Edit',
             'Access is updated' => 'Access is updated',
         ],
+
+        'errors' => [
+            'The model should contain a field "name"' => 'The model should contain a field "name"',
+        ],
     ],
 
     'dependencies' => [
