@@ -5,6 +5,7 @@ namespace Runsite\CMF\Models\Model\Field\FieldTypes;
 use Runsite\CMF\Models\Model\Field\Field;
 use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
+use Runsite\CMF\Models\Model\Model;
 
 class RelationToOneType
 {
@@ -56,11 +57,43 @@ class RelationToOneType
 
     public static function beforeCreating($value, Node $node, Field $field, Language $language)
     {
+        if($value and !is_numeric($value) and str_is('@#-create-*', $value) and $field->findSettings('related_parent_node_id'))
+        {
+            $value = self::createNewNode($value, $field);
+        }
+
         return $value;
     }
 
     public static function beforeUpdating($value, $old_value, Node $node, Field $field, Language $language)
     {
+        if($value and !is_numeric($value) and str_is('@#-create-*', $value) and $field->findSettings('related_parent_node_id'))
+        {
+            $value = self::createNewNode($value, $field);
+        }
+
         return $value;
+    }
+
+    protected static function createNewNode($value, Field $field)
+    {
+        $value = str_replace('@#-create-', '', $value);
+        $relatedModelName = $field->findSettings('related_model_name');
+        $relatedModel = Model::where('name', $relatedModelName->value)->first();
+
+        // Creating node
+        $node = Node::create([
+            'parent_id' => $field->findSettings('related_parent_node_id')->value,
+            'model_id' => $relatedModel->id,
+        ], $value);
+
+        foreach(Language::get() as $language)
+        {
+            $node->{$language->locale}->is_active = true;
+            $node->{$language->locale}->name = $value;
+            $node->{$language->locale}->save();
+        }
+
+        return $node->baseNode->id;
     }
 }

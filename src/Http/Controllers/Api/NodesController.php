@@ -24,7 +24,7 @@ class NodesController extends BaseAdminController
 
         if($key)
         {
-            $nodes = $node->where('name', 'like', '%'.$key.'%');
+            $nodes = $nodes->where('name', 'like', '%'.$key.'%');
         }
         else
         {
@@ -39,6 +39,14 @@ class NodesController extends BaseAdminController
             $results[] = [
                 'id' => $node->node_id,
                 'text' => $node->name,
+            ];
+        }
+
+        if(count($results) == 1 and $related_parent_node_id)
+        {
+            $results[] = [
+                'id' => '@#-create-' . $key,
+                'text' => trans('runsite::nodes.Create').': "'.$key.'"',
             ];
         }
 
