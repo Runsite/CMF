@@ -101,6 +101,7 @@ return [
 
         'errors' => [
             'The model should contain a field "name"' => 'The model should contain a field "name"',
+            'Can not change name because another model uses it' => 'Can not change name because another model uses it',
         ],
     ],
 

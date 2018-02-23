@@ -8,6 +8,7 @@ use Runsite\CMF\Models\Model\Model;
 use Runsite\CMF\Models\Model\Field\Field;
 use Auth;
 use Runsite\CMF\Traits\Applicable;
+use Runsite\CMF\Models\Model\Field\Setting;
 
 class FieldsController extends BaseAdminController
 {
@@ -115,6 +116,14 @@ class FieldsController extends BaseAdminController
             'is_common' => '',
             'is_visible_in_nodes_list' => '',
         ]);
+
+        // Check whether or not other models are referenced
+        if($field->name == 'name' and $field->name != $data['name'] and Setting::where('parameter', 'related_model_name')->where('value', $model->name)->count())
+        {
+            return redirect()->back()->withInput()->withErrors([
+                'name' => trans('runsite::models.fields.errors.Can not change name because another model uses it')
+            ]);
+        }
 
         $field->update($data);
         return redirect()->route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->id])->with('success', trans('runsite::models.fields.The field is updated'));
