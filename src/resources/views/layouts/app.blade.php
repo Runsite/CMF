@@ -127,7 +127,7 @@
       <li class="{{ str_is('admin.models.*', Route::current()->getName()) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.models.index') }}"><i class="fa fa-circle-o text-red"></i> <span>{{ trans('runsite::models.Models') }}</span></a></li>
       <li class="{{ (str_is('admin.users.*', Route::current()->getName()) or str_is('admin.groups.*', Route::current()->getName())) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o text-success"></i> <span>{{ trans('runsite::users.Users') }} / {{ trans('runsite::users.Groups') }}</span></a></li>
 
-      <li class="{{ str_is('admin.translations.*', Route::current()->getName()) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.translations.index') }}"><i class="fa fa-circle-o text-primary"></i> <span>{{ trans('runsite::translations.Translations') }} / {{ trans('runsite::translations.Languages') }}</span></a></li>
+      <li class="{{ (str_is('admin.translations.*', Route::current()->getName()) or str_is('admin.languages.*', Route::current()->getName())) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.translations.index') }}"><i class="fa fa-circle-o text-primary"></i> <span>{{ trans('runsite::translations.Translations') }} / {{ trans('runsite::translations.Languages') }}</span></a></li>
 
       <li class="{{ str_is('admin.elfinder.*', Route::current()->getName()) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.elfinder.index') }}"><i class="fa fa-circle-o text-warning"></i> <span>{{ trans('runsite::elfinder.Elfinder') }}</span></a></li>
 
