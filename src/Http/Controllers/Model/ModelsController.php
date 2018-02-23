@@ -25,7 +25,7 @@ class ModelsController extends BaseAdminController
      */
     public function index()
     {
-        $models = Model::orderBy('id', 'desc')->paginate();
+        $models = Model::orderBy('name', 'asc')->paginate();
         return view('runsite::models.index', compact('models'))->withApplication($this->application);
     }
 
