@@ -17,7 +17,7 @@
 									@endforeach
 								</select>
 							@else
-								<input type="text" name="{{ $name }}" id="{{ $name }}" class="form-control input-sm" value="{{ $settings->where('parameter', $name)->first()->value }}" {{ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null }}>
+								<input type="text" name="{{ $name }}" id="{{ $name }}" class="form-control input-sm" value="{{ old($name) ?? $settings->where('parameter', $name)->first()->value }}" {{ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null }}>
 							@endif
 							
 							@if ($errors->has($name))

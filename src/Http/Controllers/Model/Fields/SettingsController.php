@@ -63,6 +63,14 @@ class SettingsController extends BaseAdminController
     public function update(Request $request, Model $model, Field $field)
     {
         $data = $request->except(['_method', '_token', 'field_length']);
+
+        if($request->has('related_model_name'))
+        {
+            $this->validate($request, [
+                'related_model_name' => 'required|exists:rs_models,name',
+            ]);
+        }
+
         Setting::where('field_id', $field->id)->delete();
 
         foreach($data as $parameter=>$value)
