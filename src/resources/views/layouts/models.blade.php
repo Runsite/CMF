@@ -123,6 +123,11 @@
                         </a>
                         <a href="{{ route('admin.models.fields.settings.edit', ['model_id'=>$model->id, 'id'=>$field->id]) }}" class="btn btn-{{ Route::current()->getName() == 'admin.models.fields.settings.edit' ? 'primary' : 'default' }} btn-sm ripple" @if(Route::current()->getName() != 'admin.models.settings.edit') data-ripple-color="#898989" @endif>
                           <i class="fa fa-cog"></i> {{ trans('runsite::models.fields.Settings') }}
+                          @if(($field->types[$field->type_id]::$displayName == 'relation_to_one' or $field->types[$field->type_id]::$displayName == 'relation_to_many') and !$field->findSettings('related_model_name')->value)
+                            &nbsp;<span style="display: inline-block;" class="label label-danger animated tada">
+                                <i class="fa fa-warning" style="font-size: 11px;"></i> 
+                              </span>
+                          @endif
                         </a>
                         <a href="{{ route('admin.models.fields.access.edit', ['model_id'=>$model->id, 'id'=>$field->id]) }}" class="btn btn-{{ Route::current()->getName() == 'admin.models.fields.access.edit' ? 'primary' : 'default' }} btn-sm ripple" @if(Route::current()->getName() != 'admin.models.access.edit') data-ripple-color="#898989" @endif>
                           <i class="fa fa-lock"></i> {{ trans('runsite::models.fields.Access') }}

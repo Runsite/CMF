@@ -60,7 +60,16 @@
 							<a class="ripple" data-ripple-color="#333" href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'id'=>$fieldItem->id]) }}" style="display: block;"><b>{{ $fieldItem->display_name }}</b></a>
 						</td>
 						<td><span class="label label-success">{{ $fieldItem->name }}</span></td>
-						<td><span class="label label-default">{{ $fieldItem->types[$fieldItem->type_id]::$displayName }}</span></td>
+						<td>
+							<span class="label label-default">{{ $fieldItem->types[$fieldItem->type_id]::$displayName }}</span>
+							@if(($fieldItem->types[$fieldItem->type_id]::$displayName == 'relation_to_one' or $fieldItem->types[$fieldItem->type_id]::$displayName == 'relation_to_many') and !$fieldItem->findSettings('related_model_name')->value)
+								&nbsp;<span style="display: inline-block;" class="label label-danger animated tada">
+										<i class="fa fa-warning"></i> 
+										{{ trans('runsite::models.fields.Missing model name') }}
+									</span>
+							@endif
+
+						</td>
 						<td>
 							@if($fieldItem->group)
 								<span class="label label-primary">{{ $fieldItem->group->name }}</span>

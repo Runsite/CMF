@@ -76,6 +76,7 @@ return [
         'Templates' => 'Templates',
         'Other fields' => 'Other fields',
         'Select file' => 'Select file',
+        'Missing model name' => 'Missing model name',
 
         'settings' => [
             'control' => 'Control',

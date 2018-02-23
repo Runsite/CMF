@@ -7,7 +7,7 @@
 				{!! Form::open(['url'=>route('admin.models.fields.settings.update', ['model_id'=>$model->id, 'field_id'=>$field->id]), 'method'=>'patch']) !!}
 
 					@foreach($field->type()::$defaultSettings as $name=>$setting)
-						<div class="form-group {{ $errors->has($name) ? ' has-error' : '' }}">
+						<div class="form-group {{ ($errors->has($name) or ($name == 'related_model_name' and !$field->findSettings('related_model_name')->value)) ? ' has-error' : '' }}">
 							{{ Form::label($name, trans('runsite::models.fields.settings.'.$name)) }}
 							{{-- {{ Form::select($name, $field->prepareSettingsArray($setting['variants']), null, ['class'=>'form-control input-sm']) }} --}}
 							@if(is_array($setting['variants']))
