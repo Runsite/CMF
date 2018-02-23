@@ -19,10 +19,33 @@
 
 @section('node_model')
 	@if(Auth::user()->access()->application($modelsApplication)->read)
-		<li>
-			<a class="ripple" href="{{ route('admin.models.edit', $model->id) }}">
+		<li class="dropdown">
+			<a class="ripple" data-toggle="dropdown" href="#">
 				<small><i class="fa fa-circle-o text-red"></i>&nbsp;{{ $model->name }}</small>
 			</a>
+			<ul class="dropdown-menu">
+				<li>
+					<a href="{{ route('admin.models.edit', $model->id) }}"><i class="fa fa-pencil-square-o"></i>&nbsp;{{ trans('runsite::models.Edit') }}</a>
+				</li>
+				<li>
+					<a href="{{ route('admin.models.settings.edit', $model->id) }}"><i class="fa fa-cog"></i>&nbsp;{{ trans('runsite::models.Settings') }}</a>
+				</li>
+				<li>
+					<a href="{{ route('admin.models.methods.edit', $model->id) }}"><i class="fa fa-window-restore"></i>&nbsp;{{ trans('runsite::models.Methods') }}</a>
+				</li>
+				<li>
+					<a href="{{ route('admin.models.fields.index', $model->id) }}"><i class="fa fa-th-list"></i>&nbsp;{{ trans('runsite::models.Fields') }}</a>
+				</li>
+				<li>
+					<a href="{{ route('admin.models.groups.index', $model->id) }}"><i class="fa fa-object-group"></i>&nbsp;{{ trans('runsite::models.Groups') }}</a>
+				</li>
+				<li>
+					<a href="{{ route('admin.models.dependencies.index', $model->id) }}"><i class="fa fa-sitemap"></i>&nbsp;{{ trans('runsite::models.Dependencies') }}</a>
+				</li>
+				<li>
+					<a href="{{ route('admin.models.access.edit', $model->id) }}"><i class="fa fa-lock"></i>&nbsp;{{ trans('runsite::models.Access') }}</a>
+				</li>
+			</ul>
 		</li>
 	@endif
 
