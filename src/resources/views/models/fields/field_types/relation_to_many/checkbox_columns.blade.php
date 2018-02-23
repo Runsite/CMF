@@ -21,7 +21,7 @@
 						<input 
 						
 						@if($value and isset($relationsArr) and $value and in_array($availableValue->node_id, $relationsArr))
-							checked
+							checked 
 						@endif
 
 						type="checkbox" name="{{ $field->name }}[{{ $language->id }}][{{ $availableValue->node_id }}]" value="{{ $availableValue->node_id }}"> {{ $availableValue->name }}

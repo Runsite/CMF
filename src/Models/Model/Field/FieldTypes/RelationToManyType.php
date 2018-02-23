@@ -6,6 +6,7 @@ use Runsite\CMF\Models\Model\Field\Field;
 use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
 use Runsite\CMF\Models\Node\Relation;
+use Runsite\CMF\Models\Model\Model;
 
 class RelationToManyType
 {    
@@ -15,8 +16,9 @@ class RelationToManyType
 
     public static $defaultSettings = [
         'control' => [
-            'value' => 'checkbox',
+            'value' => 'select_with_search',
             'variants' => [
+                'select_with_search',
                 'checkbox',
                 'checkbox_columns',
                 'readonly',
@@ -51,6 +53,17 @@ class RelationToManyType
 
     public static function beforeCreating($value, Node $node, Field $field, Language $language)
     {
+        if(is_array($value))
+        {
+            foreach($value as $key=>$node_id)
+            {
+                if(!is_numeric($node_id) and str_is('@#-create-*', $node_id) and $field->findSettings('related_parent_node_id'))
+                {
+                    $value[$key] = self::createNewNode($node_id, $field);
+                }
+            }
+        }
+
         Relation::where('language_id', $language->id)->where('node_id', $node->id)->where('field_id', $field->id)->delete();
 
         if(is_array($value))
@@ -75,6 +88,17 @@ class RelationToManyType
 
     public static function beforeUpdating($value, $old_value, Node $node, Field $field, Language $language)
     {
+        if(is_array($value))
+        {
+            foreach($value as $key=>$node_id)
+            {
+                if(!is_numeric($node_id) and str_is('@#-create-*', $node_id) and $field->findSettings('related_parent_node_id'))
+                {
+                    $value[$key] = self::createNewNode($node_id, $field);
+                }
+            }
+        }
+
         Relation::where('language_id', $language->id)->where('node_id', $node->id)->where('field_id', $field->id)->delete();
 
         if(is_array($value))
@@ -95,5 +119,27 @@ class RelationToManyType
         }
 
         return null;
+    }
+
+    protected static function createNewNode($value, Field $field)
+    {
+        $value = str_replace('@#-create-', '', $value);
+        $relatedModelName = $field->findSettings('related_model_name');
+        $relatedModel = Model::where('name', $relatedModelName->value)->first();
+
+        // Creating node
+        $node = Node::create([
+            'parent_id' => $field->findSettings('related_parent_node_id')->value,
+            'model_id' => $relatedModel->id,
+        ], $value);
+
+        foreach(Language::get() as $language)
+        {
+            $node->{$language->locale}->is_active = true;
+            $node->{$language->locale}->name = $value;
+            $node->{$language->locale}->save();
+        }
+
+        return $node->baseNode->id;
     }
 }

@@ -229,6 +229,28 @@
         });
       });
 
+      $('.relation-to-many-search').each(function(){
+        var select = $(this);
+        var related_model_name = select.data('related-model-name');
+        var related_parent_node_id = select.data('related-parent-node-id');
+
+        select.select2({
+            multiple: true,
+            locale: '{{ LaravelLocalization::setLocale() }}',
+            ajax: {
+                delay: 500,
+                url: "{{route('admin.api.node.find-by-name')}}?multiple=true&related_model_name="+related_model_name+"&related_parent_node_id="+related_parent_node_id,
+                dataType: 'json',
+                cache: false,
+                data: function (term, page) {
+                  return {
+                    q: term
+                  }
+                }
+            }
+        });
+      });
+
 
     })
     </script>

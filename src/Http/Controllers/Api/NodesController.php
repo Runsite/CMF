@@ -15,10 +15,13 @@ class NodesController extends BaseAdminController
         $related_parent_node_id = $request->input('related_parent_node_id');
         $results = [];
 
-        $results[] = [
-            'id' => '',
-            'text' => '---',
-        ];
+        if(! $request->multiple)
+        {
+            $results[] = [
+                'id' => '',
+                'text' => '---',
+            ];
+        }
 
         $nodes = M($related_model_name, true, config('app.fallback_locale'));
 
@@ -42,7 +45,7 @@ class NodesController extends BaseAdminController
             ];
         }
 
-        if(count($results) == 1 and $related_parent_node_id)
+        if(((count($results) == 1 and !$request->multiple) or (count($results) == 0 and $request->multiple)) and $related_parent_node_id)
         {
             $results[] = [
                 'id' => '@#-create-' . $key,
