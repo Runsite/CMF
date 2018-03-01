@@ -188,6 +188,7 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::get('{node}/edit/{depended_model_id?}', ['as'=>'edit', 'uses'=>'NodesController@edit']);
             Route::patch('{node}/update', ['as'=>'update', 'uses'=>'NodesController@update'])->middleware('application-access:nodes:edit');
             Route::delete('{node}/destroy', ['as'=>'destroy', 'uses'=>'NodesController@destroy'])->middleware('application-access:nodes:delete');
+            Route::get('{node}/qr-code/{language}', ['as'=>'qr-code', 'uses'=>'NodesController@qrCode']);
 
             Route::group(['prefix'=>'move', 'as'=>'move.'], function(){
                 Route::patch('{node}/{depended_model_id}/up', ['as'=>'up', 'uses'=>'NodesController@moveUp'])

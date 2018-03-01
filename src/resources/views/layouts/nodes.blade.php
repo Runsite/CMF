@@ -130,6 +130,19 @@
 										@endforeach
 									</ul>
 								</li>
+
+								<li class="pull-right">
+									<a href="#" data-toggle="dropdown"><i class="fa fa-qrcode"></i></a>
+									<ul class="dropdown-menu">
+										@foreach($languages as $languageQR)
+											<li>
+												<a href="{{ route('admin.nodes.qr-code', ['node'=>$node, 'language'=>$languageQR]) }}">
+													{{ $languageQR->display_name }}
+												</a>
+											</li>
+										@endforeach
+									</ul>
+								</li>
 							@endif
 						</ul>
 						

@@ -441,4 +441,10 @@ class NodesController extends BaseAdminController
 			->route('admin.nodes.edit', ['node'=>$node->parent, 'depended_model_id'=>$depended_model_id])
 			->with('highlight', $node->id);
 	}
+
+	public function qrCode(Node $node, Language $language)
+	{
+		$breadcrumbs = $node->breadcrumbs();
+		return view('runsite::nodes.qr-code', compact('node', 'language', 'breadcrumbs'));
+	}
 }

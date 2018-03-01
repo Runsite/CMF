@@ -179,8 +179,6 @@
 </aside>
 <div class="content-wrapper">
 
-  
-
   @yield('app')
 </div>
 <footer class="main-footer">
