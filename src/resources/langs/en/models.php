@@ -39,6 +39,8 @@ return [
         'Please note: if your page contains forms with CSRF protection - do not use caching' => 'Please note: if your page contains forms with CSRF protection - do not use caching',
         'After node updating, new slug will be generated automaticly, based on the name field' => 'After node updating, new slug will be generated automaticly, based on the name field',
         'Do not use for static partitions such as "news list", "contacts," etc' => 'Do not use for static partitions such as "news list", "contacts," etc',
+        'Node icon' => 'Node icon',
+        'The icon will be displayed in the tree' => 'The icon will be displayed in the tree',
     ],
 
     'methods' => [

@@ -23,6 +23,7 @@ class CreateModelSettingsTable extends Migration
             $table->string('nodes_ordering');
             $table->string('dynamic_model')->nullable()->default(null);
             $table->integer('max_nodes_count')->nullable()->default(null);
+            $table->string('node_icon')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('model_id')->references('id')->on('rs_models')->onUpdate('RESTRICT')->onDelete('CASCADE');

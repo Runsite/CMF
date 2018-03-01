@@ -45,6 +45,7 @@ class SettingsController extends BaseAdminController
             'use_response_cache' => 'nullable|boolean',
             'slug_autogeneration' => 'nullable|boolean',
             'max_nodes_count' => 'nullable|integer',
+            'node_icon' => 'nullable|string',
         ]);
 
         $model->settings->update($data);

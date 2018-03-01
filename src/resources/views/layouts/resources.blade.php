@@ -123,6 +123,8 @@
             padding: 15px 50px;
         }
 
+        .typeahead { z-index: 1051; }
+
     </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
@@ -147,10 +149,19 @@
         '/vendor/runsite/asset/bower_components/select2/dist/js/i18n/'.LaravelLocalization::setLocale().'.js',
         '/vendor/runsite/asset/plugins/highlight/highlight.pack.js',
         '/vendor/runsite/asset/plugins/iCheck/icheck.min.js',
+        '/vendor/runsite/asset/plugins/bootstrap-typeahead/bootstrap3-typeahead.min.js',
     ]) !!}
 
     <script>
     $(document).ready(function () {
+
+        $(".typeahead").each(function() {
+            var object = $(this);
+            object.typeahead({
+              source: object.data('source'),
+              autoSelect: true
+            });
+        });
 
         $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
