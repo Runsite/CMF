@@ -24,6 +24,16 @@
                 @endif
             </div>
 
+            <div class="form-group {{ $errors->has('max_nodes_count') ? ' has-error' : '' }}">
+                {{ Form::label('max_nodes_count', trans('runsite::models.settings.Max nodes count')) }}
+                {{ Form::text('max_nodes_count', null, ['class'=>'form-control input-sm', ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+                @if ($errors->has('max_nodes_count'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('max_nodes_count') }}</strong>
+                    </span>
+                @endif
+            </div>
+
             <div class="form-group {{ $errors->has('show_in_admin_tree') ? ' has-error' : '' }}">
                 {{ Form::label('show_in_admin_tree', trans('runsite::models.settings.Show in admin tree')) }}
                 <input type="hidden" name="show_in_admin_tree" value="0">

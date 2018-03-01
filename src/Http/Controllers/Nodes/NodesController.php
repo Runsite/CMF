@@ -52,6 +52,15 @@ class NodesController extends BaseAdminController
 			return view('runsite::errors.forbidden');
 		}
 
+		if($model->settings->max_nodes_count !== null)
+		{
+			$nodes_count = Node::where('model_id', $model->id)->count();
+			if($nodes_count >= $model->settings->max_nodes_count)
+			{
+				return redirect()->back();
+			}
+		}
+
 
 		$languages = Language::get();
 		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
@@ -254,9 +263,20 @@ class NodesController extends BaseAdminController
 		{
 			if(Auth::user()->access()->model($depended_model_item)->edit)
 			{
-				$depended_models_create[] = $depended_model_item;
+				// Checking nodes count limit
+				if($depended_model_item->settings->max_nodes_count !== null)
+				{
+					$nodes_count = Node::where('model_id', $depended_model_item->id)->count();
+					if($nodes_count < $depended_model_item->settings->max_nodes_count)
+					{
+						$depended_models_create[] = $depended_model_item;
+					}
+				}
+				else
+				{
+					$depended_models_create[] = $depended_model_item;
+				}
 			}
-			
 		}
 
 		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'modelsApplication'));

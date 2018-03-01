@@ -28,6 +28,7 @@ return [
         'The model settings is updated' => 'The model settings is updated',
         'Use response cache' => 'Use response cache',
         'Generate new slug automaticly' => 'Generate new slug automaticly',
+        'Max nodes count' => 'Max nodes count',
     ],
 
     'methods' => [

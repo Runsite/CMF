@@ -18,5 +18,8 @@ class CreateRootModel
         Field::create(['model_id'=>$model->id, 'type_id'=>Field::getTypeId('string'), 'name'=>'name', 'display_name'=>'Name']);
         Field::create(['model_id'=>$model->id, 'type_id'=>Field::getTypeId('string'), 'group_id' => $group->id, 'name'=>'title', 'display_name'=>'SEO Title']);
         Field::create(['model_id'=>$model->id, 'type_id'=>Field::getTypeId('textarea'), 'group_id' => $group->id, 'name'=>'description', 'display_name'=>'SEO Description']);
+
+        $model->settings->max_nodes_count = 1;
+        $model->settings->save();
     }
 }
