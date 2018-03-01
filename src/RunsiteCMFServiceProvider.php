@@ -60,6 +60,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
             __DIR__.'/../publish/app/Console/Kernel.php' => app_path('Console/Kernel.php'),
             __DIR__.'/../publish/public/asset' => base_path('public/vendor/runsite/asset'),
             __DIR__.'/../publish/public/.htaccess' => base_path('public/.htaccess'),
+            __DIR__.'/../publish/resources/lang' => base_path('resources/lang'),
         ]);
 
 
