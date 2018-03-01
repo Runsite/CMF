@@ -10,7 +10,7 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
     });
     
 
-    Route::group(['middleware' => 'auth', 'as' => 'admin.'], function() {
+    Route::group(['middleware' => ['auth', 'abort-if-locked'], 'as' => 'admin.'], function() {
 
         Route::get('/', function() {
             return view('runsite::boot');

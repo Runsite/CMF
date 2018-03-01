@@ -8,6 +8,30 @@
     @endif
 </div>
 
+{{-- <div class="form-group {{ $errors->has('is_locked') ? ' has-error' : '' }}">
+    {{ Form::label('is_locked', trans('runsite::users.Is locked')) }}
+    {{ Form::text('is_locked', null, ['class'=>'form-control input-sm', 'autofocus'=>'true']) }}
+    @if ($errors->has('is_locked'))
+        <span class="help-block">
+            <strong>{{ $errors->first('is_locked') }}</strong>
+        </span>
+    @endif
+</div> --}}
+
+<div class="form-group {{ $errors->has('is_locked') ? ' has-error' : '' }}">
+    {{ Form::label('is_locked', trans('runsite::users.Is locked')) }}
+    <input type="hidden" name="is_locked" value="0">
+    <div class="runsite-checkbox">
+        {{ Form::checkbox('is_locked', 1) }}
+        <label for="is_locked"></label>
+    </div>
+    @if ($errors->has('is_locked'))
+        <span class="help-block">
+            <strong>{{ $errors->first('is_locked') }}</strong>
+        </span>
+    @endif
+</div>
+
 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
     {{ Form::label('email', trans('runsite::users.Email')) }}
     {{ Form::email('email', null, ['class'=>'form-control input-sm']) }}

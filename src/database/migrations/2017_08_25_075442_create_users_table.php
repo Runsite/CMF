@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('rs_users', function($table) 
         {
             $table->increments('id');
+            $table->boolean('is_locked')->default(false);
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');

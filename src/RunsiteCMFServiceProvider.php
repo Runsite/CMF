@@ -13,7 +13,8 @@ use Illuminate\Support\{
 use Runsite\CMF\Http\{
     ViewComposers\AppComposer,
     ViewComposers\TreeComposer,
-    Middlewares\Access\Application as ApplicationAccessMiddleware
+    Middlewares\Access\Application as ApplicationAccessMiddleware,
+    Middlewares\AbortIfLocked
 };
 
 class RunsiteCMFServiceProvider extends ServiceProvider
@@ -66,6 +67,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
 
         
         $this->app['router']->aliasMiddleware('application-access', ApplicationAccessMiddleware::class);
+        $this->app['router']->aliasMiddleware('abort-if-locked', AbortIfLocked::class);
         // $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/database/factories');
     }
 

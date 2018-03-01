@@ -42,6 +42,7 @@ class UsersController extends BaseAdminController
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
+            'is_locked' => '',
             'email' => 'required|email|max:255',
             'password' => 'required|string|confirmed:password_confirmation',
             'password_confirmation' => 'required',
@@ -98,6 +99,7 @@ class UsersController extends BaseAdminController
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
+            'is_locked' => '',
             'email' => 'required|email|max:255',
             'password' => 'nullable|string|confirmed:password_confirmation',
             'password_confirmation' => 'nullable',

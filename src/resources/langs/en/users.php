@@ -15,6 +15,7 @@ return [
 	'User is updated' => 'User is updated',
 	'User is deleted' => 'User is deleted',
 	'Are you sure' => 'Are you sure',
+	'Is locked' => 'Is locked',
 
 	'invite' => [
 		'New invite' => 'New invite',
