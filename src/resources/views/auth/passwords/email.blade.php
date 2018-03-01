@@ -4,6 +4,8 @@
 <form method="POST" action="{{ route('password.email') }}">
 	{{ csrf_field() }}
 
+	{!! app('captcha')->render(); !!}
+
 	<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
 		<input id="email" type="email" class="form-control input-sm" name="email" value="{{ old('email') }}" required autofocus placeholder="{{ trans('runsite::auth.Email') }}">
 		@if ($errors->has('email'))

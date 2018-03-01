@@ -3,6 +3,9 @@
 <p>{{ trans('runsite::auth.Sign in to start your session') }}</p>
 <form method="POST" action="{{ route('login') }}">
 		{{ csrf_field() }}
+
+		{!! app('captcha')->render(); !!}
+
 		<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
 			<input id="email" type="email" class="form-control input-sm" name="email" value="{{ old('email') }}" required autofocus placeholder="{{ trans('runsite::auth.Email') }}">
 			@if ($errors->has('email'))

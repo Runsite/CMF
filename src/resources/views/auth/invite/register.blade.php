@@ -2,6 +2,7 @@
 @section('app')
 <p>{{ trans('runsite::auth.invite.You have the invite for this admin area') }}. {{ trans('runsite::auth.invite.Fill the form, please and click Register button') }}</p>
 	{!! Form::open(['url'=>route('admin.invite.register', $invite->token), 'method'=>'patch']) !!}
+		{!! app('captcha')->render(); !!}
 		<div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
 			<input id="email" type="email" class="form-control input-sm" name="email" value="{{ $invite->user->email }}" disabled placeholder="{{ trans('runsite::auth.Email') }}">
 			@if ($errors->has('email'))
