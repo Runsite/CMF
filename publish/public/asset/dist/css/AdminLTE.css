@@ -4977,7 +4977,7 @@ table.text-center th {
 
 .auth-image {
   height: 100vh;
-  background: url(../../images/bg.jpeg) no-repeat center;
+  background: url(../images/bg.jpeg) no-repeat center;
   background-size: cover;
   position: relative;
 }
