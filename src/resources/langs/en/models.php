@@ -29,6 +29,16 @@ return [
         'Use response cache' => 'Use response cache',
         'Generate new slug automaticly' => 'Generate new slug automaticly',
         'Max nodes count' => 'Max nodes count',
+        'Ordering in admin panel and in then scope ordered()' => 'Ordering in admin panel and in then scope ordered()',
+        'Name of class stored in App\Models' => 'Name of class stored in App\Models',
+        'Here you can determine how many nodes of this model can be created in the admin panel' => 'Here you can determine how many nodes of this model can be created in the admin panel',
+        'Nodes of this model will be displayed in the tree' => 'Nodes of this model will be displayed in the tree',
+        'There are restrictions on the level of nesting: only two levels are displayed' => 'There are restrictions on the level of nesting: only two levels are displayed',
+        'Responses of this model will be cached and returned without processing by the controllers' => 'Responses of this model will be cached and returned without processing by the controllers',
+        'Only GET requests are processed' => 'Only GET requests are processed',
+        'Please note: if your page contains forms with CSRF protection - do not use caching' => 'Please note: if your page contains forms with CSRF protection - do not use caching',
+        'After node updating, new slug will be generated automaticly, based on the name field' => 'After node updating, new slug will be generated automaticly, based on the name field',
+        'Do not use for static partitions such as "news list", "contacts," etc' => 'Do not use for static partitions such as "news list", "contacts," etc',
     ],
 
     'methods' => [
