@@ -8,6 +8,7 @@ use Runsite\CMF\Models\Node\Path;
 use Runsite\CMF\Helpers\GlobalScope;
 use LaravelLocalization;
 use Goszowski\Temp\Temp;
+use Illuminate\Database\Eloquent\Builder;
 
 class Dynamic extends Eloquent
 {
@@ -137,5 +138,10 @@ class Dynamic extends Eloquent
             return;
         }
         return $this->getRelationValue($key);
+    }
+
+    public function scopeOrdered(Builder $builder)
+    {
+        return $builder->orderBy('position', 'asc');
     }
 }

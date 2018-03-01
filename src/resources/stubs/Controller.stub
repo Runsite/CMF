@@ -7,24 +7,24 @@ use Illuminate\View\View;
 
 class %_controller_name_% extends RunsiteCMFBaseController
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): View
-    {
-        $%_model_name_plural_% = M('%_model_name_%')
-            ->where('parent_id', $this->node->id) // Only child items of current node
-            ->orderBy('position', 'asc') // Default ordering
-            ->paginate();
+	/**
+	 * Display a listing of the %_model_name_plural_%.
+	 */
+	public function index(): View
+	{
+		$%_model_name_plural_% = M('%_model_name_%')
+			->where('parent_id', $this->node->id) // Only child items of current node
+			->ordered() // Order by position asc
+			->paginate();
 
-        return $this->view('%_views_dirname_%.index', compact('%_model_name_plural_%'));
-    }
+		return $this->view('%_views_dirname_%.index', compact('%_model_name_plural_%'));
+	}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(): View
-    {
-        return $this->view('%_views_dirname_%.view');
-    }
+	/**
+	 * Display the specified %_model_name_%.
+	 */
+	public function show(): View
+	{
+		return $this->view('%_views_dirname_%.view');
+	}
 }

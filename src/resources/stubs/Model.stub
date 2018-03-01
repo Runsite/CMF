@@ -7,5 +7,5 @@ use Runsite\CMF\Traits\Constructable;
 
 class %_model_name_% extends Dynamic
 {
-    use Constructable;
+	use Constructable;
 }
