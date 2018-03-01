@@ -7,7 +7,7 @@
   @if(isset($model))
     <li class="{{ Route::current()->getName() == 'admin.models.edit' ? 'active' : null }}">
       <a class="ripple" href="{{ route('admin.models.edit', $model->id) }}">
-        <small>{{ $model->display_name }}</small>
+        <small><i class="fa fa-cog text-red"></i> {{ $model->display_name }}</small>
       </a>
     </li>
   @endif
@@ -15,7 +15,7 @@
   @if(isset($field) and isset($field->display_name))
     <li class="{{ str_is('admin.models.fields.*', Route::current()->getName()) ? 'active' : null }}">
       <a class="ripple" href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->id]) }}">
-        <small>{{ $field->display_name }}</small>
+        <small><i class="fa fa-th-list text-blue"></i> {{ $field->display_name }}</small>
       </a>
     </li>
   @endif
