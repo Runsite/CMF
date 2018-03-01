@@ -15,6 +15,7 @@ use LaravelLocalization;
 use Goszowski\Temp\Temp;
 
 use Auth;
+use That0n3guy\Transliteration\Facades\Transliteration;
 
 class Node extends Eloquent
 {
@@ -162,7 +163,16 @@ class Node extends Eloquent
             $root = '/';
         }
 
-        $path = $root . str_slug($basename);
+        if($language_id)
+        {
+            $language = Language::findOrFail($language_id);
+            $path = $root . str_slug(Transliteration::clean_filename($basename, $language->locale));
+        }
+        else
+        {
+            $path = $root . str_slug($basename);
+        }
+        
 
         if($unique)
         {
