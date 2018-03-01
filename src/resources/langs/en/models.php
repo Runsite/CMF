@@ -78,6 +78,11 @@ return [
         'Other fields' => 'Other fields',
         'Select file' => 'Select file',
         'Missing model name' => 'Missing model name',
+        'The name of database field' => 'The name of database field',
+        'Is visible in admin panel' => 'Is visible in admin panel',
+        'Appears under the field in the admin panel' => 'Appears under the field in the admin panel',
+        'Common field for all languages: the control will only be displayed in the primary language tab, but the value will be duplicated in all other languages' => 'Common field for all languages: the control will only be displayed in the primary language tab, but the value will be duplicated in all other languages',
+        'The value of the field will be displayed in the list of nodes' => 'The value of the field will be displayed in the list of nodes',
 
         'settings' => [
             'control' => 'Control',
