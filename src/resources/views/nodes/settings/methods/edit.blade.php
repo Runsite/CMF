@@ -21,6 +21,10 @@
 				<strong>{{ $errors->first('get') }}</strong>
 			</span>
 		@endif
+
+		@if(!$methods->get and $node->model->methods->get)
+			<i class="fa fa-cog text-green"></i> {{ trans('runsite::models.methods.The model method is used') }}: <span class="text-green">{{ $node->model->methods->get }}</span>
+		@endif
 	</div>
 
 	<div class="form-group {{ $errors->has('post') ? ' has-error' : '' }}">
@@ -33,6 +37,10 @@
 			<span class="help-block">
 				<strong>{{ $errors->first('post') }}</strong>
 			</span>
+		@endif
+
+		@if(!$methods->post and $node->model->methods->post)
+			<i class="fa fa-cog text-green"></i> {{ trans('runsite::models.methods.The model method is used') }}: <span class="text-green">{{ $node->model->methods->post }}</span>
 		@endif
 	</div>
 
@@ -47,6 +55,10 @@
 				<strong>{{ $errors->first('patch') }}</strong>
 			</span>
 		@endif
+
+		@if(!$methods->patch and $node->model->methods->patch)
+			<i class="fa fa-cog text-green"></i> {{ trans('runsite::models.methods.The model method is used') }}: <span class="text-green">{{ $node->model->methods->patch }}</span>
+		@endif
 	</div>
 
 	<div class="form-group {{ $errors->has('delete') ? ' has-error' : '' }}">
@@ -59,6 +71,10 @@
 			<span class="help-block">
 				<strong>{{ $errors->first('delete') }}</strong>
 			</span>
+		@endif
+
+		@if(!$methods->delete and $node->model->methods->delete)
+			<i class="fa fa-cog text-green"></i> {{ trans('runsite::models.methods.The model method is used') }}: <span class="text-green">{{ $node->model->methods->delete }}</span>
 		@endif
 	</div>
 

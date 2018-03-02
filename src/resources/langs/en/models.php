@@ -52,6 +52,7 @@ return [
         'Update' => 'Update',
         'You can configure 4 default methods for sections of this model' => 'You can configure 4 default methods for sections of this model',
         'Edit' => 'Edit',
+        'The model method is used' => 'The model method is used',
 
         'errors' => [
             'String must contain @' => 'String must contain @',
