@@ -7,6 +7,7 @@ use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Node\Node;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use ImageOptimizer;
 
 class ImageType
 {
@@ -126,6 +127,7 @@ class ImageType
                 }
 
                 $image->save(storage_path('app/public/' . $size_path . '/' . $name));
+                ImageOptimizer::optimize(storage_path('app/public/' . $size_path . '/' . $name));
                 
             }
         }
@@ -180,6 +182,7 @@ class ImageType
                 }
 
                 $image->save(storage_path('app/public/' . $size_path . '/' . $name));
+                ImageOptimizer::optimize(storage_path('app/public/' . $size_path . '/' . $name));
 
                 // Removing old image
                 if($old_value->value)
