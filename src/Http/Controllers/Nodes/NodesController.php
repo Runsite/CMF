@@ -152,6 +152,12 @@ class NodesController extends BaseAdminController
 
 		ResponseCache::clear();
 
+		if($request->has('create_next_one'))
+		{
+			return redirect()->route('admin.nodes.create', ['model_id'=>$model->id, 'parent_id'=>$node->baseNode->parent_id])
+				->with('succcess', trans('runsite::nodes.The node is created'))->with('create_next_one', true);
+		}
+
 		// Redirecting with success message
 		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node, 'depended_model_id'=>$model->id])
 			->with('succcess', trans('runsite::nodes.The node is created'));

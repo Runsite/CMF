@@ -18,6 +18,8 @@ return [
 	'Created at' => 'Created at',
 	'Updated at' => 'Updated at',
 	'Absolute path' => 'Absolute path',
+	'Create the next one after' => 'Create the next one after',
+	'Opens another form immediately after creation' => 'Opens another form immediately after creation',
 
 	'groups' => [
 		'Main' => 'Main',
