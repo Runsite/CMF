@@ -46,14 +46,11 @@
                                 <td>
                                     <div class="btn-group btn-group-justified">
                                         <div class="btn-group" style="width:10%">
-                                            {!! Form::open(['url'=>route('admin.nodes.settings.dependencies.delete', $node), 'method'=>'delete', 'style'=>'display:inline;']) !!}
-                                                <input type="hidden" name="depended_model_id" value="{{ $depended_model->dependedModel->id }}">
-                                                
-                                                    <button type="submit" class="btn btn-default btn-sm ripple">
-                                                        {{ $depended_model->dependedModel->display_name }} <i class="fa fa-times text-danger"></i>
-                                                    </button>
-                                                
-                                            {!! Form::close() !!}
+                                            
+                                            
+                                            <button type="button" data-toggle="modal" data-target="#destroy-dependency-{{ $depended_model->id }}" class="btn btn-default btn-sm ripple">
+                                                {{ $depended_model->dependedModel->display_name }} <i class="fa fa-times text-danger"></i>
+                                            </button>
                                         </div>
 
                                         <div class="btn-group">
@@ -92,4 +89,27 @@
             </div>
         </div>
     </div>
+
+    @foreach($depended_models as $depended_model)
+    <div class="modal modal-danger fade" tabindex="-1" role="dialog" id="destroy-dependency-{{ $depended_model->id }}">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="{{ trans('runsite::nodes.dependencies.Close') }}"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">{{ trans('runsite::nodes.dependencies.Are you sure') }}?</h4>
+          </div>
+          <div class="modal-body">
+            <p>{{ trans('runsite::nodes.dependencies.Are you sure you want to delete the dependency') }} "{{ $depended_model->dependedModel->display_name }}"?</p>
+            <p>{{ trans('runsite::nodes.dependencies.This will remove all subordinate nodes') }}</p>
+          </div>
+          <div class="modal-footer">
+            {!! Form::open(['url'=>route('admin.nodes.settings.dependencies.delete', $node), 'method'=>'delete', 'style'=>'display:inline;']) !!}
+                <input type="hidden" name="depended_model_id" value="{{ $depended_model->dependedModel->id }}">
+                <button type="submit" class="btn btn-default btn-sm ripple" data-ripple-color="#ccc">{{ trans('runsite::nodes.dependencies.Delete dependency and subordinate nodes') }}</button>
+            {!! Form::close() !!}
+          </div>
+        </div>
+      </div>
+    </div>
+    @endforeach
 @endsection

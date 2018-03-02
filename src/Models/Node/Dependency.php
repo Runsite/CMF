@@ -4,6 +4,7 @@ namespace Runsite\CMF\Models\Node;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Runsite\CMF\Models\Model\Model;
+use Runsite\CMF\Models\Node\Node;
 
 class Dependency extends Eloquent
 {
@@ -41,6 +42,12 @@ class Dependency extends Eloquent
     {
         // Calculating position
         Dependency::where('node_id', $this->node_id)->where('position', '>', $this->position)->decrement('position');
+
+        foreach(Node::where('model_id', $this->depended_model_id)->where('parent_id', $this->node_id)->get() as $node)
+        {
+            $node->delete();
+        }
+
         return parent::delete();
     }
 

@@ -40,6 +40,10 @@ return [
 	'dependencies' => [
 		'The node dependency is created' => 'The node dependency is created',
 		'The node dependency is deleted' => 'The node dependency is deleted',
+		'Are you sure' => 'Are you sure',
+		'Are you sure you want to delete the dependency' => 'Are you sure you want to delete the dependency',
+		'This will remove all subordinate nodes' => 'This will remove all subordinate nodes',
+		'Delete dependency and subordinate nodes' => 'Delete dependency and subordinate nodes',
 	],
 
 	'access' => [
