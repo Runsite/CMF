@@ -97,6 +97,12 @@
 									<a href="#" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
 									<ul class="dropdown-menu">
 										<li>
+											<a href="{{ route('admin.nodes.settings.edit', $node) }}">
+												{{ trans('runsite::nodes.settings.Settings') }}
+											</a>
+										</li>
+
+										<li>
 											<a href="{{ route('admin.nodes.settings.paths.index', $node) }}">
 												{{ trans('runsite::nodes.settings.Paths') }}
 											</a>

@@ -22,8 +22,17 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
 
         if($path->node->methods->get)
         {
-            Route::get('/', ['uses' => $path->node->methods->get]);
-            Route::get('{slug}', ['uses'=>$path->node->methods->get])->where('slug', '([A-z\d-\/_.]+)?');
+            if($path->node->settings->use_response_cache)
+            {
+                Route::get('/', ['middleware'=>['cacheResponse:10'], 'uses' => $path->node->methods->get]);
+                Route::get('{slug}', ['middleware'=>['cacheResponse:10'], 'uses'=>$path->node->methods->get])->where('slug', '([A-z\d-\/_.]+)?');
+            }
+            else
+            {
+                Route::get('/', ['uses' => $path->node->methods->get]);
+                Route::get('{slug}', ['uses'=>$path->node->methods->get])->where('slug', '([A-z\d-\/_.]+)?');
+            }
+            
         }
 
         if($path->node->methods->post)
@@ -46,7 +55,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['we
 
         if($path->node->model->methods->get)
         {
-            if($path->node->model->settings->use_response_cache)
+            if($path->node->model->settings->use_response_cache or $path->node->settings->use_response_cache)
             {
                 Route::get('/', ['middleware'=>['cacheResponse:10'], 'uses' => $path->node->model->methods->get]);
                 Route::get('{slug}', ['middleware'=>['cacheResponse:10'], 'uses'=>$path->node->model->methods->get])->where('slug', '([A-z\d-\/_.]+)?');

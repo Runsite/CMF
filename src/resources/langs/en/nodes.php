@@ -24,10 +24,12 @@ return [
 	],
 
 	'settings' => [
+		'Settings' => 'Settings',
 		'Paths' => 'Paths',
 		'Dependencies' => 'Dependencies',
 		'Access' => 'Access',
 		'Methods' => 'Methods',
+		'The node settings are updated' => 'The node settings are updated',
 	],
 
 	'paths' => [

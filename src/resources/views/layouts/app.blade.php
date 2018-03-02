@@ -138,7 +138,7 @@
       {{-- {{ dd($node->path->name, $childNode->path->name) }} --}}
         <li class="{{ (isset($node) and (str_is($childNode->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($childNode->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
-            <i class="fa fa-{{ $childNode->model->settings->node_icon ?: 'archive' }}"></i> 
+            <i class="fa fa-{{ $childNode->settings->node_icon ?: ($childNode->model->settings->node_icon ?: 'archive') }}"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
           </a>
           @if($childNode->hasTreeChildren())
@@ -149,7 +149,7 @@
                 <li class="{{ (isset($node) and (str_is($treeChild->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($treeChild->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
                   <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$treeChild->id]) }}">
                     <div class="xs-pl-10">
-                      <i class="fa fa-{{ $treeChild->model->settings->node_icon ?: 'file-o' }} xs-mr-5"></i> 
+                      <i class="fa fa-{{ $treeChild->settings->node_icon ?: ($treeChild->model->settings->node_icon ?: 'file-o') }} xs-mr-5"></i> 
 
                     {{ $treeChild->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$treeChild->id }}
                     </div>

@@ -8,7 +8,8 @@ use Runsite\CMF\Models\{
     Dynamic\Dynamic,
     Dynamic\Language,
     User\Group,
-    User\Access\AccessNode
+    User\Access\AccessNode,
+    Node\Setting
 };
 use DB;
 use LaravelLocalization;
@@ -42,6 +43,11 @@ class Node extends Eloquent
     public function model()
     {
         return $this->belongsTo(Model::class);
+    }
+
+    public function settings()
+    {
+        return $this->hasOne(Setting::class, 'node_id');
     }
 
     public function parent()
@@ -84,6 +90,11 @@ class Node extends Eloquent
     {
         $attributes['position'] = self::getNewPosition($attributes);
         $node = parent::query()->create($attributes);
+
+        // Creating default settings
+        $setting = Setting::create([
+            'node_id' => $node->id,
+        ]);
 
         $groups = Group::get();
         foreach($groups as $group)

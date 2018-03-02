@@ -199,6 +199,9 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
 
             Route::group(['prefix'=>'settings', 'as'=>'settings.', 'namespace'=>'Settings'], function() {
 
+                Route::get('{node}',      ['as'=>'edit',   'uses'=>'SettingsController@edit']);
+                Route::patch('{node}',    ['as'=>'update', 'uses'=>'SettingsController@update'])->middleware('application-access:nodes:edit');
+
                 Route::group(['prefix'=>'paths', 'as'=>'paths.'], function() {
                     Route::get('{node}', ['as'=>'index', 'uses'=>'PathsController@index']);
                     Route::patch('{node}', ['as'=>'update', 'uses'=>'PathsController@update']);
