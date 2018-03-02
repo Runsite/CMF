@@ -221,6 +221,14 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                     Route::patch('{node}/access',  ['as'=>'update', 'uses'=>'AccessController@update'])
                         ->middleware('application-access:nodes:edit');
                 });
+
+                Route::group(['as'=>'methods.'], function() {
+                    // MODEL METHODS
+                    Route::get('{node}/methods',   ['as'=>'edit',   'uses'=>'MethodsController@edit']);
+                    Route::get('{node}/methods/{controller}',   ['as'=>'controller',   'uses'=>'MethodsController@controller']);
+                    Route::patch('{node}/methods', ['as'=>'update', 'uses'=>'MethodsController@update'])
+                        ->middleware('application-access:nodes:edit');
+                });
             });
         });
 

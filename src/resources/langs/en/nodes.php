@@ -27,6 +27,7 @@ return [
 		'Paths' => 'Paths',
 		'Dependencies' => 'Dependencies',
 		'Access' => 'Access',
+		'Methods' => 'Methods',
 	],
 
 	'paths' => [
@@ -45,5 +46,9 @@ return [
 		'Edit' => 'Edit',
 		'Update' => 'Update',
 		'Access is updated' => 'Access is updated',
+	],
+
+	'methods' => [
+		'The node methods are updated' => 'The node methods are updated',
 	],
 ];

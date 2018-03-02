@@ -113,6 +113,12 @@
 												{{ trans('runsite::nodes.settings.Access') }}
 											</a>
 										</li>
+
+										<li>
+											<a href="{{ route('admin.nodes.settings.methods.edit', $node) }}">
+												{{ trans('runsite::nodes.settings.Methods') }}
+											</a>
+										</li>
 									</ul>
 								</li>
 							@endif
