@@ -145,13 +145,22 @@
             <ul class="treeview-menu">
 
               @foreach($childNode->getTreeChildren() as $treeChild)
-              {{-- {{ dd($treeChild->path->name, $node->path->name) }} --}}
+              
+                @php($dynamic = $treeChild->dynamicCurrentLanguage()->first())
+
                 <li class="{{ (isset($node) and (str_is($treeChild->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($treeChild->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
                   <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$treeChild->id]) }}">
                     <div class="xs-pl-10">
-                      <i class="fa fa-{{ $treeChild->settings->node_icon ?: ($treeChild->model->settings->node_icon ?: 'file-o') }} xs-mr-5"></i> 
 
-                    {{ $treeChild->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$treeChild->id }}
+                      @if($dynamic->image and $dynamic->image->value and !$treeChild->settings->node_icon and !$treeChild->model->settings->node_icon)
+                        <div class="tree-image-circle" style="background-image: url({{ $dynamic->image->min() }})"></div>
+                      @else
+                        <i class="fa fa-{{ $treeChild->settings->node_icon ?: ($treeChild->model->settings->node_icon ?: 'file-o') }} xs-mr-5"></i> 
+                      @endif
+
+                      
+
+                    {{ $dynamic->name ?: trans('runsite::nodes.Node').' '.$treeChild->id }}
                     </div>
                   </a>
                 </li>

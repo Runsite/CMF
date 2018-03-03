@@ -125,6 +125,20 @@
 
         .typeahead { z-index: 1051; }
 
+        .tree-image-circle {
+            width: 20px; height: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255,255,255, 0.9);
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            background-size: cover;
+            margin-right: 3px;
+            margin-left: -4px;
+            position: relative;
+            top: -2px;
+        }
+
     </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
