@@ -10,8 +10,8 @@ class NotificationsController extends BaseAdminController
 {
 	public function index()
 	{
-		$notifications = Notification::where('user_id', Auth::id())->paginate();
-		return view('runsite::notifications.index', compact('notifications'));
+		$notificationItems = Notification::where('user_id', Auth::id())->orderBy('is_reviewed', 'asc')->orderBy('created_at', 'asc')->paginate(30);
+		return view('runsite::notifications.index', compact('notificationItems'));
 	}
 
 	public function show(Notification $notification)

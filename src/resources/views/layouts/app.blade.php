@@ -44,7 +44,17 @@
               <span id="notifications-counter" class="label label-warning {{ !$unreadNotificationsCount ? 'hidden' : null }}">{{ $unreadNotificationsCount }}</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">{{ trans('runsite::app.Notifications') }}</li>
+              <li class="header">
+                {{ trans('runsite::app.Notifications') }}
+
+
+                <div class="pull-right">
+                  <button type="button" class="btn btn-xs btn-default {{ !Session::has('notificationSoundsMuted') ? 'active' : null }}" id="notifications-sound-control">
+                    <i class="fa fa-volume-up" aria-hidden="true"></i>
+                  </button>
+                </div>
+
+              </li>
               <li>
                 <ul class="menu" id="notifications-container">
 
@@ -57,6 +67,9 @@
                     </li>
                   @endforeach
                 </ul>
+              </li>
+              <li class="footer">
+                  <a href="{{ route('admin.notifications.index') }}">{{ trans('runsite::notifications.All notifications') }}</a>
               </li>
             </ul>
           </li>
@@ -229,7 +242,29 @@
 
 @section('js-notifications')
 <script>
+  var notificationSoundsEnabled = {{ Session::has('notificationSoundsMuted') ? 'false' : 'true' }};
+
     $(function() {
+
+        $('#notifications-sound-control').on('click', function() {
+          if(!$(this).hasClass('active'))
+          {
+            $(this).addClass('active');
+
+            notificationSoundsEnabled = true;
+
+            $.get('{{ route('admin.api.enable-notifications-sound') }}');
+          }
+          else
+          {
+            $(this).removeClass('active');
+
+            notificationSoundsEnabled = false;
+
+             $.get('{{ route('admin.api.disable-notifications-sound') }}');
+          }
+        });
+
         setInterval(function(){
 
             $.get('{{ route('admin.api.sound-notification-count') }}', function(data) {
@@ -255,7 +290,7 @@
 
                 $('#notifications-container').html(data.notificationsHtml);
 
-                if(data.playSound)
+                if(data.playSound && notificationSoundsEnabled)
                 {
                   $('#notification-player')[0].play();
                   $('#notifications-counter').addClass('animated').addClass('shake');

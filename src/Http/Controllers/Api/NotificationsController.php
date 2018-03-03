@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Runsite\CMF\Http\Controllers\BaseAdminController;
 use Runsite\CMF\Models\Notification;
 use Auth;
+use Session;
 
 class NotificationsController extends BaseAdminController
 {
@@ -35,13 +36,16 @@ class NotificationsController extends BaseAdminController
 
 		foreach($notifications as $notification)
 		{
-			if(!isset($nodes[$notification->node_id]))
+			if(!$notification->is_reviewed)
 			{
-				$nodes[$notification->node_id] = 1;
-			}
-			else
-			{
-				$nodes[$notification->node_id]++;
+				if(!isset($nodes[$notification->node_id]))
+				{
+					$nodes[$notification->node_id] = 1;
+				}
+				else
+				{
+					$nodes[$notification->node_id]++;
+				}
 			}
 		}
 
@@ -55,5 +59,15 @@ class NotificationsController extends BaseAdminController
 			'playSound' => $unsoundedNotificationsCount ? true : false,
 			'nodes' => $nodes,
 		]);
+	}
+
+	public function enableNotificationsSound()
+	{
+		Session::forget('notificationSoundsMuted');
+	}
+
+	public function disableNotificationsSound()
+	{
+		Session::put('notificationSoundsMuted', true);
 	}
 }

@@ -23,6 +23,10 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             });
 
             Route::get('sound-notification-count', ['as'=>'sound-notification-count', 'uses'=>'NotificationsController@soundNotificationsCount']);
+
+            Route::get('enable-notifications-sound', ['as'=>'enable-notifications-sound', 'uses'=>'NotificationsController@enableNotificationsSound']);
+
+            Route::get('disable-notifications-sound', ['as'=>'disable-notifications-sound', 'uses'=>'NotificationsController@disableNotificationsSound']);
         });
 
         Route::group(['prefix'=>'notifications', 'as'=>'notifications.', 'namespace'=>'Notifications'], function() {
