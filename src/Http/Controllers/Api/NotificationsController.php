@@ -11,7 +11,7 @@ class NotificationsController extends BaseAdminController
 {
 	public function soundNotificationsCount()
 	{
-		$notifications = Notification::where('user_id', Auth::id())->where('is_reviewed', false)->orderBy('is_reviewed', 'asc')->orderBy('created_at', 'desc')->take(10)->get();
+		$notifications = Notification::where('user_id', Auth::id())->orderBy('is_reviewed', 'asc')->orderBy('created_at', 'desc')->take(10)->get();
 
 		$unsoundedNotificationsCount = Notification::where('user_id', Auth::id())->where('is_sounded', false)->count();
 
@@ -50,7 +50,7 @@ class NotificationsController extends BaseAdminController
 		// dd($nodes);
 
 		return response()->json([
-			'totalCount' => count($notifications),
+			'totalCount' => count($notifications->where('is_reviewed', false)),
 			'notificationsHtml' => $notificationsHtml,
 			'playSound' => $unsoundedNotificationsCount ? true : false,
 			'nodes' => $nodes,
