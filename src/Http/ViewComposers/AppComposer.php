@@ -55,6 +55,10 @@ class AppComposer {
 		$this->notifications = Notification::where('user_id', Auth::id())->orderBy('is_reviewed', 'asc')->orderBy('created_at', 'desc')->take(10)->get();
 
 		$this->unreadNotificationsCount =  Notification::where('user_id', Auth::id())->where('is_reviewed', false)->count();
+
+		Notification::where('user_id', Auth::id())->where('is_sounded', false)->update([
+			'is_sounded' => true,
+		]);
 	}
 	/**
 	 * Bind data to the view.

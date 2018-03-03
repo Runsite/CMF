@@ -41,14 +41,12 @@
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle ripple" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              @if($unreadNotificationsCount)
-                <span class="label label-warning">{{ $unreadNotificationsCount }}</span>
-              @endif
+              <span id="notifications-counter" class="label label-warning {{ !$unreadNotificationsCount ? 'hidden' : null }}">{{ $unreadNotificationsCount }}</span>
             </a>
             <ul class="dropdown-menu">
               <li class="header">{{ trans('runsite::app.Notifications') }}</li>
               <li>
-                <ul class="menu">
+                <ul class="menu" id="notifications-container">
 
                   @foreach($notifications as $notification)
                     <li>
@@ -166,9 +164,7 @@
             <i class="fa fa-{{ $childNode->settings->node_icon ?: ($childNode->model->settings->node_icon ?: 'archive') }}"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
 
-            @if($childNode->totalUnreadNotificationsCount)
-              <span class="label pull-right bg-yellow">{{ $childNode->totalUnreadNotificationsCount }}</span>
-            @endif
+            <span data-node-id="{{ $childNode->id }}" class="label pull-right bg-yellow {{ !$childNode->totalUnreadNotificationsCount ? 'hidden' : null }}">{{ $childNode->totalUnreadNotificationsCount }}</span>
           </a>
           @if($childNode->hasTreeChildren())
             <ul class="treeview-menu">
@@ -191,9 +187,7 @@
 
                     {{ $dynamic->name ?: trans('runsite::nodes.Node').' '.$treeChild->id }}
 
-                    @if($treeChild->totalUnreadNotificationsCount)
-                      <span class="label pull-right bg-green">{{ $treeChild->totalUnreadNotificationsCount }}</span>
-                    @endif
+                    <span data-node-id="{{ $treeChild->id }}" class="label pull-right bg-green {{ !$treeChild->totalUnreadNotificationsCount ? 'hidden' : null }}">{{ $treeChild->totalUnreadNotificationsCount }}</span>
                     </div>
                   </a>
                 </li>
@@ -231,4 +225,50 @@
   reserved.
 </footer>
 </div>
+@endsection
+
+@section('js-notifications')
+<script>
+    $(function() {
+        setInterval(function(){
+
+            $.get('{{ route('admin.api.sound-notification-count') }}', function(data) {
+
+                if(data.totalCount)
+                {
+                  $('#notifications-counter').html(data.totalCount).removeClass('hidden');
+                }
+                else
+                {
+                  $('#notifications-counter').html(data.totalCount).addClass('hidden');
+                }
+                
+                Object.keys(data.nodes).forEach(function(node_id) {
+                  var obj = $('[data-node-id="'+node_id+'"]');
+                  obj.html(data.nodes[node_id]).removeClass('hidden');
+
+                  if(data.playSound)
+                  {
+                    obj.addClass('animated').addClass('shake');
+                  }
+                });
+
+                $('#notifications-container').html(data.notificationsHtml);
+
+                if(data.playSound)
+                {
+                  $('#notification-player')[0].play();
+                  $('#notifications-counter').addClass('animated').addClass('shake');
+                }
+
+                setTimeout(function() {
+                  $('#notifications-counter, .treeview-menu a span').removeClass('animated').removeClass('shake');
+                }, 2000);
+            });
+
+        }, 5000);
+    });
+</script>
+
+<audio src="{{ asset('vendor/runsite/asset/sounds/notification.ogg') }}" id="notification-player"></audio>
 @endsection

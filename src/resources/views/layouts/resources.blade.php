@@ -310,6 +310,7 @@
         </script>
     @endif
 
+    @yield('js-notifications')
     @yield('js')
   </body>
 </html>

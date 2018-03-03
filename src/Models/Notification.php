@@ -12,7 +12,7 @@ use Runsite\CMF\Models\{
 class Notification extends Eloquent
 {
 	protected $table = 'rs_notifications';
-	protected $fillable = ['node_id', 'user_id', 'is_reviewed', 'message', 'icon_name'];
+	protected $fillable = ['node_id', 'user_id', 'is_reviewed', 'is_sounded', 'message', 'icon_name'];
 
 	public function node()
 	{

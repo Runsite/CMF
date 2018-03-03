@@ -21,6 +21,8 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::group(['prefix'=>'node', 'as'=>'node.'], function() {
                 Route::get('find-by-name', ['as'=>'find-by-name', 'uses'=>'NodesController@findByName']);
             });
+
+            Route::get('sound-notification-count', ['as'=>'sound-notification-count', 'uses'=>'NotificationsController@soundNotificationsCount']);
         });
 
         Route::group(['prefix'=>'notifications', 'as'=>'notifications.', 'namespace'=>'Notifications'], function() {

@@ -18,6 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('node_id')->references('id')->on('rs_nodes')->unsigned()->nullable()->default(null);
             $table->integer('user_id')->references('id')->on('rs_users')->unsigned();
             $table->boolean('is_reviewed')->default(false);
+            $table->boolean('is_sounded')->default(false);
             $table->string('message');
             $table->string('icon_name');
             $table->timestamps();
