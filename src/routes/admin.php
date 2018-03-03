@@ -23,6 +23,11 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             });
         });
 
+        Route::group(['prefix'=>'notifications', 'as'=>'notifications.', 'namespace'=>'Notifications'], function() {
+            Route::get('/', ['as'=>'index', 'uses'=>'NotificationsController@index']);
+            Route::get('{notification}', ['as'=>'show', 'uses'=>'NotificationsController@show']);
+        });
+
         // Account
         Route::group(['prefix'=>'account', 'as'=>'account.', 'namespace'=>'Account'], function() {
 

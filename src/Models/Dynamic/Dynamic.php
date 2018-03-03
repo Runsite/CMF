@@ -9,6 +9,7 @@ use Runsite\CMF\Helpers\GlobalScope;
 use LaravelLocalization;
 use Goszowski\Temp\Temp;
 use Illuminate\Database\Eloquent\Builder;
+use App\Events\Nodes\NodesListener;
 
 class Dynamic extends Eloquent
 {
@@ -67,6 +68,12 @@ class Dynamic extends Eloquent
         }
 
         $this->node->putAnalytic(2);
+
+        $listenerClass = 'App\Events\Nodes\NodesListener';
+        if(class_exists($listenerClass))
+        {
+            (new $listenerClass())->update($this->node);
+        }
 
         return parent::save($options);
     }

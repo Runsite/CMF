@@ -38,6 +38,31 @@
             </ul>
           </li> --}}
 
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle ripple" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              @if($unreadNotificationsCount)
+                <span class="label label-warning">{{ $unreadNotificationsCount }}</span>
+              @endif
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">{{ trans('runsite::app.Notifications') }}</li>
+              <li>
+                <ul class="menu">
+
+                  @foreach($notifications as $notification)
+                    <li>
+                      <a href="{{ route('admin.notifications.show', $notification) }}" style="white-space: normal;">
+                        <i class="fa fa-{{ $notification->icon_name ?: 'flag' }} {{ !$notification->is_reviewed ? 'text-orange' : null }}"></i>
+                        {{ $notification->message }}
+                      </a>
+                    </li>
+                  @endforeach
+                </ul>
+              </li>
+            </ul>
+          </li>
+
           @yield('node_model')
 
           <li class="dropdown">
@@ -140,6 +165,10 @@
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
             <i class="fa fa-{{ $childNode->settings->node_icon ?: ($childNode->model->settings->node_icon ?: 'archive') }}"></i> 
             <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
+
+            @if($childNode->totalUnreadNotificationsCount)
+              <span class="label pull-right bg-yellow">{{ $childNode->totalUnreadNotificationsCount }}</span>
+            @endif
           </a>
           @if($childNode->hasTreeChildren())
             <ul class="treeview-menu">
@@ -161,6 +190,10 @@
                       
 
                     {{ $dynamic->name ?: trans('runsite::nodes.Node').' '.$treeChild->id }}
+
+                    @if($treeChild->totalUnreadNotificationsCount)
+                      <span class="label pull-right bg-green">{{ $treeChild->totalUnreadNotificationsCount }}</span>
+                    @endif
                     </div>
                   </a>
                 </li>
