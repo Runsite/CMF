@@ -16,6 +16,11 @@ class NotificationsController extends BaseAdminController
 
 	public function show(Notification $notification)
 	{
+		if($notification->user_id != Auth::id())
+		{
+			return view('runsite::errors.forbidden');
+		}
+
 		$notification->is_reviewed = true;
 		$notification->save();
 
