@@ -6,8 +6,11 @@ use Illuminate\{
     Notifications\Notifiable,
     Foundation\Auth\User as Authenticatable
 };
-use Runsite\CMF\Models\User\Access\Access;
-use Runsite\CMF\Models\Node\Node;
+use Runsite\CMF\Models\{
+    User\Access\Access,
+    Node\Node,
+    Notification
+};
 
 class User extends Authenticatable
 {
@@ -136,5 +139,20 @@ class User extends Authenticatable
     {
         // TODO
         return parent::delete();
+    }
+
+    public function notifications()
+    {
+        return $this->belongsToMany(Notification::class, 'user_id');
+    }
+
+    public function notify(Node $node, $message, $icon_name=null)
+    {
+        return Notification::create([
+            'user_id' => $this->id,
+            'node_id' => $node->id,
+            'message' => $message,
+            'icon_name' => $icon_name,
+        ]);
     }
 }

@@ -21,6 +21,17 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::group(['prefix'=>'node', 'as'=>'node.'], function() {
                 Route::get('find-by-name', ['as'=>'find-by-name', 'uses'=>'NodesController@findByName']);
             });
+
+            Route::get('sound-notification-count', ['as'=>'sound-notification-count', 'uses'=>'NotificationsController@soundNotificationsCount']);
+
+            Route::get('enable-notifications-sound', ['as'=>'enable-notifications-sound', 'uses'=>'NotificationsController@enableNotificationsSound']);
+
+            Route::get('disable-notifications-sound', ['as'=>'disable-notifications-sound', 'uses'=>'NotificationsController@disableNotificationsSound']);
+        });
+
+        Route::group(['prefix'=>'notifications', 'as'=>'notifications.', 'namespace'=>'Notifications'], function() {
+            Route::get('/', ['as'=>'index', 'uses'=>'NotificationsController@index']);
+            Route::get('{notification}', ['as'=>'show', 'uses'=>'NotificationsController@show']);
         });
 
         // Account

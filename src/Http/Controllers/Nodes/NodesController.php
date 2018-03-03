@@ -11,6 +11,7 @@ use Runsite\CMF\Models\Node\Node;
 use Runsite\CMF\Models\Model\Model;
 use Runsite\CMF\Models\Dynamic\Language;
 use Runsite\CMF\Models\Application;
+use Runsite\CMF\Models\Notification;
 use Auth;
 use LaravelLocalization;
 use Artisan;
@@ -174,6 +175,8 @@ class NodesController extends BaseAdminController
 		{
 			return view('runsite::errors.forbidden');
 		}
+
+		Notification::where('user_id', Auth::id())->where('is_reviewed', false)->where('node_id', $node->id)->update(['is_reviewed'=>true]);
 
 		$modelsApplication = Application::where('name', 'models')->first();
 
