@@ -64,7 +64,7 @@
 			
 
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="form-group {{ $errors->has('show_in_admin_tree') ? ' has-error' : '' }}">
 						{{ Form::label('show_in_admin_tree', trans('runsite::models.settings.Show in admin tree')) }}
 						<input type="hidden" name="show_in_admin_tree" value="0">
@@ -80,7 +80,7 @@
 						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.Nodes of this model will be displayed in the tree') }}. {{ trans('runsite::models.settings.There are restrictions on the level of nesting: only two levels are displayed') }}</small>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-6">
 					<div class="form-group {{ $errors->has('use_response_cache') ? ' has-error' : '' }}">
 						{{ Form::label('use_response_cache', trans('runsite::models.settings.Use response cache')) }}
 						<input type="hidden" name="use_response_cache" value="0">
@@ -96,7 +96,10 @@
 						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.Responses of this model will be cached and returned without processing by the controllers') }}. {{ trans('runsite::models.settings.Only GET requests are processed') }}. <br><br>{{ trans('runsite::models.settings.Please note: if your page contains forms with CSRF protection - do not use caching') }}.</small>
 					</div>
 				</div>
-				<div class="col-md-4">
+			</div>
+
+			<div class="row">
+				<div class="col-md-6">
 					<div class="form-group {{ $errors->has('slug_autogeneration') ? ' has-error' : '' }}">
 						{{ Form::label('slug_autogeneration', trans('runsite::models.settings.Generate new slug automaticly')) }}
 						<input type="hidden" name="slug_autogeneration" value="0">
@@ -110,6 +113,22 @@
 							</span>
 						@endif
 						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.After node updating, new slug will be generated automaticly, based on the name field') }}. {{ trans('runsite::models.settings.Do not use for static partitions such as "news list", "contacts," etc') }}.</small>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group {{ $errors->has('is_searchable') ? ' has-error' : '' }}">
+						{{ Form::label('is_searchable', trans('runsite::models.settings.Is searchable')) }}
+						<input type="hidden" name="is_searchable" value="0">
+						<div class="runsite-checkbox">
+							{{ Form::checkbox('is_searchable', 1, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+							<label for="is_searchable"></label>
+						</div>
+						@if ($errors->has('is_searchable'))
+							<span class="help-block">
+								<strong>{{ $errors->first('is_searchable') }}</strong>
+							</span>
+						@endif
+						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.The model will be available for search in the admin panel') }}.</small>
 					</div>
 				</div>
 			</div>

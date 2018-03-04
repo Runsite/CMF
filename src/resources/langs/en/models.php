@@ -41,6 +41,8 @@ return [
         'Do not use for static partitions such as "news list", "contacts," etc' => 'Do not use for static partitions such as "news list", "contacts," etc',
         'Node icon' => 'Node icon',
         'The icon will be displayed in the tree' => 'The icon will be displayed in the tree',
+        'Is searchable' => 'Is searchable',
+        'The model will be available for search in the admin panel' => 'The model will be available for search in the admin panel',
     ],
 
     'methods' => [
