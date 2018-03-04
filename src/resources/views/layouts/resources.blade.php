@@ -164,10 +164,13 @@
         '/vendor/runsite/asset/plugins/highlight/highlight.pack.js',
         '/vendor/runsite/asset/plugins/iCheck/icheck.min.js',
         '/vendor/runsite/asset/plugins/bootstrap-typeahead/bootstrap3-typeahead.min.js',
+        '/vendor/runsite/asset/plugins/PreventDoubleSubmission/preventDoubleSubmission.js',
     ]) !!}
 
     <script>
     $(document).ready(function () {
+
+        $('form:not(.js-allow-double-submission)').preventDoubleSubmission();
 
         $(".typeahead").each(function() {
             var object = $(this);
