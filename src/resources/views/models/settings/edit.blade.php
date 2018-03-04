@@ -109,7 +109,7 @@
 								<strong>{{ $errors->first('slug_autogeneration') }}</strong>
 							</span>
 						@endif
-						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.After node updating, new slug will be generated automaticly, based on the name field') }}. {{ trans('runsite::models.settings.Do not use for static partitions such as "news list", "contacts," etc') }}.
+						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.After node updating, new slug will be generated automaticly, based on the name field') }}. {{ trans('runsite::models.settings.Do not use for static partitions such as "news list", "contacts," etc') }}.</small>
 					</div>
 				</div>
 			</div>
