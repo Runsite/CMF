@@ -34,6 +34,11 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
             Route::get('{notification}', ['as'=>'show', 'uses'=>'NotificationsController@show']);
         });
 
+        Route::group(['prefix'=>'search', 'as'=>'search.', 'namespace'=>'Search'], function() {
+            Route::get('/{search_key}', ['as'=>'find-model', 'uses'=>'SearchController@findModel']);
+            Route::get('/{search_key}/{model}', ['as'=>'show', 'uses'=>'SearchController@show']);
+        });
+
         // Account
         Route::group(['prefix'=>'account', 'as'=>'account.', 'namespace'=>'Account'], function() {
 

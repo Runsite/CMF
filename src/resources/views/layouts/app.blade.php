@@ -38,6 +38,30 @@
             </ul>
           </li> --}}
 
+          <li class="dropdown notifications-menu global-search-wrapper">
+            <a href="#" class="dropdown-toggle ripple" data-toggle="dropdown" onclick="setTimeout(function(){$('.global-search-wrapper input[name=\'search_key\']').focus();}, 1)">
+              <i class="fa fa-search"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">
+                {{ trans('runsite::search.Search') }}
+              </li>
+              <li class="header">
+                <input type="text" class="form-control input-sm" name="search_key">
+              </li>
+              <li>
+                <ul class="menu">
+
+                  @foreach($searchHistory as $searchHistoryItem)
+                    <li>
+                      <a href="{{ route('admin.search.find-model', $searchHistoryItem->search_key) }}">{{ $searchHistoryItem->search_key }}</a>
+                    </li>
+                  @endforeach
+                </ul>
+              </li>
+            </ul>
+          </li>
+
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle ripple" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -262,6 +286,14 @@
             notificationSoundsEnabled = false;
 
              $.get('{{ route('admin.api.disable-notifications-sound') }}');
+          }
+        });
+
+        $('.global-search-wrapper input[name=\'search_key\']').on('keypress', function(e) {
+          if(e.which == 13)
+          {
+            var search_key = $('.global-search-wrapper input[name=search_key]').val();
+            window.location.href = '{{ url('admin/search') }}/' + search_key;
           }
         });
 

@@ -8,6 +8,7 @@ use Route;
 use Runsite\CMF\Models\Dynamic\Language;
 use LaravelLocalization;
 use Runsite\CMF\Models\Notification;
+use Runsite\CMF\Models\SearchHistory;
 
 class AppComposer {
 
@@ -22,6 +23,8 @@ class AppComposer {
 	protected $notifications = [];
 
 	protected $unreadNotificationsCount = 0;
+
+	protected $searchHistory = [];
 
 	/**
 	 * Create a new app composer.
@@ -59,6 +62,8 @@ class AppComposer {
 		Notification::where('user_id', Auth::id())->where('is_sounded', false)->update([
 			'is_sounded' => true,
 		]);
+
+		$this->searchHistory = SearchHistory::where('user_id', Auth::id())->orderBy('created_at', 'desc')->take(15)->get();
 	}
 	/**
 	 * Bind data to the view.
@@ -68,6 +73,6 @@ class AppComposer {
 	 */
 	public function compose(View $view)
 	{
-		$view->with('authUser', $this->authUser)->with('allLanguages', $this->allLanguages)->with('languagesHaveErrors', $this->languagesHaveErrors)->with('notifications', $this->notifications)->with('unreadNotificationsCount', $this->unreadNotificationsCount);
+		$view->with('authUser', $this->authUser)->with('allLanguages', $this->allLanguages)->with('languagesHaveErrors', $this->languagesHaveErrors)->with('notifications', $this->notifications)->with('unreadNotificationsCount', $this->unreadNotificationsCount)->with('searchHistory', $this->searchHistory);
 	}
 }
