@@ -187,7 +187,7 @@
 														<th>
 															<small>{{ $field->display_name }}</small>
 															@if($field->type()::$needField)
-																{!! Form::open(['url'=>route('admin.nodes.edit', ['node'=>$node, 'depended_model_id'=>$depended_model_item->id]), 'method'=>'get', 'style'=>'display: inline']) !!}
+																{!! Form::open(['url'=>route('admin.nodes.edit', ['node'=>$node, 'depended_model_id'=>$depended_model->id]), 'method'=>'get', 'style'=>'display: inline']) !!}
 																	<input type="hidden" name="orderby" value="{{ $field->name }}">
 																	<div class="btn-group xs-ml-5">
 																		<button type="submit" name="direct" value="asc" class="btn btn-default btn-xs ripple {{ ($orderField == $field->name and $orderDirection == 'asc') ? 'active' : null }}" data-ripple-color="#5d5d5d" style="padding: 2px; font-size: 0px;">
@@ -204,7 +204,7 @@
 													@if(str_is('position *', $depended_model->settings->nodes_ordering))
 														<th>
 															<small>{{ trans('runsite::nodes.Position') }}</small>
-															{!! Form::open(['url'=>route('admin.nodes.edit', ['node'=>$node, 'depended_model_id'=>$depended_model_item->id]), 'method'=>'get', 'style'=>'display: inline']) !!}
+															{!! Form::open(['url'=>route('admin.nodes.edit', ['node'=>$node, 'depended_model_id'=>$depended_model->id]), 'method'=>'get', 'style'=>'display: inline']) !!}
 																<input type="hidden" name="orderby" value="position">
 																<div class="btn-group xs-ml-5">
 																	<button type="submit" name="direct" value="asc" class="btn btn-default btn-xs ripple {{ ($orderField == 'position' and $orderDirection == 'asc') ? 'active' : null }}" data-ripple-color="#5d5d5d" style="padding: 2px; font-size: 0px;">
