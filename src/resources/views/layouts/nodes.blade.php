@@ -255,7 +255,9 @@
 											</tbody>
 										</table>
 									</div>
-									{!! $children->links() !!}
+									<div class="xs-pl-15">
+										{!! $children->appends(['orderby'=>$orderField, 'direct'=>$orderDirection])->links() !!}
+									</div>
 								@else
 									<div class="xs-p-15">
 										<small class="text-muted">Empty</small>
