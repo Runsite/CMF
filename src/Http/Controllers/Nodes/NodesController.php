@@ -169,7 +169,7 @@ class NodesController extends BaseAdminController
 	 *
 	 * @param  int  $depended_model_id
 	 */
-	public function edit(Node $node, $depended_model_id=null): View
+	public function edit(Request $request, Node $node, $depended_model_id=null): View
 	{
 		if(! Auth::user()->access()->node($node)->read or ! Auth::user()->access()->model($node->model)->read)
 		{
@@ -254,6 +254,16 @@ class NodesController extends BaseAdminController
 		if($depended_model)
 		{
 			$ordering = explode(' ', $depended_model->settings->nodes_ordering);
+
+			$orderField = $ordering[0];
+			$orderDirection = $ordering[1];
+
+			if($request->orderby and $request->direct and ($request->orderby == 'position' or ($model->hasField($request->orderby) and $model->isRealField($request->orderby))))
+			{
+				$orderField = $request->orderby;
+				$orderDirection = $request->direct;
+			}
+
 			$children = M($depended_model->tableName(), false, $active_language_tab)->where('parent_id', $node->id)
 			->join('rs_group_node_access', 'rs_group_node_access.node_id', '=', 'rs_nodes.id')
 			->whereIn('rs_group_node_access.group_id', Auth::user()->groups->pluck('id'))
@@ -261,7 +271,7 @@ class NodesController extends BaseAdminController
 			->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_nodes.model_id')
 			->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
 			->where('rs_group_model_access.access', '>=', 1)
-			->orderBy($ordering[0], $ordering[1]);
+			->orderBy($orderField, $orderDirection);
 			$children_total_count = $children->count();
 			$children = $children->groupBy('rs_nodes.id')->paginate();
 		}
@@ -288,7 +298,7 @@ class NodesController extends BaseAdminController
 			}
 		}
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'modelsApplication'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'modelsApplication', 'orderField', 'orderDirection'));
 	}
 
 	/**

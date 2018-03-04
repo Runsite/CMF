@@ -186,10 +186,36 @@
 													@foreach($depended_model->fields->where('is_visible_in_nodes_list', true) as $field)
 														<th>
 															<small>{{ $field->display_name }}</small>
+															@if($field->type()::$needField)
+																{!! Form::open(['url'=>route('admin.nodes.edit', ['node'=>$node, 'depended_model_id'=>$depended_model_item->id]), 'method'=>'get', 'style'=>'display: inline']) !!}
+																	<input type="hidden" name="orderby" value="{{ $field->name }}">
+																	<div class="btn-group xs-ml-5">
+																		<button type="submit" name="direct" value="asc" class="btn btn-default btn-xs ripple {{ ($orderField == $field->name and $orderDirection == 'asc') ? 'active' : null }}" data-ripple-color="#5d5d5d" style="padding: 2px; font-size: 0px;">
+																			<i class="fa fa-caret-up" style="font-size: 11px;"></i>
+																		</button>
+																		<button type="submit" name="direct" value="desc" class="btn btn-default btn-xs ripple {{ ($orderField == $field->name and $orderDirection == 'desc') ? 'active' : null }}" data-ripple-color="#5d5d5d" style="padding: 2px; font-size: 0;">
+																			<i class="fa fa-caret-down" style="font-size: 11px;"></i>
+																		</button>
+																	</div>
+																{!! Form::close() !!}
+															@endif
 														</th>
 													@endforeach
 													@if(str_is('position *', $depended_model->settings->nodes_ordering))
-														<th><small>{{ trans('runsite::nodes.Position') }}</small></th>
+														<th>
+															<small>{{ trans('runsite::nodes.Position') }}</small>
+															{!! Form::open(['url'=>route('admin.nodes.edit', ['node'=>$node, 'depended_model_id'=>$depended_model_item->id]), 'method'=>'get', 'style'=>'display: inline']) !!}
+																<input type="hidden" name="orderby" value="position">
+																<div class="btn-group xs-ml-5">
+																	<button type="submit" name="direct" value="asc" class="btn btn-default btn-xs ripple {{ ($orderField == 'position' and $orderDirection == 'asc') ? 'active' : null }}" data-ripple-color="#5d5d5d" style="padding: 2px; font-size: 0px;">
+																		<i class="fa fa-caret-up" style="font-size: 11px;"></i>
+																	</button>
+																	<button type="submit" name="direct" value="desc" class="btn btn-default btn-xs ripple {{ ($orderField == 'position' and $orderDirection == 'desc') ? 'active' : null }}" data-ripple-color="#5d5d5d" style="padding: 2px; font-size: 0;">
+																		<i class="fa fa-caret-down" style="font-size: 11px;"></i>
+																	</button>
+																</div>
+															{!! Form::close() !!}
+														</th>
 													@endif
 													<th><small>{{ trans('runsite::nodes.Actions') }}</small></th>
 												</tr>
@@ -204,18 +230,21 @@
 														@endforeach
 														@if(str_is('position *', $depended_model->settings->nodes_ordering))
 															<td>
-																<div class="btn-group">
-																	{!! Form::open(['url'=>route('admin.nodes.move.up', ['node'=>$child->node_id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
-																		<button type="submit" {{ $child->position == 1 ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
-																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'up' : 'down' }}"></i>
-																		</button>
-																	{!! Form::close() !!}
-																	{!! Form::open(['url'=>route('admin.nodes.move.down', ['node'=>$child->node_id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
-																		<button type="submit" {{ $child->position == $children_total_count ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
-																			<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'down' : 'up' }}"></i>
-																		</button>
-																	{!! Form::close() !!}
-																</div>
+																@if($orderField == 'position' and $orderDirection == 'asc')
+																	<div class="btn-group">
+																		{!! Form::open(['url'=>route('admin.nodes.move.up', ['node'=>$child->node_id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
+																			<button type="submit" {{ $child->position == 1 ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
+																				<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'up' : 'down' }}"></i>
+																			</button>
+																		{!! Form::close() !!}
+																		{!! Form::open(['url'=>route('admin.nodes.move.down', ['node'=>$child->node_id, 'depended_model_id'=>$depended_model->id]), 'method'=>'patch', 'style'=>'display: inline;']) !!}
+																			<button type="submit" {{ $child->position == $children_total_count ? 'disabled' : null }} class="btn btn-sm btn-default ripple remember-scroll-position" data-ripple-color="#5d5d5d">
+																				<i class="fa fa-caret-{{ str_is('* asc', $depended_model->settings->nodes_ordering) ? 'down' : 'up' }}"></i>
+																			</button>
+																		{!! Form::close() !!}
+																	</div>
+																@endif
+																
 															</td>
 														@endif
 														<td>

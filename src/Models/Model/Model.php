@@ -27,6 +27,7 @@ class Model extends Eloquent
 {
 	protected $table = 'rs_models';
 	protected $fillable = ['name', 'display_name', 'display_name_plural'];
+	protected $cached_hasField = [];
 
 	public $fieldTemplates = [
 		1 => NameTemplate::class,
@@ -221,6 +222,20 @@ class Model extends Eloquent
 		Schema::dropIfExists($this->tableName());
 		unlink(app_path('Models\\'.$this->className().'.php'));
 		return parent::delete();
+	}
+
+	public function hasField($fieldName)
+	{
+		if(! isset($this->cached_hasField[$fieldName]))
+		{
+			$this->cached_hasField[$fieldName] = $this->fields->where('name', $fieldName)->count() ? true : false;
+		}
+		return $this->cached_hasField[$fieldName];
+	}
+
+	public function isRealField($fieldName)
+	{
+		return $this->fields->where('name', $fieldName)->first()->type()::$needField;
 	}
 
 
