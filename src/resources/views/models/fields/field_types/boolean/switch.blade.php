@@ -5,6 +5,7 @@
 		<div class="runsite-checkbox">
 			<input 
 				type="checkbox" 
+				checked="checked" 
 				value="1"
 				id="{{ $field->name }}-{{ $language->id }}"
 				name="{{ $field->name }}[{{ $language->id }}]"
