@@ -126,7 +126,7 @@ class Node extends Eloquent
 			Path::create([
 				'node_id' => $node->id,
 				'language_id' => $language->id,
-				'name' => $node->generatePath($current_language_basename, true, $language->id),
+				'name' => $node->generatePath($current_language_basename ?: $node->id, true, $language->id),
 			]);
 
 			DB::table($node->model->tableName())->insert([
@@ -193,7 +193,6 @@ class Node extends Eloquent
 		{
 			$path = $root . str_slug($basename);
 		}
-		
 
 		if($unique)
 		{
@@ -202,7 +201,6 @@ class Node extends Eloquent
 				$path .= Node::where('parent_id', $this->parent_id)->count();
 			}
 		}
-		
 
 		return $path;
 	}
@@ -265,7 +263,6 @@ class Node extends Eloquent
 	{
 		$result = [];
 
-
 		$parent = Node::findOrFail($this->id);
 		$result[] = $parent;
 
@@ -274,8 +271,6 @@ class Node extends Eloquent
 			$parent = Node::findOrFail($parent->parent_id);
 			$result[] = $parent;
 		}
-
-		
 
 		return array_reverse($result);
 	}
@@ -338,5 +333,4 @@ class Node extends Eloquent
 
 		return $this->cached_totalUnreadNotificationsCount;
 	}
-
 }
