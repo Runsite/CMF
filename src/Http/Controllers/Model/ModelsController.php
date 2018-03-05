@@ -105,6 +105,18 @@ class ModelsController extends BaseAdminController
      */
     public function destroy(Model $model)
     {
-        //
+        if($model->id == 1)
+        {
+            return redirect()->back();
+        }
+
+        foreach($model->fields as $field)
+        {
+            $field->delete();
+        }
+
+        $model->delete();
+
+        return redirect()->route('admin.models.index');
     }
 }

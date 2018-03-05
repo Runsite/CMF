@@ -220,7 +220,12 @@ class Model extends Eloquent
 	public function delete()
 	{
 		Schema::dropIfExists($this->tableName());
-		unlink(app_path('Models\\'.$this->className().'.php'));
+
+		$modelFilePath = app_path('Models\\'.$this->className().'.php');
+		if(file_exists($modelFilePath))
+		{
+			unlink($modelFilePath);
+		}
 		return parent::delete();
 	}
 

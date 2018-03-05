@@ -21,6 +21,10 @@ return [
     'The model field is created' => 'The model field is created',
     'Access' => 'Access',
     'This model has not useful fields' => 'This model has not useful fields',
+    'Delete' => 'Delete',
+    'Are you sure' => 'Are you sure',
+    'Are you sure you want to delete the model' => 'Are you sure you want to delete the model',
+    'Delete model' => 'Delete model',
 
     'settings' => [
         'Show in admin tree' => 'Show in admin tree',
