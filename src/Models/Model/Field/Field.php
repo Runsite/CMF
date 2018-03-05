@@ -180,9 +180,12 @@ class Field extends Eloquent
 
         if($field->type_id != $this->type_id)
         {
-            DB::table($field->model->tableName())->update([
-                $field->name => null
-            ]);
+            if($field->types[$field->type_id]::$needField)
+            {
+                DB::table($field->model->tableName())->update([
+                    $field->name => null
+                ]);
+            }
 
             Schema::table($field->model->tableName(), function($table) use($type, $field)
             {
@@ -234,7 +237,7 @@ class Field extends Eloquent
             }
         }
 
-        if($field->name != $this->name)
+        if($field->name != $this->name and $field->types[$field->type_id]::$needField)
         {
             Schema::table($field->model->tableName(), function($table) use($field)
             {
