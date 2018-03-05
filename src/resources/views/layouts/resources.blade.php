@@ -23,10 +23,10 @@
         '/vendor/runsite/asset/plugins/runsite-checkbox/runsite-checkbox.css',
         '/vendor/runsite/asset/plugins/noty/noty.css',
         '/vendor/runsite/asset/plugins/animate/animate.css',
-        '/vendor/runsite/asset/plugins/pace/pace.css',
         '/vendor/runsite/asset/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
         '/vendor/runsite/asset/bower_components/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css',
         '/vendor/runsite/asset/plugins/highlight/styles/github.css',
+        '/vendor/runsite/asset/plugins/pace/pace.css',
     ]) !!}
 
     {{-- <link rel="stylesheet" href="{{ asset('vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css') }}">
