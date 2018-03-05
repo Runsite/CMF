@@ -120,13 +120,17 @@
 						{{ Form::label('is_searchable', trans('runsite::models.settings.Is searchable')) }}
 						<input type="hidden" name="is_searchable" value="0">
 						<div class="runsite-checkbox">
-							{{ Form::checkbox('is_searchable', 1, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+							{{ Form::checkbox('is_searchable', 1, null, [ (! Auth::user()->access()->application($application)->edit or ! $settings->model->hasField('name')) ? 'disabled' : null]) }}
 							<label for="is_searchable"></label>
 						</div>
 						@if ($errors->has('is_searchable'))
 							<span class="help-block">
 								<strong>{{ $errors->first('is_searchable') }}</strong>
 							</span>
+						@endif
+
+						@if(! $settings->model->hasField('name'))
+							<small class="text-red"><i class="fa fa-warning"></i> {{ trans('runsite::models.settings.The search requires a Name field') }}</small><br>
 						@endif
 						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.The model will be available for search in the admin panel') }}.</small>
 					</div>

@@ -43,6 +43,7 @@ return [
         'The icon will be displayed in the tree' => 'The icon will be displayed in the tree',
         'Is searchable' => 'Is searchable',
         'The model will be available for search in the admin panel' => 'The model will be available for search in the admin panel',
+        'The search requires a Name field' => 'The search requires a Name field',
     ],
 
     'methods' => [

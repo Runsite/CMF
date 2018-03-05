@@ -256,6 +256,12 @@ class Field extends Eloquent
         // Calculating position
         Field::where('model_id', $this->model_id)->where('position', '>', $this->position)->decrement('position');
 
+        if($this->name == 'name')
+        {
+            $this->model->settings->is_searchable = false;
+            $this->model->settings->save();
+        }
+
         return parent::delete();
     }
 
