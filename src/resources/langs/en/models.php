@@ -20,6 +20,7 @@ return [
     'The model is updated' => 'The model is updated',
     'The model field is created' => 'The model field is created',
     'Access' => 'Access',
+    'This model has not useful fields' => 'This model has not useful fields',
 
     'settings' => [
         'Show in admin tree' => 'Show in admin tree',
