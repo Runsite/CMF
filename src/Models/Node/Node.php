@@ -122,6 +122,17 @@ class Node extends Eloquent
 			if(is_array($basename))
 			{
 				$current_language_basename = $basename[$language->locale];
+				if(! $current_language_basename)
+				{
+					foreach($basename as $basenameItem)
+					{
+						if($basenameItem)
+						{
+							$current_language_basename = $basenameItem;
+							break;
+						}
+					}
+				}
 			}
 			Path::create([
 				'node_id' => $node->id,
