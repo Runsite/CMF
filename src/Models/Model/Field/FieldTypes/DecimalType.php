@@ -14,7 +14,7 @@ class DecimalType
 
     public static $needField = true;
 
-    public static $size = ['base' => 5, 'extra' => 2];
+    public static $size = ['base' => 10, 'extra' => 2];
 
     public static $defaultSettings = [
         'control' => [
@@ -31,7 +31,7 @@ class DecimalType
         ],
     ];
 
-    public static function defaultValue(): decimal
+    public static function defaultValue()
     {
         return 0;
     }
