@@ -130,31 +130,36 @@
 							@endif
 
 							@if(Route::current()->getName() == 'admin.nodes.edit')
-								<li class="pull-right">
-									<a href="#" data-toggle="dropdown"><i class="fa fa-eye"></i></a>
-									<ul class="dropdown-menu">
-										@foreach($languages as $languagePreview)
-											<li>
-												<a href="{{ lPath($node->path->name, $languagePreview->locale) }}?mode=preview" target="_blank">
-													{{ $languagePreview->display_name }}
-												</a>
-											</li>
-										@endforeach
-									</ul>
-								</li>
+								
 
-								<li class="pull-right">
-									<a href="#" data-toggle="dropdown"><i class="fa fa-qrcode"></i></a>
-									<ul class="dropdown-menu">
-										@foreach($languages as $languageQR)
-											<li>
-												<a href="{{ route('admin.nodes.qr-code', ['node'=>$node, 'language'=>$languageQR]) }}">
-													{{ $languageQR->display_name }}
-												</a>
-											</li>
-										@endforeach
-									</ul>
-								</li>
+								@if($node->methods->get or $node->model->methods->get)
+									<li class="pull-right">
+										<a href="#" data-toggle="dropdown"><i class="fa fa-eye"></i></a>
+										<ul class="dropdown-menu">
+											@foreach($languages as $languagePreview)
+												<li>
+													<a href="{{ lPath($node->path->name, $languagePreview->locale) }}?mode=preview" target="_blank">
+														{{ $languagePreview->display_name }}
+													</a>
+												</li>
+											@endforeach
+										</ul>
+									</li>
+								
+									<li class="pull-right">
+										<a href="#" data-toggle="dropdown"><i class="fa fa-qrcode"></i></a>
+										<ul class="dropdown-menu">
+											@foreach($languages as $languageQR)
+												<li>
+													<a href="{{ route('admin.nodes.qr-code', ['node'=>$node, 'language'=>$languageQR]) }}">
+														{{ $languageQR->display_name }}
+													</a>
+												</li>
+											@endforeach
+										</ul>
+									</li>
+								@endif
+								
 							@endif
 						</ul>
 						
