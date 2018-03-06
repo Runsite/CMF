@@ -206,11 +206,11 @@ class Field extends Eloquent
                 {
                     if($type::defaultValue())
                     {
-                        $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra'])->default($type::defaultValue());
+                        $table->{$type::$name}($this->name, $type::$size['base'], $type::$size['extra'])->default($type::defaultValue());
                     }
                     else
                     {
-                        $table->{$type::$name}($field->name, $type::$size['base'], $type::$size['extra']);
+                        $table->{$type::$name}($this->name, $type::$size['base'], $type::$size['extra']);
                     }
                 }
                 
@@ -237,7 +237,7 @@ class Field extends Eloquent
             }
         }
 
-        if($field->name != $this->name and $field->types[$field->type_id]::$needField)
+        if($field->name != $this->name and $field->types[$field->type_id]::$needField and $type::$needField)
         {
             Schema::table($field->model->tableName(), function($table) use($field)
             {
