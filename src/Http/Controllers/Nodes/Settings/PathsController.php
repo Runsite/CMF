@@ -22,7 +22,7 @@ class PathsController extends BaseAdminController
 		$paths = $node->paths()->orderBy('created_at', 'desc')->get();
 		$languages = Language::get();
 		$breadcrumbs = $node->breadcrumbs();
-		$active_language_tab = config('app.fallback_locale');
+		$active_language_tab = config('app.locale');
 		$model = $node->model;
 
 		return view('runsite::nodes.settings.paths.index', compact('paths', 'languages', 'node', 'breadcrumbs', 'active_language_tab', 'model'));
