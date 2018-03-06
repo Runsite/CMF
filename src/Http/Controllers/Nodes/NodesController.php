@@ -35,7 +35,7 @@ class NodesController extends BaseAdminController
 		$languages = Language::get();
 		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
 		$breadcrumbs = $node->breadcrumbs();
-		$active_language_tab = config('app.fallback_locale');
+		$active_language_tab = config('app.locale');
 		$prev_node = null;
 		$next_node = null;
 		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab', 'prev_node', 'next_node', 'defaultLanguage'));
@@ -185,7 +185,7 @@ class NodesController extends BaseAdminController
 		$languages = Language::get();
 		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
 		$breadcrumbs = $node->breadcrumbs();
-		$active_language_tab = config('app.fallback_locale');
+		$active_language_tab = config('app.locale');
 
 		// Left/Right node navigation
 		$node_ordering = explode(' ', $model->settings->nodes_ordering);
