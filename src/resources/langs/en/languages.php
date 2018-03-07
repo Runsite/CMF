@@ -22,4 +22,6 @@ return [
 	'You can not delete the current language' => 'You can not delete the current language',
 	'Current language' => 'Current language',
 	'Fallback locale' => 'Fallback locale',
+	'Is active' => 'Is active',
+	'Is main' => 'Is main',
 ];

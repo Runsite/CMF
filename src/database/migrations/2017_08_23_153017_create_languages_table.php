@@ -19,6 +19,7 @@ class CreateLanguagesTable extends Migration
             $table->string('locale');
             $table->string('display_name');
             $table->boolean('is_active')->default(false);
+            $table->boolean('is_main')->default(false);
             $table->timestamps();
         });
     }
