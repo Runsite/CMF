@@ -24,6 +24,7 @@ class Node extends Eloquent
 	protected $table = 'rs_nodes';
 	protected $fillable = ['parent_id', 'model_id', 'position'];
 	public $nodeWithData = null;
+	protected $cached_hasMethod = null;
 
 	protected $cached_totalUnreadNotificationsCount = null;
 	protected $cached_fields;
@@ -343,5 +344,15 @@ class Node extends Eloquent
 		}
 
 		return $this->cached_totalUnreadNotificationsCount;
+	}
+
+	public function getHasMethodAttribute()
+	{
+		if($this->cached_hasMethod === null)
+		{
+			$this->cached_hasMethod = ($this->methods->get or $this->methods->post or $this->methods->patch or $this->methods->delete) ? true : false;
+		}
+
+		return $this->cached_hasMethod;
 	}
 }

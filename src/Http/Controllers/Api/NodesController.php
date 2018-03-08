@@ -80,10 +80,13 @@ class NodesController extends BaseAdminController
 
 				foreach($nodes as $node)
 				{
-					$results[] = [
-						'id' => $node->node_id,
-						'text' => '[' . $searchableModel->display_name_plural . '] - ' . $node->name,
-					];
+					if($node->node->hasMethod or $searchableModel->hasMethod)
+					{
+						$results[] = [
+							'id' => $node->node_id,
+							'text' => '[' . $searchableModel->display_name_plural . '] - ' . $node->name,
+						];
+					}
 				}
 			}
 		}

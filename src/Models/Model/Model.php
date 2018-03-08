@@ -28,6 +28,7 @@ class Model extends Eloquent
 	protected $table = 'rs_models';
 	protected $fillable = ['name', 'display_name', 'display_name_plural'];
 	protected $cached_hasField = [];
+	protected $cached_hasMethod = null;
 
 	public $fieldTemplates = [
 		1 => NameTemplate::class,
@@ -256,6 +257,16 @@ class Model extends Eloquent
 		}
 
 		return $prefix;
+	}
+
+	public function getHasMethodAttribute()
+	{
+		if($this->cached_hasMethod === null)
+		{
+			$this->cached_hasMethod = ($this->methods->get or $this->methods->post or $this->methods->patch or $this->methods->delete) ? true : false;
+		}
+
+		return $this->cached_hasMethod;
 	}
 
 
