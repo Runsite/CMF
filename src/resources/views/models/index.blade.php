@@ -17,15 +17,15 @@
 				<tbody>
 					@foreach($models as $k=>$modelItem)
 
-						@if(! str_is('*_*', $modelItem->name))
+						{{-- @if(! str_is('*_*', $modelItem->name))
 							@php($prefix = $modelItem->name)
-						@endif
+						@endif --}}
 
 						<tr>
 							<td>{{ $modelItem->id }}</td>
 							<td>
 								<a class="ripple" data-ripple-color="#333" href="{{ route('admin.models.edit', $modelItem->id) }}" style="display: block;">
-									@if(isset($prefix) and str_is('*_*', $modelItem->name) and str_is($prefix . '_*', $modelItem->name))
+									@if($k and str_is($models[$k-1]->prefix.'*', $modelItem->name))
 										<small> <i class="fa fa-caret-right xs-ml-10"></i> {{ $modelItem->display_name }}</small>
 										@if($modelItem->fields->count() <= 1)
 											<br><span class="label label-danger xs-ml-10">{{ trans('runsite::models.This model has not useful fields') }}</span>

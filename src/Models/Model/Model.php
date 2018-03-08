@@ -243,5 +243,20 @@ class Model extends Eloquent
 		return $this->fields->where('name', $fieldName)->first()->type()::$needField;
 	}
 
+	public function getPrefixAttribute()
+	{
+		$parts = explode('_', $this->name);
+		$prefix = '';
+		foreach($parts as $k=>$part)
+		{
+			if(++$k<$parts)
+			{
+				$prefix .= $part . '_';
+			}
+		}
+
+		return $prefix;
+	}
+
 
 }
