@@ -6,8 +6,10 @@
     <title>Admin | {{ config('app.name') }}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     {!! Minify::stylesheet([
-        '/vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css',
+        //'/vendor/runsite/asset/bower_components/font-awesome/css/font-awesome.min.css',
         '/vendor/runsite/asset/bower_components/select2/dist/css/select2.min.css',
         '/vendor/runsite/asset/bower_components/bootstrap/dist/css/bootstrap.min.css',
         '/vendor/runsite/asset/dist/css/AdminLTE.css',
