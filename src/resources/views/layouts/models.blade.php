@@ -137,7 +137,7 @@
                       <div class="pull-right hidden-xs">
                         <div class="btn-group">
                           <a 
-                            href="{{ $field->prevField() ? route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->prevField()->id]) : 'javascript:void(0)' }}" 
+                            href="{{ $field->prevField() ? route(Route::current()->getName(), ['model_id'=>$model->id, 'field_id'=>$field->prevField()->id]) : 'javascript:void(0)' }}" 
                             class="btn btn-default btn-sm {{ $field->prevField() ? 'ripple' : 'disabled' }}" data-ripple-color="#898989"
                             @if(!$field->prevField()) disabled @endif
                             >
@@ -152,7 +152,7 @@
                           <a href="javascript:void(0);" class="btn btn-default btn-sm disabled">{{ $field->name }}</a>
                           
                           <a 
-                            href="{{ $field->nextField() ? route('admin.models.fields.edit', ['model_id'=>$model->id, 'field_id'=>$field->nextField()->id]) : 'javascript:void(0)' }}" 
+                            href="{{ $field->nextField() ? route(Route::current()->getName(), ['model_id'=>$model->id, 'field_id'=>$field->nextField()->id]) : 'javascript:void(0)' }}" 
                             class="btn btn-default btn-sm {{ $field->nextField() ? 'ripple' : 'disabled' }}" data-ripple-color="#898989"
                             @if(!$field->nextField()) disabled @endif
                             >
