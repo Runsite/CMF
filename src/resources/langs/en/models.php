@@ -104,6 +104,7 @@ return [
         'Appears under the field in the admin panel' => 'Appears under the field in the admin panel',
         'Common field for all languages: the control will only be displayed in the primary language tab, but the value will be duplicated in all other languages' => 'Common field for all languages: the control will only be displayed in the primary language tab, but the value will be duplicated in all other languages',
         'The value of the field will be displayed in the list of nodes' => 'The value of the field will be displayed in the list of nodes',
+        'Open' => 'Open',
 
         'settings' => [
             'control' => 'Control',
