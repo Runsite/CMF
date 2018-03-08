@@ -31,7 +31,8 @@ use Runsite\CMF\Models\Model\Field\FieldTypes\{
 	StringType,
 	TextareaType,
 	CkeditorType,
-	InnerLinkType
+	InnerLinkType,
+	IntegerType
 };
 
 class Field extends Eloquent
@@ -52,6 +53,7 @@ class Field extends Eloquent
 		10 => TextareaType::class,
 		11 => CkeditorType::class,
 		12 => InnerLinkType::class,
+		13 => IntegerType::class,
 	];
 
 	public static function getTypeId($needleName)
