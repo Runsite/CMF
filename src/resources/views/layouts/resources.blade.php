@@ -235,6 +235,25 @@
         $.removeCookie('remember-scroll-position');
       }
 
+      $('.inner-link-search').each(function(){
+        var select = $(this);
+
+        select.select2({
+            locale: '{{ LaravelLocalization::setLocale() }}',
+            ajax: {
+                delay: 500,
+                url: "{{route('admin.api.node.inner-link')}}",
+                dataType: 'json',
+                cache: false,
+                data: function (term, page) {
+                  return {
+                    q: term
+                  }
+                }
+            }
+        });
+      });
+
 
       $('.relation-to-one-search').each(function(){
         var select = $(this);
