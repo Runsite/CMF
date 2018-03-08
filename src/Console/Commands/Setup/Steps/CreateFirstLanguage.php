@@ -11,7 +11,7 @@ class CreateFirstLanguage
 
 	public function handle($options)
 	{
-		Language::create(['locale'=>$options['app_locale']['locale'], 'display_name'=>$options['app_locale']['display_name'], 'is_active'=>true]);
+		Language::create(['locale'=>$options['app_locale']['locale'], 'display_name'=>$options['app_locale']['display_name'], 'is_active'=>true, 'is_main'=>true]);
 
 		$config = new ConfigRepository('app');
 		$config->set('locale', $options['app_locale']['locale']);

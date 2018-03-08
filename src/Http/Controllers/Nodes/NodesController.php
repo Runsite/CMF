@@ -33,7 +33,7 @@ class NodesController extends BaseAdminController
 		}
 
 		$languages = Language::get();
-		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
+		$defaultLanguage = $languages->where('is_main', true)->first();
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.locale');
 		$prev_node = null;
@@ -64,7 +64,7 @@ class NodesController extends BaseAdminController
 
 
 		$languages = Language::get();
-		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
+		$defaultLanguage = $languages->where('is_main', true)->first();
 
 		// Custom validation
 		$validation = [];
@@ -183,7 +183,7 @@ class NodesController extends BaseAdminController
 		$dynamic = $node->dynamic()->get();
 		$model = $node->model;
 		$languages = Language::get();
-		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
+		$defaultLanguage = $languages->where('is_main', true)->first();
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.locale');
 
@@ -315,7 +315,7 @@ class NodesController extends BaseAdminController
 
 		$fields = $node->model->fields;
 		$languages = Language::get();
-		$defaultLanguage = $languages->where('locale', config('app.fallback_locale'))->first();
+		$defaultLanguage = $languages->where('is_main', true)->first();
 
 		// Custom validation
 		$validation = [];
