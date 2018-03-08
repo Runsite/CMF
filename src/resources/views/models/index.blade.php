@@ -50,9 +50,6 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="xs-pl-15">
-			{!! $models->links() !!}
-		</div>
 	@endif
 
 	@foreach($models as $modelItem)
