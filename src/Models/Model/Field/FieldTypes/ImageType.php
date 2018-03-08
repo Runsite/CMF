@@ -87,7 +87,7 @@ class ImageType
     // Generating unique filename
     protected static function generateFilename($value)
     {
-        return str_random(10).time().str_random(10).'.'.$value->extension();
+        return str_random(5).time().str_random(5).'.'.$value->extension();
     }
 
     public static function beforeCreating($value, Node $node, Field $field, Language $language)
