@@ -47,7 +47,7 @@
 				<div class="col-md-6">
 					<div class="form-group {{ $errors->has('node_icon') ? ' has-error' : '' }}">
 						{{ Form::label('node_icon', trans('runsite::models.settings.Node icon')) }}
-						{{ Form::text('node_icon', null, ['class'=>'form-control input-sm typeahead', 'data-source'=>json_encode(FontAwesome::icons()), ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+						{{ Form::text('node_icon', null, ['class'=>'form-control input-sm typeahead', 'data-source'=>json_encode(FontAwesome::icons()), (! Auth::user()->access()->application($application)->edit or $model->id == 1) ? 'disabled' : null]) }}
 						@if ($errors->has('node_icon'))
 							<span class="help-block">
 								<strong>{{ $errors->first('node_icon') }}</strong>
