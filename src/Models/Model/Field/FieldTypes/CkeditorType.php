@@ -18,9 +18,10 @@ class CkeditorType
 
     public static $defaultSettings = [
         'control' => [
-            'value' => 'default',
+            'value' => 'compact',
             'variants' => [
-                'default',
+                'compact',
+                'full',
                 'readonly',
             ],
         ],
