@@ -49,6 +49,9 @@ return [
         'Is searchable' => 'Is searchable',
         'The model will be available for search in the admin panel' => 'The model will be available for search in the admin panel',
         'The search requires a Name field' => 'The search requires a Name field',
+        'Require to fill fields for SEO' => 'Require to fill fields for SEO',
+        'In the nodes, in which no title and descripton fields are filled, a warning will be displayed' => 'In the nodes, in which no title and descripton fields are filled, a warning will be displayed',
+        'This option requires the following fields' => 'This option requires the following fields',
     ],
 
     'methods' => [
@@ -105,6 +108,8 @@ return [
         'Common field for all languages: the control will only be displayed in the primary language tab, but the value will be duplicated in all other languages' => 'Common field for all languages: the control will only be displayed in the primary language tab, but the value will be duplicated in all other languages',
         'The value of the field will be displayed in the list of nodes' => 'The value of the field will be displayed in the list of nodes',
         'Open' => 'Open',
+        'WARNING' => 'WARNING',
+        'The required fields for the SEO are not completed' => 'The required fields for the SEO are not completed',
 
         'settings' => [
             'control' => 'Control',

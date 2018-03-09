@@ -195,11 +195,17 @@
       <li class="{{ (request()->route('node') and request()->route('node')->id == 1) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$rootNode->id]) }}"><i class="fa fa-home"></i> <span>{{ $rootNode->dynamicCurrentLanguage()->first()->name }}</span></a></li>
 
       @foreach($childNodes as $childNode)
-      {{-- {{ dd($node->path->name, $childNode->path->name) }} --}}
+
+        @php($dynamic = $childNode->dynamicCurrentLanguage()->first())
+
         <li class="{{ (isset($node) and (str_is($childNode->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($childNode->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
             <i class="fa fa-{{ $childNode->settings->node_icon ?: ($childNode->model->settings->node_icon ?: 'archive') }}"></i> 
-            <span>{{ $childNode->dynamicCurrentLanguage()->first()->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
+            <span>{{ $dynamic->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
+
+            @if( (! $dynamic->title or ! $dynamic->description) and $childNode->model->settings->require_seo)
+              <i class="fa fa-warning text-orange xs-ml-5"></i>
+            @endif
 
             <span data-node-id="{{ $childNode->id }}" class="label pull-right bg-yellow {{ !$childNode->totalUnreadNotificationsCount ? 'hidden' : null }}">{{ $childNode->totalUnreadNotificationsCount }}</span>
           </a>

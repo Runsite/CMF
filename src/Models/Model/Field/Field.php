@@ -269,6 +269,12 @@ class Field extends Eloquent
 			$this->model->settings->save();
 		}
 
+		if($this->name == 'title' or $this->name == 'description')
+		{
+			$this->model->settings->require_seo = false;
+			$this->model->settings->save();
+		}
+
 		return parent::delete();
 	}
 

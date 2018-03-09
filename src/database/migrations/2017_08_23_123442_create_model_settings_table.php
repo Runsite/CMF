@@ -20,6 +20,7 @@ class CreateModelSettingsTable extends Migration
             $table->boolean('show_in_admin_tree')->default(true);
             $table->boolean('use_response_cache')->default(false);
             $table->boolean('slug_autogeneration')->default(false);
+            $table->boolean('require_seo')->default(false);
             $table->boolean('is_searchable')->default(false);
             $table->string('nodes_ordering');
             $table->string('dynamic_model')->nullable()->default(null);

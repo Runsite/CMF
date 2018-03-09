@@ -137,6 +137,48 @@
 				</div>
 			</div>
 
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group {{ $errors->has('require_seo') ? ' has-error' : '' }}">
+						{{ Form::label('require_seo', trans('runsite::models.settings.Require to fill fields for SEO')) }}
+						<input type="hidden" name="require_seo" value="0">
+						<div class="runsite-checkbox">
+							{{ Form::checkbox('require_seo', 1, null, [ (! Auth::user()->access()->application($application)->edit or ! $settings->model->hasField('title') or ! $settings->model->hasField('description')) ? 'disabled' : null]) }}
+							<label for="require_seo"></label>
+						</div>
+						@if ($errors->has('require_seo'))
+							<span class="help-block">
+								<strong>{{ $errors->first('require_seo') }}</strong>
+							</span>
+						@endif
+						@if(! $settings->model->hasField('title') or ! $settings->model->hasField('description'))
+							<small class="text-red"><i class="fa fa-warning"></i> {{ trans('runsite::models.settings.This option requires the following fields') }}: title, description</small><br>
+						@endif
+						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.In the nodes, in which no title and descripton fields are filled, a warning will be displayed') }}.</small>
+					</div>
+				</div>
+				{{-- <div class="col-md-6">
+					<div class="form-group {{ $errors->has('is_searchable') ? ' has-error' : '' }}">
+						{{ Form::label('is_searchable', trans('runsite::models.settings.Is searchable')) }}
+						<input type="hidden" name="is_searchable" value="0">
+						<div class="runsite-checkbox">
+							{{ Form::checkbox('is_searchable', 1, null, [ (! Auth::user()->access()->application($application)->edit or ! $settings->model->hasField('name')) ? 'disabled' : null]) }}
+							<label for="is_searchable"></label>
+						</div>
+						@if ($errors->has('is_searchable'))
+							<span class="help-block">
+								<strong>{{ $errors->first('is_searchable') }}</strong>
+							</span>
+						@endif
+
+						@if(! $settings->model->hasField('name'))
+							<small class="text-red"><i class="fa fa-warning"></i> {{ trans('runsite::models.settings.The search requires a Name field') }}</small><br>
+						@endif
+						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.The model will be available for search in the admin panel') }}.</small>
+					</div>
+				</div> --}}
+			</div>
+
 			@if(Auth::user()->access()->application($application)->edit)
 				<button class="btn btn-primary btn-sm ripple">{{ trans('runsite::models.Update') }}</button>
 			@endif

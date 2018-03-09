@@ -47,6 +47,7 @@ class SettingsController extends BaseAdminController
             'max_nodes_count' => 'nullable|integer',
             'node_icon' => 'nullable|string',
             'is_searchable' => 'nullable|boolean',
+            'require_seo' => 'nullable|boolean',
         ]);
 
         $model->settings->update($data);
