@@ -308,6 +308,9 @@ class NodesController extends BaseAdminController
 	 */
 	public function update(Request $request, Node $node)
 	{
+
+		dd(rememberedFile('image'));
+		
 		if(! Auth::user()->access()->node($node)->edit)
 		{
 			return view('runsite::errors.forbidden');

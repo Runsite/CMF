@@ -2,6 +2,15 @@
 	<label class="col-sm-2" for="{{ $field->name }}-{{ $language->id }}">{{ $field->display_name }}</label>
 	<div class="col-sm-10">
 		<input type="hidden" name="{{ $field->name }}[{{ $language->id }}]">
+		{{-- {{ dd($rememberedFiles) }} --}}
+		@if( $oldFile = rememberedFile($field->name.'.'.$language->id))
+			<div class="text-danger">work</div>
+		@endif
+
+		{{-- {{ dd(rememberedFile('image')) }} --}}
+
+		{{-- {{ dd($rememberedFiles) }} --}}
+
 
 		@if($value and $value->value)
 			<img src="{{ $value->min() }}" class="img-responsive" style="margin-bottom: 15px;">
