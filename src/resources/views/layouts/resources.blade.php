@@ -65,10 +65,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
     <style>
-        .fa {
-            font-size: 14px;
-            width: 15px;
-        }
+        
         .input-progress-wrapper {
             width: 100%;
             background: #eee;
