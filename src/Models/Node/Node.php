@@ -320,7 +320,7 @@ class Node extends Eloquent
 
 	public function getTreeChildren()
 	{
-		return $this->treeChildren()->with('currentLanguagePath')->get();
+		return $this->treeChildren()->orderBy('rs_nodes.position', 'asc')->with('currentLanguagePath')->get();
 	}
 
 	public function notifications()
