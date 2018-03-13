@@ -16,6 +16,8 @@ class CreateApplicationsTable extends Migration
         Schema::create('rs_applications', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('is_tool')->default(false);
+            $table->string('color_name');
             $table->timestamps();
         });
     }

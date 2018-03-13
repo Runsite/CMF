@@ -1,6 +1,8 @@
 <?php 
 
 return [
+    'app_name' => 'Models',
+
     'Models' => 'Models',
     'Edit' => 'Edit',
     'Fields' => 'Fields',

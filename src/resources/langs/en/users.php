@@ -1,6 +1,8 @@
 <?php 
 
 return [
+	'app_name' => 'Users/Groups',
+
 	'Users' => 'Users',
 	'Groups' => 'Groups',
 	'New user' => 'New user',

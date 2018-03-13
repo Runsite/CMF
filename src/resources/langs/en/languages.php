@@ -1,6 +1,8 @@
 <?php 
 
 return [
+	'app_name' => 'Languages/Translations',
+
 	'The language is created' => 'The language is created',
 	'The language is updated' => 'The language is updated',
 	'The language is deleted' => 'The language is deleted',
