@@ -245,7 +245,7 @@
 
       <li class="header text-uppercase">{{ trans('runsite::app.Tools') }}</li>
 
-      @foreach($applications as $application)
+      @foreach($treeApplications as $application)
         @if($authUser->access()->application($application)->read)
           <li class="{{ str_is('admin.'.$application->name.'.*', Route::current()->getName()) ? 'active' : null }}"><a class="ripple" href="{{ route('admin.'.$application->name.'.index') }}"><i class="fa fa-circle-o text-{{ $application->color_name }}"></i> <span>{{ trans('runsite::'.$application->name.'.app_name') }}</span></a></li>
         @endif

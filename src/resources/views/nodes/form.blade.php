@@ -23,7 +23,7 @@
 										@break
 									@endif
 
-									@if($group->name == 'SEO' and (!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description) and $model->settings->require_seo)
+									@if(isset($dynamic) and $group->name == 'SEO' and (!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description) and $model->settings->require_seo)
 										&nbsp;<i class="fa fa-warning text-orange animated tada" aria-hidden="true"></i>
 										@break
 									@endif
@@ -59,7 +59,7 @@
 			@foreach($model->groups as $group)
 				<div class="tab-pane" id="group-{{ $group->id }}-lang-{{ $language->id }}">
 
-					@if($group->name == 'SEO' and (!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description) and $model->settings->require_seo)
+					@if(isset($dynamic) and $group->name == 'SEO' and (!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description) and $model->settings->require_seo)
 						<div class="alert alert-warning">
 							<h4>{{ trans('runsite::models.fields.WARNING') }}!</h4>
 							<p>{{ trans('runsite::models.fields.The required fields for the SEO are not completed') }}</p>
