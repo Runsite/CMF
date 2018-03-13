@@ -202,7 +202,7 @@
 
         <li class="{{ (isset($node) and (str_is($childNode->currentLanguagePath->name, $node->currentLanguagePath->name) or str_is($childNode->currentLanguagePath->name.'/*', $node->currentLanguagePath->name))) ? 'active' : null }}">
           <a class="ripple" href="{{ route('admin.nodes.edit', ['id'=>$childNode->id]) }}">
-            <i class="fa fa-{{ $childNode->settings->node_icon ?: ($childNode->model->settings->node_icon ?: 'archive') }}"></i> 
+            <i class="fa fa-{{ $childNode->settings->node_icon ?: ($childNode->model->settings->node_icon ?: 'archive') }} {{ (!$childNode->hasMethod and !$childNode->model->hasMethod) ? 'text-warning' : null }}"></i> 
             <span>{{ $dynamic->name ?: trans('runsite::nodes.Node').' '.$childNode->id }}</span>
 
             @if( (! $dynamic->title or ! $dynamic->description) and $childNode->model->settings->require_seo)
