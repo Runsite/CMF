@@ -24,7 +24,7 @@ class NodesController extends BaseAdminController
 			];
 		}
 
-		$nodes = M($related_model_name, true, config('app.fallback_locale'));
+		$nodes = M($related_model_name, true, config('app.locale'));
 
 		if($key)
 		{
