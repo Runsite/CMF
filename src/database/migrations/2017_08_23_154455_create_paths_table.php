@@ -18,7 +18,7 @@ class CreatePathsTable extends Migration
             $table->increments('id');
             $table->integer('node_id')->references('id')->on('rs_nodes')->unsigned();
             $table->integer('language_id')->references('id')->on('rs_languages')->unsigned();
-            $table->string('name');
+            $table->string('name', 1024);
             $table->timestamps();
 
             $table->foreign('node_id')->references('id')->on('rs_nodes')->onUpdate('RESTRICT')->onDelete('CASCADE');
