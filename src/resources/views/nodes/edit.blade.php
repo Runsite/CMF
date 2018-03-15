@@ -7,7 +7,7 @@
 @section('node')
 	@include('runsite::nodes.form')
 
-	@if(Auth::user()->access()->node($node)->edit)
+	@if(Auth::user()->access()->node($node)->edit and Auth::user()->access()->model($node->model)->edit)
 		<div class="form-group xs-mb-0">
 			<div class="col-sm-10 col-sm-push-2">
 				<button type="submit" class="btn btn-primary btn-sm ripple">{{ trans('runsite::nodes.Update') }}</button>
