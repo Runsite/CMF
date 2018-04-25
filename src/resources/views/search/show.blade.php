@@ -6,14 +6,14 @@
 
 			<ul class="nav nav-tabs nav-tabs-autochange">
 				@foreach($searchableModels as $searchableModel)
-					<li class="{{ $searchableModel->id == $model->id ? 'active' : null }}">
-						<a href="{{ route('admin.search.show', ['search_key'=>$search_key, 'model'=>$searchableModel]) }}" class="ripple remember-scroll-position" data-ripple-color="#ccc">
-							{{ $searchableModel->display_name_plural }} 
-							@if($searchableModel->resultsCount)
+					@if($searchableModel->resultsCount)
+						<li class="{{ $searchableModel->id == $model->id ? 'active' : null }}">
+							<a href="{{ route('admin.search.show', ['search_key'=>$search_key, 'model'=>$searchableModel]) }}" class="ripple remember-scroll-position" data-ripple-color="#ccc">
+								{{ $searchableModel->display_name_plural }} 
 								<span class="label label-default">{{ $searchableModel->resultsCount }}</span>
-							@endif
-						</a>
-					</li>
+							</a>
+						</li>
+					@endif
 				@endforeach
 			</ul>
 
