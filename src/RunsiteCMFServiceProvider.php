@@ -87,6 +87,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
 
         $this->commands([
             Console\Commands\Setup\Setup::class,
+            Console\Commands\CPULoad\DumpCPULoadCommand::class,
         ]);
     }
 }

@@ -146,11 +146,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Notification::class, 'user_id');
     }
 
-    public function notify(Node $node, $message, $icon_name=null)
+    public function notify(Node $node = null, $message, $icon_name=null)
     {
         return Notification::create([
             'user_id' => $this->id,
-            'node_id' => $node->id,
+            'node_id' => $node ? $node->id : null,
             'message' => $message,
             'icon_name' => $icon_name,
         ]);

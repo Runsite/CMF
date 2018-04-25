@@ -12,4 +12,8 @@ return [
             'width' => 100,
         ],
     ],
+
+    'cpu-load' => [
+        'max-value' => 1.0,
+    ],
 ];
