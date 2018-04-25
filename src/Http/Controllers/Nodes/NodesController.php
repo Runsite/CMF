@@ -105,7 +105,7 @@ class NodesController extends BaseAdminController
 
 		// Node name is needly for generation path. But not required.
 		// Getting main language by app.locale
-		$main_language = $languages->where('locale', config('app.fallback_locale'))->first();
+		$main_language = $languages->where('locale', config('app.locale'))->first();
 		$node_name = isset($data['name']) ? $data['name'][$main_language->id] : null;
 		
 		$node_names = null;
@@ -157,6 +157,12 @@ class NodesController extends BaseAdminController
 		{
 			return redirect()->route('admin.nodes.create', ['model_id'=>$model->id, 'parent_id'=>$node->baseNode->parent_id])
 				->with('success', trans('runsite::nodes.The node is created'))->with('create_next_one', true);
+		}
+
+		if($model->settings->redirect_to_node_after_creation)
+		{
+			return redirect()->route('admin.nodes.edit', ['node'=>$node->baseNode])
+			->with('success', trans('runsite::nodes.The node is created')); 
 		}
 
 		// Redirecting with success message

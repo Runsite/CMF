@@ -54,6 +54,8 @@ return [
         'Require to fill fields for SEO' => 'Require to fill fields for SEO',
         'In the nodes, in which no title and descripton fields are filled, a warning will be displayed' => 'In the nodes, in which no title and descripton fields are filled, a warning will be displayed',
         'This option requires the following fields' => 'This option requires the following fields',
+        'Redirect to node after creation' => 'Redirect to node after creation',
+        'After the section is created, the user will be redirected to the edit instead of the list' => 'After the section is created, the user will be redirected to the edit instead of the list',
     ],
 
     'methods' => [

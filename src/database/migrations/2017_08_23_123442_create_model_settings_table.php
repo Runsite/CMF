@@ -22,6 +22,7 @@ class CreateModelSettingsTable extends Migration
             $table->boolean('slug_autogeneration')->default(false);
             $table->boolean('require_seo')->default(false);
             $table->boolean('is_searchable')->default(false);
+            $table->boolean('redirect_to_node_after_creation')->default(false);
             $table->string('nodes_ordering');
             $table->string('dynamic_model')->nullable()->default(null);
             $table->integer('max_nodes_count')->nullable()->default(null);
