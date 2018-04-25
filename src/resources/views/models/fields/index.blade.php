@@ -58,6 +58,15 @@
 						<td>{{ $fieldItem->id }}</td>
 						<td>
 							<a class="ripple" data-ripple-color="#333" href="{{ route('admin.models.fields.edit', ['model_id'=>$model->id, 'id'=>$fieldItem->id]) }}" style="display: block;"><b>{{ $fieldItem->display_name }}</b></a>
+
+							@if($fieldItem->name == 'name' and !$fieldItem->model->settings->is_searchable)
+								<div class="xs-pl-10 xs-mt-5" style="border-left: 2px solid #ccc">
+									{!! Form::open(['route'=>['admin.models.settings.make_model_searchable', $fieldItem->model], 'method'=>'patch']) !!}
+										<small><button data-ripple-color="#333" type="submit" class="ripple text-orange btn-link" style="padding: 0;">Make this model searchable</button></small><br>
+										<small class="text-muted">This model may be available for search in the general search engine of the admin panel.</small>
+									{!! Form::close() !!}
+								</div>
+							@endif
 						</td>
 						<td><span class="label label-success">{{ $fieldItem->name }}</span></td>
 						<td>

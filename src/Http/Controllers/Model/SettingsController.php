@@ -54,4 +54,12 @@ class SettingsController extends BaseAdminController
         $model->settings->update($data);
         return redirect()->route('admin.models.settings.edit', $model)->with('success', trans('runsite::models.settings.The model settings is updated'));
     }
+
+    public function makeModelSearchable(Model $model)
+    {
+        $model->settings->is_searchable = true;
+        $model->settings->save();
+
+        return redirect()->back();
+    }
 }

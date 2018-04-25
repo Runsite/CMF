@@ -74,6 +74,8 @@ Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallbac
                     Route::get('{model}/settings',      ['as'=>'edit',   'uses'=>'SettingsController@edit']);
                     Route::patch('{model}/settings',    ['as'=>'update', 'uses'=>'SettingsController@update'])
                         ->middleware('application-access:models:edit');
+
+                    Route::patch('{model}/make-model-searchable', ['as'=>'make_model_searchable', 'uses'=>'SettingsController@makeModelSearchable'])->middleware('application-access:models:edit');
                 });
 
                 Route::group(['as'=>'dependencies.'], function() {
