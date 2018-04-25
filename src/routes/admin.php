@@ -1,6 +1,6 @@
 <?php 
 
-Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallback_locale') : LaravelLocalization::setLocale()).'/admin', 'namespace' => 'Runsite\CMF\Http\Controllers', 'middleware'=>['check-admin-ip', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']], function() {
+Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallback_locale') : LaravelLocalization::setLocale()).'/'.config('runsite.cmf.admin_dirname'), 'namespace' => 'Runsite\CMF\Http\Controllers', 'middleware'=>['check-admin-ip', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']], function() {
 
     Auth::routes();
 

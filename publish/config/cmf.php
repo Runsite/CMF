@@ -5,6 +5,8 @@ return [
         'enabled' => true,
     ],
 
+    'admin_dirname' => 'admin',
+
     'account' => [
         'images' => [
             'path' => 'uploads/account/images/',
