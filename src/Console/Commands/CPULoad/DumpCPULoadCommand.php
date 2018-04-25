@@ -14,6 +14,10 @@ class DumpCPULoadCommand extends Command
 
 	public function handle()
 	{
+		// Cleaning old values
+		CPULoad::where('created_at', '<=', Carbon::now()->subDays(7))->delete();
+
+
 		$value = sys_getloadavg()[1]; // 5 minutes
 
 		$item = CPULoad::create([
