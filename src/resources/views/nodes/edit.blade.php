@@ -18,7 +18,7 @@
 @endsection
 
 @section('node_model')
-	@if(Auth::user()->access()->application($modelsApplication)->read)
+	@if($userCanReadModels)
 		<li class="dropdown">
 			<a class="ripple" data-toggle="dropdown" href="#">
 				<small><i class="fa fa-circle-o text-red"></i>&nbsp;{{ $model->name }}</small>

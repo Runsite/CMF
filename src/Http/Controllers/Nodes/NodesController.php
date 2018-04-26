@@ -186,6 +186,8 @@ class NodesController extends BaseAdminController
 
 		$modelsApplication = Application::where('name', 'models')->first();
 
+		$userCanReadModels = Auth::user()->access()->application($modelsApplication)->read;
+
 		$dynamic = $node->dynamic()->get();
 		$model = $node->model;
 		$languages = Language::get();
@@ -304,7 +306,7 @@ class NodesController extends BaseAdminController
 			}
 		}
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'modelsApplication', 'orderField', 'orderDirection'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'userCanReadModels', 'orderField', 'orderDirection'));
 	}
 
 	/**
