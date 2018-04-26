@@ -25,6 +25,6 @@ class %_controller_name_% extends RunsiteCMFBaseController
 	 */
 	public function show(): View
 	{
-		return $this->view('%_views_dirname_%.view');
+		return $this->view('%_views_dirname_%.show');
 	}
 }

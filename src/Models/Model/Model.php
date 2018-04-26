@@ -190,7 +190,7 @@ class Model extends Eloquent
 			file_put_contents(base_path('resources/views/'.str_plural($model->name).'/index.blade.php'), $stub);
 
 			$stub = file_get_contents(__DIR__ . '/../../resources/stubs/view_show.blade.stub');
-			file_put_contents(base_path('resources/views/'.str_plural($model->name).'/view.blade.php'), $stub);
+			file_put_contents(base_path('resources/views/'.str_plural($model->name).'/show.blade.php'), $stub);
 		}
 		
 
