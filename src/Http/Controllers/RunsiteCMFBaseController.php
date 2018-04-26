@@ -28,9 +28,9 @@ class RunsiteCMFBaseController extends BaseController
         $this->node = $scope->get('_runsite_cmf_node_') or abort(404);
         $this->path = $scope->get('_runsite_cmf_path_') or abort(404);
 
-        if($this->node->path->name != $this->path->name)
+        if($this->node->currentLanguagePath->name != $this->path->name)
         {
-            return redirect(lPath($this->node->path->name))->send();
+            return redirect(lPath($this->node->currentLanguagePath->name))->send();
         }
 
         $this->fields = M($this->node->model->name, false)->where('node_id', $this->node->id)->first() or abort(404);
