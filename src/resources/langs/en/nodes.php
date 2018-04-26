@@ -20,6 +20,8 @@ return [
 	'Absolute path' => 'Absolute path',
 	'Create the next one after' => 'Create the next one after',
 	'Opens another form immediately after creation' => 'Opens another form immediately after creation',
+	'This node has not current language' => 'This node has not current language',
+	'Fill the fields and update node to creation the language version' => 'Fill the fields and update node to creation the language version',
 
 	'groups' => [
 		'Main' => 'Main',

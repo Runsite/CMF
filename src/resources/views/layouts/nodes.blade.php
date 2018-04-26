@@ -76,6 +76,10 @@
 													@break
 												@endif
 											@endforeach
+
+											@if(isset($dynamic) and ! $dynamic->where('language_id', $language->id)->first())
+												<i class="fa fa-minus-circle text-red" aria-hidden="true"></i>
+											@endif
 											{{-- @if($node->getErrorsCountByLanguageId($language->id, $errors))
 												<span class="label label-danger">
 													{{ $node->getErrorsCountByLanguageId($language->id, $errors) }}
