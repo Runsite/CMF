@@ -6,7 +6,7 @@ use Artisan;
 
 class PublishVendor
 {
-	public $message = 'Publishing vendor (It may take some time)';
+	public $message = 'Publishing vendor (It may take several seconds)';
 
 	public function handle($options)
 	{

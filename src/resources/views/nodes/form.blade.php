@@ -1,7 +1,12 @@
 @foreach($languages as $k=>$language)
 	<div class="tab-pane {{ $active_language_tab == $language->locale ? 'active' : null }}" id="lang-{{ $language->id }}">
 
-		
+			@if(isset($dynamic) and ! $dynamic->where('language_id', $language->id)->first())
+				<div class="alert alert-danger">
+					<i class="fa fa-minus-circle" aria-hidden="true"></i> 
+					{{ trans('runsite::nodes.This node has not current language') }}. {{ trans('runsite::nodes.Fill the fields and update node to creation the language version') }}
+				</div>
+			@endif
 			<div class="xs-pb-15">
 				@if(count($model->groups))
 					<div class="btn-group" data-toggle="buttons">
@@ -23,7 +28,19 @@
 										@break
 									@endif
 
-									@if(isset($dynamic) and $group->name == 'SEO' and (!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description) and $model->settings->require_seo)
+									@if(
+											isset($dynamic) 
+												and
+											$dynamic->where('language_id', $language->id)->first()
+												and 
+											$group->name == 'SEO' 
+												and 
+											(
+												!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description
+											) 
+												and 
+											$model->settings->require_seo
+										)
 										&nbsp;<i class="fa fa-warning text-orange animated tada" aria-hidden="true"></i>
 										@break
 									@endif
@@ -59,7 +76,19 @@
 			@foreach($model->groups as $group)
 				<div class="tab-pane" id="group-{{ $group->id }}-lang-{{ $language->id }}">
 
-					@if(isset($dynamic) and $group->name == 'SEO' and (!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description) and $model->settings->require_seo)
+					@if(
+							isset($dynamic) 
+								and
+							$dynamic->where('language_id', $language->id)->first()
+								and 
+							$group->name == 'SEO' 
+								and 
+							(
+								!$dynamic->where('language_id', $language->id)->first()->title or !$dynamic->where('language_id', $language->id)->first()->description
+							) 
+								and 
+							$model->settings->require_seo
+						)
 						<div class="alert alert-warning">
 							<h4>{{ trans('runsite::models.fields.WARNING') }}!</h4>
 							<p>{{ trans('runsite::models.fields.The required fields for the SEO are not completed') }}</p>
@@ -90,7 +119,7 @@
 					<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Absolute path') }}</small></div>
 					<div class="col-sm-10">
 						@if($node->methods->get or $node->model->methods->get)
-							<a href="{{ url($path->name) }}" target="_blank"><small class="text-muted" style="text-decoration: underline;">{{ $path->name }}</small></a>
+							<a href="{{ lPath($path->name, $language->locale) }}" target="_blank"><small class="text-muted" style="text-decoration: underline;">{{ $path->name }}</small></a>
 						@else
 							<small class="text-muted">{{ $itemForExtraInfo->node->path()->where('language_id', $language->id)->first()->name }}</small>
 						@endif

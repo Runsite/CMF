@@ -32,13 +32,16 @@ class NodesController extends BaseAdminController
 			return view('runsite::errors.forbidden');
 		}
 
+		$modelsApplication = Application::where('name', 'models')->first();
+		$userCanReadModels = Auth::user()->access()->application($modelsApplication)->read;
+
 		$languages = Language::get();
 		$defaultLanguage = $languages->where('is_main', true)->first();
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.locale');
 		$prev_node = null;
 		$next_node = null;
-		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab', 'prev_node', 'next_node', 'defaultLanguage'));
+		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab', 'prev_node', 'next_node', 'defaultLanguage', 'userCanReadModels'));
 	}
 
 	/**
@@ -105,7 +108,7 @@ class NodesController extends BaseAdminController
 
 		// Node name is needly for generation path. But not required.
 		// Getting main language by app.locale
-		$main_language = $languages->where('locale', config('app.fallback_locale'))->first();
+		$main_language = $languages->where('locale', config('app.locale'))->first();
 		$node_name = isset($data['name']) ? $data['name'][$main_language->id] : null;
 		
 		$node_names = null;
@@ -159,6 +162,12 @@ class NodesController extends BaseAdminController
 				->with('success', trans('runsite::nodes.The node is created'))->with('create_next_one', true);
 		}
 
+		if($model->settings->redirect_to_node_after_creation)
+		{
+			return redirect()->route('admin.nodes.edit', ['node'=>$node->baseNode])
+			->with('success', trans('runsite::nodes.The node is created')); 
+		}
+
 		// Redirecting with success message
 		return redirect()->route('admin.nodes.edit', ['node'=>$parent_node, 'depended_model_id'=>$model->id])
 			->with('success', trans('runsite::nodes.The node is created'));
@@ -179,6 +188,8 @@ class NodesController extends BaseAdminController
 		Notification::where('user_id', Auth::id())->where('is_reviewed', false)->where('node_id', $node->id)->update(['is_reviewed'=>true]);
 
 		$modelsApplication = Application::where('name', 'models')->first();
+
+		$userCanReadModels = Auth::user()->access()->application($modelsApplication)->read;
 
 		$dynamic = $node->dynamic()->get();
 		$model = $node->model;
@@ -298,7 +309,7 @@ class NodesController extends BaseAdminController
 			}
 		}
 
-		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'modelsApplication', 'orderField', 'orderDirection'));
+		return view('runsite::nodes.edit', compact('node', 'dynamic', 'depended_model', 'model', 'languages', 'breadcrumbs', 'depended_models', 'depended_models_create', 'children', 'active_language_tab', 'children_total_count', 'prev_node', 'next_node', 'defaultLanguage', 'userCanReadModels', 'orderField', 'orderDirection'));
 	}
 
 	/**

@@ -157,26 +157,22 @@
 						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.In the nodes, in which no title and descripton fields are filled, a warning will be displayed') }}.</small>
 					</div>
 				</div>
-				{{-- <div class="col-md-6">
-					<div class="form-group {{ $errors->has('is_searchable') ? ' has-error' : '' }}">
-						{{ Form::label('is_searchable', trans('runsite::models.settings.Is searchable')) }}
-						<input type="hidden" name="is_searchable" value="0">
+				<div class="col-md-6">
+					<div class="form-group {{ $errors->has('redirect_to_node_after_creation') ? ' has-error' : '' }}">
+						{{ Form::label('redirect_to_node_after_creation', trans('runsite::models.settings.Redirect to node after creation')) }}
+						<input type="hidden" name="redirect_to_node_after_creation" value="0">
 						<div class="runsite-checkbox">
-							{{ Form::checkbox('is_searchable', 1, null, [ (! Auth::user()->access()->application($application)->edit or ! $settings->model->hasField('name')) ? 'disabled' : null]) }}
-							<label for="is_searchable"></label>
+							{{ Form::checkbox('redirect_to_node_after_creation', 1, null, [ (! Auth::user()->access()->application($application)->edit) ? 'disabled' : null]) }}
+							<label for="redirect_to_node_after_creation"></label>
 						</div>
-						@if ($errors->has('is_searchable'))
+						@if ($errors->has('redirect_to_node_after_creation'))
 							<span class="help-block">
-								<strong>{{ $errors->first('is_searchable') }}</strong>
+								<strong>{{ $errors->first('redirect_to_node_after_creation') }}</strong>
 							</span>
 						@endif
-
-						@if(! $settings->model->hasField('name'))
-							<small class="text-red"><i class="fa fa-warning"></i> {{ trans('runsite::models.settings.The search requires a Name field') }}</small><br>
-						@endif
-						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.The model will be available for search in the admin panel') }}.</small>
+						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.After the section is created, the user will be redirected to the edit instead of the list') }}.</small>
 					</div>
-				</div> --}}
+				</div>
 			</div>
 
 			@if(Auth::user()->access()->application($application)->edit)

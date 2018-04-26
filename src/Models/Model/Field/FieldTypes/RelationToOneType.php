@@ -81,9 +81,18 @@ class RelationToOneType
         $relatedModelName = $field->findSettings('related_model_name');
         $relatedModel = Model::where('name', $relatedModelName->value)->first();
 
+        $parent_id = $field->findSettings('related_parent_node_id')->value;
+
+        $nodeExists = M($relatedModelName->value)->where('rs_nodes.parent_id', $parent_id)->where('name', $value)->first();
+
+        if($nodeExists)
+        {
+            return $nodeExists->node->id;
+        }
+
         // Creating node
         $node = Node::create([
-            'parent_id' => $field->findSettings('related_parent_node_id')->value,
+            'parent_id' => $parent_id,
             'model_id' => $relatedModel->id,
         ], $value);
 

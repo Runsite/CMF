@@ -181,7 +181,14 @@ class Node extends Eloquent
 		{
 			if($language_id)
 			{
-				$root = $this->parent->path()->where('language_id', $language_id)->first()->name;
+				$rootPath = $this->parent->path()->where('language_id', $language_id)->first();
+
+				if(! $rootPath)
+				{
+					$rootPath = $this->parent->path;
+				}
+
+				$root = $rootPath->name;
 			}
 			else
 			{

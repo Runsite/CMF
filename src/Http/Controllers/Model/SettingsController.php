@@ -47,10 +47,19 @@ class SettingsController extends BaseAdminController
             'max_nodes_count' => 'nullable|integer',
             'node_icon' => 'nullable|string',
             'is_searchable' => 'nullable|boolean',
+            'redirect_to_node_after_creation' => 'nullable|boolean',
             'require_seo' => 'nullable|boolean',
         ]);
 
         $model->settings->update($data);
         return redirect()->route('admin.models.settings.edit', $model)->with('success', trans('runsite::models.settings.The model settings is updated'));
+    }
+
+    public function makeModelSearchable(Model $model)
+    {
+        $model->settings->is_searchable = true;
+        $model->settings->save();
+
+        return redirect()->back();
     }
 }

@@ -17,6 +17,7 @@ class RunsiteCMFBaseController extends BaseController
     protected $authUser;
 
     protected $node = null;
+    protected $path = null;
     protected $fields = null;
     protected $seo = null;
 
@@ -25,6 +26,13 @@ class RunsiteCMFBaseController extends BaseController
         $scope = new GlobalScope;
 
         $this->node = $scope->get('_runsite_cmf_node_') or abort(404);
+        $this->path = $scope->get('_runsite_cmf_path_') or abort(404);
+
+        if($this->node->currentLanguagePath->name != $this->path->name)
+        {
+            return redirect(lPath($this->node->currentLanguagePath->name))->send();
+        }
+
         $this->fields = M($this->node->model->name, false)->where('node_id', $this->node->id)->first() or abort(404);
 
         $this->seo = new StdClass();
