@@ -41,6 +41,9 @@ class RunsiteCMFBaseController extends BaseController
         $this->seo->description = $this->fields->description ?? null;
         $this->seo->author = config('app.name');
         $this->seo->image = isset($this->fields->image) ? $this->fields->image->max() : null;
+
+        $this->fields->node = $this->node;
+        $this->fields->seo = $this->seo;
     }
 
     public function view($view, $params=null)
@@ -55,9 +58,7 @@ class RunsiteCMFBaseController extends BaseController
         }
 
         $p = [
-            'node'     => $this->node,
-            'fields'   => $this->fields,
-            'seo'      => $this->seo,
+            $this->node->model->name   => $this->fields,
         ];
 
         if($params) {
