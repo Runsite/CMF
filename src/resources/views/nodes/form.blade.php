@@ -119,7 +119,7 @@
 					<div class="col-sm-2 text-sm-right"><small class="text-muted">{{ trans('runsite::nodes.Absolute path') }}</small></div>
 					<div class="col-sm-10">
 						@if($node->methods->get or $node->model->methods->get)
-							<a href="{{ url($path->name) }}" target="_blank"><small class="text-muted" style="text-decoration: underline;">{{ $path->name }}</small></a>
+							<a href="{{ lPath($path->name, $language->locale) }}" target="_blank"><small class="text-muted" style="text-decoration: underline;">{{ $path->name }}</small></a>
 						@else
 							<small class="text-muted">{{ $itemForExtraInfo->node->path()->where('language_id', $language->id)->first()->name }}</small>
 						@endif
