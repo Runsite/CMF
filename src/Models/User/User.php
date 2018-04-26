@@ -17,7 +17,7 @@ class User extends Authenticatable
     use Notifiable;
 
     public $table = 'rs_users';
-    public $imagesPath = 'uploads/account/images';
+    public $imagesPath = null;
     public $thumbsFolderName = 'thumbs';
     public $imageWidth = 100;
 
@@ -40,6 +40,11 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['last_action_at'];
+
+    public function __construct()
+    {
+        $this->imagesPath = config('runsite.cmf.account.images.path');
+    }
 
     public function groups()
     {
