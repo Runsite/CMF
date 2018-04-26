@@ -59,7 +59,7 @@ class Dynamic extends Eloquent
             Path::create([
                 'node_id' => $this->node->id,
                 'language_id' => $this->language_id,
-                'name' => $this->node->generatePath($this->name),
+                'name' => $this->node->generatePath($this->name, true, $this->language_id),
             ]);
         }
 
