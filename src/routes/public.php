@@ -21,6 +21,7 @@ if(! str_is('*.*', \Request::path()))
 			$scope = new GlobalScope;
 
 			$scope->set('_runsite_cmf_node_', $path->node);
+			$scope->set('_runsite_cmf_path_', $path);
 
 			if($path->node->methods->get)
 			{
