@@ -1,7 +1,7 @@
 @foreach($languages as $k=>$language)
 	<div class="tab-pane {{ $active_language_tab == $language->locale ? 'active' : null }}" id="lang-{{ $language->id }}">
 
-			@if(! $dynamic->where('language_id', $language->id)->first())
+			@if(isset($dynamic) and ! $dynamic->where('language_id', $language->id)->first())
 				<div class="alert alert-danger">
 					<i class="fa fa-minus-circle" aria-hidden="true"></i> 
 					{{ trans('runsite::nodes.This node has not current language') }}. {{ trans('runsite::nodes.Fill the fields and update node to creation the language version') }}

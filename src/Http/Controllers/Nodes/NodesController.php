@@ -32,13 +32,16 @@ class NodesController extends BaseAdminController
 			return view('runsite::errors.forbidden');
 		}
 
+		$modelsApplication = Application::where('name', 'models')->first();
+		$userCanReadModels = Auth::user()->access()->application($modelsApplication)->read;
+
 		$languages = Language::get();
 		$defaultLanguage = $languages->where('is_main', true)->first();
 		$breadcrumbs = $node->breadcrumbs();
 		$active_language_tab = config('app.locale');
 		$prev_node = null;
 		$next_node = null;
-		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab', 'prev_node', 'next_node', 'defaultLanguage'));
+		return view('runsite::nodes.create', compact('model', 'node', 'languages', 'breadcrumbs', 'active_language_tab', 'prev_node', 'next_node', 'defaultLanguage', 'userCanReadModels'));
 	}
 
 	/**
