@@ -16,7 +16,8 @@
 
 		<script>
 			CKEDITOR.replace( '{{ $field->name }}-{{ $language->id }}', {
-				toolbar: 'compact'
+				toolbar: 'compact',
+				language: '{{ config('app.locale') }}'
 			} );
 		</script>
 

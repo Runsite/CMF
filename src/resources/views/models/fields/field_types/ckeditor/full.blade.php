@@ -15,7 +15,9 @@
 			>{{ old($field->name.'.'.$language->id) ?: $value }}</textarea>
 
 		<script>
-			CKEDITOR.replace( '{{ $field->name }}-{{ $language->id }}' );
+			CKEDITOR.replace( '{{ $field->name }}-{{ $language->id }}', {
+				language: '{{ config('app.locale') }}'
+			});
 		</script>
 
 		@if($field->hint)
