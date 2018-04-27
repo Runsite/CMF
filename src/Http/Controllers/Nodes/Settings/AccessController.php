@@ -55,6 +55,11 @@ class AccessController extends BaseAdminController
 				AccessNode::where('node_id', $node->id)->where('group_id', $group_id)->update([
 					'access' => $totalAccess,
 				]);
+
+				if(isset($access['subnodes']))
+				{
+					AccessNode::assignRecursively($node->id, $group_id, $totalAccess);
+				}
 			}
 		}
 

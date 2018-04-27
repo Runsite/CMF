@@ -56,6 +56,7 @@ return [
 		'Edit' => 'Edit',
 		'Update' => 'Update',
 		'Access is updated' => 'Access is updated',
+		'Apply to all subnodes' => 'Apply to all subnodes',
 	],
 
 	'methods' => [

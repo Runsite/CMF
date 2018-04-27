@@ -11,6 +11,7 @@
 							<th>{{ trans('runsite::nodes.access.Group name') }}</th>
 							<th>{{ trans('runsite::nodes.access.Read') }}</th>
 							<th>{{ trans('runsite::nodes.access.Edit') }}</th>
+							<th>{{ trans('runsite::nodes.access.Apply to all subnodes') }}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -29,6 +30,12 @@
 									<div class="runsite-checkbox">
 										<input type="checkbox" data-group="{{ $group->id }}" data-access="edit" id="{{ $group->id }}-edit" name="groups[{{ $group->id }}][edit]" @if($group->canEdit($node)) checked @endif>
 										<label for="{{ $group->id }}-edit"></label>
+									</div>
+								</td>
+								<td>
+									<div class="runsite-checkbox">
+										<input type="checkbox" id="{{ $group->id }}-subnodes" name="groups[{{ $group->id }}][subnodes]">
+										<label for="{{ $group->id }}-subnodes"></label>
 									</div>
 								</td>
 							</tr>
