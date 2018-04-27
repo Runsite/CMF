@@ -283,7 +283,11 @@ class Node extends Eloquent
 		$result = [];
 
 		$parent = Node::findOrFail($this->id);
-		$result[] = $parent;
+
+		if($parent->parent_id)
+		{
+			$result[] = $parent;
+		}
 
 		while($parent->parent_id > 1)
 		{
