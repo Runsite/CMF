@@ -1,0 +1,23 @@
+img {
+	max-width: 100%;
+	max-height: auto;
+}
+
+body {
+	padding: 15px;
+	font-size: 12px;
+}
+
+
+table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+table td {
+	padding: 5px;
+}
+
+a {
+	text-decoration: underline;
+}

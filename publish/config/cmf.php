@@ -18,4 +18,11 @@ return [
     'cpu-load' => [
         'max-value' => 1.0,
     ],
+
+    'ckeditor' => [
+        'image' => [
+            'max-width' => 1300,
+            'max-height' => 900,
+        ],
+    ],
 ];

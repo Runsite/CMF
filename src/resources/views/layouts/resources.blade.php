@@ -138,6 +138,14 @@
             top: -2px;
         }
 
+        .ckeditor-focused {
+            border-color: #347ffb!important;
+        }
+
+        .ckeditor-focused .cke_top {
+            background: rgba(0,0,0, .03);
+        }
+
     </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
