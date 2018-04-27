@@ -41,8 +41,9 @@ class User extends Authenticatable
 
     protected $dates = ['last_action_at'];
 
-    public function __construct()
+    public function __construct(array $attributes = array())
     {
+        parent::__construct($attributes);
         $this->imagesPath = config('runsite.cmf.account.images.path');
     }
 
