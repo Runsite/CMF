@@ -21,6 +21,7 @@
 			</span>
 			<input 
 				type="file" 
+				accept="image/*" 
 				class="input-image" 
 				name="{{ $field->name }}[{{ $language->id }}]" 
 				onchange="$(this).parent().find('span .fa-image').addClass('hidden'); $(this).parent().find('span .fa-check').removeClass('hidden'); $(this).parent().addClass('input-image-selected');"
