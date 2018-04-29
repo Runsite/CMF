@@ -114,6 +114,7 @@ return [
         'Open' => 'Open',
         'WARNING' => 'WARNING',
         'The required fields for the SEO are not completed' => 'The required fields for the SEO are not completed',
+        'Max' => 'Max',
 
         'settings' => [
             'control' => 'Control',

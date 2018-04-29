@@ -17,7 +17,7 @@
 			<span>
 				<i class="fa fa-image"></i>
 				<i class="fa fa-check hidden text-green animated fadeInUp"></i>
-				&nbsp;{{ trans('runsite::models.fields.Select file') }}
+				&nbsp;{{ trans('runsite::models.fields.Select file') }} <small class="text-muted">({{ trans('runsite::models.fields.Max') }}. {{ ini_get("upload_max_filesize") }})</small>
 			</span>
 			<input 
 				type="file" 
