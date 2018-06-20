@@ -146,6 +146,10 @@
             background: rgba(0,0,0, .03);
         }
 
+        .btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+            outline: none;
+        }
+
     </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
