@@ -8,6 +8,7 @@ use Runsite\CMF\Models\Node\Node;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use ImageOptimizer;
+use Abhimanyu003\Conversion\Facades\Conversion;
 
 class ImageType
 {
@@ -254,7 +255,48 @@ class ImageType
          }
          rmdir($dir); 
        } 
-     }
+    }
+
+    private static function returnBytes($val) {
+        $val = trim($val);
+        $last = strtolower($val[strlen($val)-1]);
+        $val = (float) $val;
+        switch($last) {
+            // The 'G' modifier is available since PHP 5.1.0
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+
+        return $val;
+    }
+
+    public static function resolveMaxUploadSize(Field $field)
+    {
+        $maxSize = 0;
+        $validation_rules = explode(',', $field->findSettings('custom_validation_rules')->value);
+
+        foreach($validation_rules as $validation_rule)
+        {
+            $params = explode(':', $validation_rule);
+
+            if(isset($params[0]) and isset($params[1]) and $params[0] == 'size')
+            {
+                $maxSize = Conversion::convert($params[1], 'kilobyte')->to('byte')->format(0,'','');
+            }
+        }
+
+        if(! $maxSize)
+        {
+            $maxSize = self::returnBytes(ini_get("upload_max_filesize"));
+        }
+
+
+        return Conversion::convert($maxSize, 'byte')->to('kilobyte');
+    }
 
 
 }
