@@ -15,7 +15,8 @@ use Runsite\CMF\Http\{
     ViewComposers\TreeComposer,
     Middlewares\Access\Application as ApplicationAccessMiddleware,
     Middlewares\AbortIfLocked,
-    Middlewares\CheckAdminIP
+    Middlewares\CheckAdminIP,
+    Middlewares\ReplaceMinifyPath
 };
 
 class RunsiteCMFServiceProvider extends ServiceProvider
@@ -27,13 +28,6 @@ class RunsiteCMFServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        config([
-            'minify.config.css_build_path' => '/vendor/runsite/asset/builds-css/',
-            'minify.config.css_url_path' => '/vendor/runsite/asset/builds-css/',
-            'minify.config.js_build_path' => '/vendor/runsite/asset/builds-js/',
-            'minify.config.js_url_path' => '/vendor/runsite/asset/builds-js/',
-        ]);
-
         $this->loadRoutesFrom(__DIR__ . '/routes/admin.php');
 
         if(config('runsite.cmf.dynamic_routes.enabled'))
@@ -50,6 +44,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
             __DIR__.'/../publish/config/ip_auth_limit.php' => config_path('runsite/ip_auth_limit.php'),
             __DIR__.'/../publish/config/auth.php' => config_path('auth.php'),
             __DIR__.'/../publish/config/laravel-page-speed.php' => config_path('laravel-page-speed.php'),
+            __DIR__.'/../publish/config/minify.config.php' => config_path('minify.config.php'),
             __DIR__.'/../publish/config/elfinder.php' => config_path('elfinder.php'),
             __DIR__.'/../publish/config/filesystems.php' => config_path('filesystems.php'),
             __DIR__.'/../publish/resources/views/layouts/app.blade.php' => base_path('resources/views/layouts/app.blade.php'),
@@ -72,6 +67,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
         $this->app['router']->aliasMiddleware('application-access', ApplicationAccessMiddleware::class);
         $this->app['router']->aliasMiddleware('abort-if-locked', AbortIfLocked::class);
         $this->app['router']->aliasMiddleware('check-admin-ip', CheckAdminIP::class);
+        $this->app['router']->aliasMiddleware('replace-minify-path', ReplaceMinifyPath::class);
         // $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/database/factories');
     }
 

@@ -4,7 +4,7 @@ Route::group(['prefix'=>'admin/api/ckeditor', 'as'=>'api.ckeditor.', 'namespace'
     Route::any('images-upload', ['as'=>'images-upload', 'uses'=>'ImagesController@upload']);
 });
 
-Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallback_locale') : LaravelLocalization::setLocale()).'/'.config('runsite.cmf.admin_dirname'), 'namespace' => 'Runsite\CMF\Http\Controllers', 'middleware'=>['check-admin-ip', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'web']], function() {
+Route::group(['prefix' => (config('app.env') === 'testing' ? config('app.fallback_locale') : LaravelLocalization::setLocale()).'/'.config('runsite.cmf.admin_dirname'), 'namespace' => 'Runsite\CMF\Http\Controllers', 'middleware'=>['check-admin-ip', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'replace-minify-path', 'web']], function() {
 
     Auth::routes();
 
