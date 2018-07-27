@@ -49,6 +49,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
             __DIR__.'/../publish/config/cmf.php' => config_path('runsite/cmf.php'),
             __DIR__.'/../publish/config/ip_auth_limit.php' => config_path('runsite/ip_auth_limit.php'),
             __DIR__.'/../publish/config/auth.php' => config_path('auth.php'),
+            __DIR__.'/../publish/config/laravel-page-speed.php' => config_path('laravel-page-speed.php'),
             __DIR__.'/../publish/config/elfinder.php' => config_path('elfinder.php'),
             __DIR__.'/../publish/config/filesystems.php' => config_path('filesystems.php'),
             __DIR__.'/../publish/resources/views/layouts/app.blade.php' => base_path('resources/views/layouts/app.blade.php'),

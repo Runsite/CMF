@@ -150,6 +150,10 @@
             outline: none;
         }
 
+        .g-recaptcha {
+            display: none;
+        }
+
     </style>
   </head>
   <body class="hold-transition skin-black sidebar-mini fixed @yield('body-class')">
@@ -203,8 +207,8 @@
                     readOnly: true,
                     highlightActiveLine: false,
                     highlightGutterLine: false
-                })
-                editor.renderer.$cursorLayer.element.style.opacity=0;
+                });
+                editor.renderer.$cursorLayer.element.style.opacity = 0;
             }
             
         });
