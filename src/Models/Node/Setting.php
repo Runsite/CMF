@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Setting extends Eloquent
 {
 	protected $table = 'rs_node_settings';
-	protected $fillable = ['node_id', 'use_response_cache', 'node_icon'];
+	protected $fillable = ['node_id', 'use_response_cache', 'node_icon', 'swap_dependencies'];
 
 	public function node()
 	{

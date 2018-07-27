@@ -224,8 +224,8 @@ class NodesController extends BaseAdminController
 		$depended_models = [];
 		$depended_models_create = [];
 
-		$dependencies = $node->dependencies()
-		->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_node_dependencies.depended_model_id')
+		$dependencies = ${$node->settings->swap_dependencies ? 'model' : 'node'}->dependencies()
+		->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_'.( $node->settings->swap_dependencies ? 'model' : 'node' ).'_dependencies.depended_model_id')
 		->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
 		->where('rs_group_model_access.access', '>=', 1)
 		->get();
@@ -239,8 +239,8 @@ class NodesController extends BaseAdminController
 			}
 		}
 
-		$dependencies = $model->dependencies()
-		->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_model_dependencies.depended_model_id')
+		$dependencies = ${$node->settings->swap_dependencies ? 'node' : 'model'}->dependencies()
+		->join('rs_group_model_access', 'rs_group_model_access.model_id', '=', 'rs_'.( $node->settings->swap_dependencies ? 'node' : 'model' ).'_dependencies.depended_model_id')
 		->whereIn('rs_group_model_access.group_id', Auth::user()->groups->pluck('id'))
 		->where('rs_group_model_access.access', '>=', 1)
 		->get();

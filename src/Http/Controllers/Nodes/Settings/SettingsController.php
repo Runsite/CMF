@@ -43,6 +43,7 @@ class SettingsController extends BaseAdminController
         $data = $request->validate([
             'use_response_cache' => 'nullable|boolean',
             'node_icon' => 'nullable|string',
+            'swap_dependencies' => 'nullable|boolean',
         ]);
 
         $node->settings->update($data);

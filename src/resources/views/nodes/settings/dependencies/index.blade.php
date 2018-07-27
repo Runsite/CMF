@@ -41,12 +41,12 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach($depended_models as $depended_model)
                             <tr class="{{ (Session::has('highlight') and Session::get('highlight') == $depended_model->id) ? 'success' : null }}">
                                 <td>
                                     <div class="btn-group btn-group-justified">
                                         <div class="btn-group" style="width:10%">
-                                            
                                             
                                             <button type="button" data-toggle="modal" data-target="#destroy-dependency-{{ $depended_model->id }}" class="btn btn-default btn-sm ripple">
                                                 {{ $depended_model->dependedModel->display_name }} <i class="fa fa-times text-danger"></i>
@@ -78,8 +78,6 @@
                                                 {{ $depended_locked_model->dependedModel->display_name }} <i class="fa fa-lock text-danger"></i>
                                             </button>
                                         </div>
-
-                                        
                                     </div>
                                 </td>
                             </tr>

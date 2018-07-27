@@ -34,6 +34,8 @@ return [
 		'Access' => 'Access',
 		'Methods' => 'Methods',
 		'The node settings are updated' => 'The node settings are updated',
+		'Swap dependencies' => 'Swap dependencies',
+		'The dependencies in the model and in the node will be changed in places' => 'The dependencies in the model and in the node will be changed in places',
 	],
 
 	'paths' => [

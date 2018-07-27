@@ -7,7 +7,7 @@
 @section('node')
 
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<div class="form-group {{ $errors->has('node_icon') ? ' has-error' : '' }}">
 				{{ Form::label('node_icon', trans('runsite::models.settings.Node icon')) }}
 				{{ Form::text('node_icon', null, ['class'=>'form-control input-sm typeahead', 'data-source'=>json_encode(FontAwesome::icons()), ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
@@ -33,6 +33,22 @@
 					</span>
 				@endif
 				<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.Responses of this model will be cached and returned without processing by the controllers') }}. {{ trans('runsite::models.settings.Only GET requests are processed') }}. {{ trans('runsite::models.settings.Please note: if your page contains forms with CSRF protection - do not use caching') }}.</small>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="form-group {{ $errors->has('swap_dependencies') ? ' has-error' : '' }}">
+				{{ Form::label('swap_dependencies', trans('runsite::nodes.settings.Swap dependencies')) }}
+				<input type="hidden" name="swap_dependencies" value="0">
+				<div class="runsite-checkbox">
+					{{ Form::checkbox('swap_dependencies', 1, null, [ ! Auth::user()->access()->application($application)->edit ? 'disabled' : null]) }}
+					<label for="swap_dependencies"></label>
+				</div>
+				@if ($errors->has('swap_dependencies'))
+					<span class="help-block">
+						<strong>{{ $errors->first('swap_dependencies') }}</strong>
+					</span>
+				@endif
+				<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::nodes.settings.The dependencies in the model and in the node will be changed in places') }}.</small>
 			</div>
 		</div>
 	</div>

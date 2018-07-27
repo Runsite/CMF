@@ -18,6 +18,7 @@ class CreateNodeSettingsTable extends Migration
             $table->integer('node_id')->references('id')->on('rs_nodes')->unsigned();
             $table->boolean('use_response_cache')->default(false);
             $table->string('node_icon')->nullable()->default(null);
+            $table->boolean('swap_dependencies')->default(false);
             $table->timestamps();
 
             $table->foreign('node_id')->references('id')->on('rs_nodes')->onUpdate('RESTRICT')->onDelete('CASCADE');
