@@ -43,5 +43,5 @@ function M($model_name, $is_active=true, $language_locale=null)
         return null;
     }
 
-    return $dynamic->where('language_id', $language->id);
+    return $dynamic->where($model->name . '.language_id', $language->id);
 }
