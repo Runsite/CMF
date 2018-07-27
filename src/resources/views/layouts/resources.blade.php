@@ -176,10 +176,38 @@
         '/vendor/runsite/asset/plugins/iCheck/icheck.min.js',
         '/vendor/runsite/asset/plugins/bootstrap-typeahead/bootstrap3-typeahead.min.js',
         '/vendor/runsite/asset/plugins/PreventDoubleSubmission/preventDoubleSubmission.js',
+        '/vendor/runsite/asset/plugins/ace/ace.js',
+        '/vendor/runsite/asset/plugins/ace/ext-language_tools.js',
     ]) !!}
 
     <script>
     $(document).ready(function () {
+
+        ace.require("ace/ext/language_tools");
+        ace.config.set('basePath', '{{ asset('/vendor/runsite/asset/plugins/ace') }}');
+        $('.field-code').each(function() {
+            var editor = ace.edit('pre-'+$(this).attr('id'));
+            var textarea = $(this).hide();
+            editor.session.setMode("ace/mode/" + $(this).data('language'));
+            editor.session.setOptions({ tabSize: 2, useSoftTabs: true });
+            editor.setTheme("ace/theme/" + $(this).data('theme'));
+
+            editor.getSession().setValue(textarea.val());
+            editor.getSession().on('change', function(){
+                textarea.val(editor.getSession().getValue());
+            });
+
+            if($(this).hasClass('readonly'))
+            {
+                editor.setOptions({
+                    readOnly: true,
+                    highlightActiveLine: false,
+                    highlightGutterLine: false
+                })
+                editor.renderer.$cursorLayer.element.style.opacity=0;
+            }
+            
+        });
 
         $('form:not(.js-allow-double-submission)').preventDoubleSubmission();
 
