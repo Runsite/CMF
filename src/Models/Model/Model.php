@@ -248,14 +248,14 @@ class Model extends Eloquent
 	public function getPrefixAttribute()
 	{
 		$parts = explode('_', $this->name);
-		$prefix = '';
-		foreach($parts as $k=>$part)
-		{
-			if(++$k<$parts)
-			{
-				$prefix .= $part . '_';
-			}
-		}
+		$prefix = $parts[0];
+		// foreach($parts as $k=>$part)
+		// {
+		// 	if(++$k<$parts)
+		// 	{
+		// 		$prefix .= $part . '_';
+		// 	}
+		// }
 
 		return $prefix;
 	}

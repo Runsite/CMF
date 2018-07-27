@@ -25,7 +25,7 @@
 							<td>{{ $modelItem->id }}</td>
 							<td>
 								<a class="ripple" data-ripple-color="#333" href="{{ route('admin.models.edit', $modelItem->id) }}" style="display: block;">
-									@if($k and str_is($models[$k-1]->prefix.'*', $modelItem->name))
+									@if($k and (str_is($models[$k-1]->prefix.'*', $modelItem->name) or $models[$k-1]->prefix == $modelItem->prefix))
 										<small> <i class="fa fa-caret-right xs-ml-10"></i> {{ $modelItem->display_name }}</small>
 										@if($modelItem->fields->count() <= 1)
 											<br><span class="label label-danger xs-ml-10">{{ trans('runsite::models.This model has not useful fields') }}</span>
