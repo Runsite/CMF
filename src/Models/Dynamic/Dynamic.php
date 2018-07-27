@@ -53,7 +53,7 @@ class Dynamic extends Eloquent
     {
         $pathExists = Path::where('node_id', $this->node->id)->where('name', $this->node->generatePath($this->name, false, $this->language_id))->where('language_id', $this->language_id)->count();
 
-        if((!$pathExists and $this->node->model->settings->slug_autogeneration) or ! Path::where('node_id', $this->node->id)->where('language_id', $this->language_id)->count())
+        if((!$pathExists and $this->name and ($this->node->model->settings->slug_autogeneration) or ! Path::where('node_id', $this->node->id)->where('language_id', $this->language_id)->count()))
         {
             // creating new path
             Path::create([

@@ -113,7 +113,7 @@ class Node extends Eloquent
 
 		Method::create(['node_id'=>$node->id]);
 		
-		$node->putAnalytic(1);
+		// $node->putAnalytic(1);
 
 		$languages = Language::get();
 
@@ -215,10 +215,13 @@ class Node extends Eloquent
 
 		if($unique)
 		{
-			while(Path::where('rs_paths.name', $path)->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->count() >= Language::count())
+			$number = '';
+			while(Path::where('rs_paths.name', $path . $number)->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->count() >= Language::count())
 			{
-				$path .= Node::where('parent_id', $this->parent_id)->count();
+				$number = Node::where('parent_id', $this->parent_id)->count();
 			}
+
+			$path = $path . $number;
 		}
 
 		return $path;
