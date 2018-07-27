@@ -216,9 +216,18 @@ class Node extends Eloquent
 		if($unique)
 		{
 			$number = '';
-			while(Path::where('rs_paths.name', $path . $number)->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->count() >= Language::count())
+			while(Path::where('rs_paths.name', $path . $number)->when($language_id, function($w) use($language_id) {
+				$w->where('rs_paths.language_id', $language_id);
+			})->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->count() >= Language::count())
 			{
-				$number = Node::where('parent_id', $this->parent_id)->count();
+				if(!$number)
+				{
+					$number = Node::where('parent_id', $this->parent_id)->count();
+				}
+				else
+				{
+					$number++;
+				}
 			}
 
 			$path = $path . $number;

@@ -51,19 +51,26 @@ class Dynamic extends Eloquent
 
     public function save(array $options = []): bool
     {
-        $pathExists = Path::where('node_id', $this->node->id)->where('name', $this->node->generatePath($this->name, false, $this->language_id))->where('language_id', $this->language_id)->count();
-
-        if((!$pathExists and $this->name and ($this->node->model->settings->slug_autogeneration) or ! Path::where('node_id', $this->node->id)->where('language_id', $this->language_id)->count()))
+        if($this->original['name'] and $this->attributes['name'] != $this->original['name'])
         {
-            // creating new path
-            Path::create([
-                'node_id' => $this->node->id,
-                'language_id' => $this->language_id,
-                'name' => $this->node->generatePath($this->name, true, $this->language_id),
-            ]);
-        }
+            $pathExists = Path::where('node_id', $this->node->id)
+                ->where('name', $this->node->generatePath($this->name, true, $this->language_id))
+                ->where('language_id', $this->language_id)
+                ->exists();
 
-        $this->node->putAnalytic(2);
+            if((!$pathExists and $this->name and ($this->node->model->settings->slug_autogeneration) or ! Path::where('node_id', $this->node->id)->where('language_id', $this->language_id)->exists()))
+            {
+                // creating new path
+                Path::create([
+                    'node_id' => $this->node->id,
+                    'language_id' => $this->language_id,
+                    'name' => $this->node->generatePath($this->name, true, $this->language_id),
+                ]);
+            }
+        }
+        
+
+        // $this->node->putAnalytic(2);
 
         $listenerClass = 'App\Events\Nodes\NodesListener';
         if(class_exists($listenerClass))
