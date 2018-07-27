@@ -14,7 +14,7 @@
 								<strong>{{ $errors->first('nodes_ordering') }}</strong>
 							</span>
 						@endif
-						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.Ordering in admin panel and in then scope ordered()') }}</small>
+						<small class="text-muted"><i class="fa fa-info"></i> {{ trans('runsite::models.settings.Ordering in admin panel') }}</small>
 					</div>
 				</div>
 				<div class="col-md-6">

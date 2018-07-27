@@ -36,7 +36,7 @@ return [
         'Use response cache' => 'Use response cache',
         'Generate new slug automaticly' => 'Generate new slug automaticly',
         'Max nodes count' => 'Max nodes count',
-        'Ordering in admin panel and in then scope ordered()' => 'Ordering in admin panel and in then scope ordered()',
+        'Ordering in admin panel' => 'Ordering in admin panel',
         'Name of class stored in App\Models' => 'Name of class stored in App\Models',
         'Here you can determine how many nodes of this model can be created in the admin panel' => 'Here you can determine how many nodes of this model can be created in the admin panel',
         'Nodes of this model will be displayed in the tree' => 'Nodes of this model will be displayed in the tree',
