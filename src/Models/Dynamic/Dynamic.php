@@ -152,7 +152,6 @@ class Dynamic extends Eloquent
 
     public function scopeOrdered(Builder $builder)
     {
-        dd($this);
         return $builder->orderBy('position', 'asc');
     }
 }
