@@ -104,6 +104,7 @@ class Group extends Eloquent
             AccessNode::create([
                 'group_id' => $group->id,
                 'node_id' => $node->id,
+                'access' => 3,
             ]);
         }
 
@@ -112,6 +113,7 @@ class Group extends Eloquent
             AccessField::create([
                 'group_id' => $group->id,
                 'field_id' => $field->id,
+                'access' => 3,
             ]);
         }
 
@@ -120,6 +122,7 @@ class Group extends Eloquent
             AccessModel::create([
                 'group_id' => $group->id,
                 'model_id' => $model->id,
+                'access' => 3,
             ]);
         }
 
@@ -128,6 +131,7 @@ class Group extends Eloquent
             AccessApplication::create([
                 'group_id' => $group->id,
                 'application_id' => $application->id,
+                'access' => 3,
             ]);
         }
 
