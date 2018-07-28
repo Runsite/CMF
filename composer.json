@@ -22,7 +22,6 @@
         "barryvdh/laravel-elfinder": "^0.3.12",
         "caouecs/laravel-lang": "~3.0",
         "fx3costa/laravelchartjs": "^2.3",
-        "greggilbert/recaptcha": "dev-master",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "nunomaduro/laravel-console-menu": "^1.0",
