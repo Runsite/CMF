@@ -16,7 +16,20 @@
         "renatomarinho/laravel-page-speed": "^1.8",
         "spatie/laravel-paginateroute": "^2.6",
         "spatie/laravel-responsecache": "^4.1",
-        "sunra/php-simple-html-dom-parser": "1.5.2"
+        "sunra/php-simple-html-dom-parser": "1.5.2",
+        "larapack/config-writer": "1.*",
+        "albertcht/invisible-recaptcha": "^1.8",
+        "barryvdh/laravel-elfinder": "^0.3.12",
+        "caouecs/laravel-lang": "~3.0",
+        "fx3costa/laravelchartjs": "^2.3",
+        "greggilbert/recaptcha": "dev-master",
+        "laravel/framework": "5.5.*",
+        "laravel/tinker": "~1.0",
+        "nunomaduro/laravel-console-menu": "^1.0",
+        "simplesoftwareio/simple-qrcode": "~2",
+        "spatie/laravel-image-optimizer": "^1.1",
+        "that0n3guy/transliteration": "2.0.x",
+        "abhimanyusharma003/conversion": "dev-master"
     },
     "license": "MIT",
     "authors": [
