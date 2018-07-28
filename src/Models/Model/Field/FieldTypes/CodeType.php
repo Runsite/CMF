@@ -31,7 +31,7 @@ class CodeType
         ],
 
         'theme' => [
-            'value' => 'ambiance',
+            'value' => 'github',
             'variants' => [
                 'ambiance',
                 'chaos',

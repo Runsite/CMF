@@ -51,7 +51,6 @@ class Setup extends Command
         CreateAdminSectionModel::class,
         CreatePageModel::class,
         CreateDependencies::class,
-        CreateSettingsNode::class,
         PublishVendor::class,
         StoragePreparation::class,
     ];

@@ -2,6 +2,6 @@
 
 @section('content')
 	<div class="container">
-		<h1>Node: {{ $%_model_name_%->node->id }}; Is Active: {{ $%_model_name_%->is_active }}</h1>
+		<h1>Node: {{ $fields->node->id }}; Is Active: {{ $fields->is_active }}</h1>
 	</div>
 @endsection
