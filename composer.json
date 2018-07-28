@@ -28,7 +28,7 @@
     "minimum-stability": "stable",
     "autoload": {
       "psr-4": {
-          "RunsiteCMF\\CMF\\": "src/"
+          "Runsite\\CMF\\": "src/"
         }
     },
 
