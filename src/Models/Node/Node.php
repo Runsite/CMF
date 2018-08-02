@@ -168,6 +168,17 @@ class Node extends Eloquent
 
 	}
 
+	protected function pathsCount($path, $language_id=null)
+	{
+		return Path::where('rs_paths.name', $path)
+		->when($language_id, function($w) use($language_id) 
+			{
+				return $w->where('rs_paths.language_id', $language_id);
+			})
+		->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')
+		->count();
+	}
+
 	public function generatePath($basename=null, $unique=true, $language_id=null)
 	{
 		if($this->parent_id === null)
@@ -215,14 +226,13 @@ class Node extends Eloquent
 
 		if($unique)
 		{
+			$languagesCount = Language::count();
 			$number = '';
-			while(Path::where('rs_paths.name', $path . $number)->when($language_id, function($w) use($language_id) {
-				$w->where('rs_paths.language_id', $language_id);
-			})->join('rs_nodes', 'rs_nodes.id', '=', 'rs_paths.node_id')->count() >= Language::count())
+			while($this->pathsCount($path . $number, $language_id) >= ($language_id ? 1 : $languagesCount))
 			{
 				if(!$number)
 				{
-					$number = Node::where('parent_id', $this->parent_id)->count();
+					$number = $this->pathsCount($path . $number, $language_id);
 				}
 				else
 				{
