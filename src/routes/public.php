@@ -2,7 +2,6 @@
 
 use Runsite\CMF\Models\Node\Path;
 use Runsite\CMF\Helpers\GlobalScope;
-//, 'middleware' => ['localize', 'localeSessionRedirect', 'localizationRedirect' ]
 
 if(! str_is('*.*', \Request::path()))
 {
