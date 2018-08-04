@@ -47,6 +47,7 @@ class RunsiteCMFServiceProvider extends ServiceProvider
             __DIR__.'/../publish/config/minify.config.php' => config_path('minify.config.php'),
             __DIR__.'/../publish/config/elfinder.php' => config_path('elfinder.php'),
             __DIR__.'/../publish/config/filesystems.php' => config_path('filesystems.php'),
+            __DIR__.'/../publish/config/sentry.php' => config_path('sentry.php'),
             __DIR__.'/../publish/resources/views/layouts/app.blade.php' => base_path('resources/views/layouts/app.blade.php'),
             __DIR__.'/../publish/resources/views/layouts/resources.blade.php' => base_path('resources/views/layouts/resources.blade.php'),
             __DIR__.'/../publish/resources/views/roots/view.blade.php' => base_path('resources/views/roots/view.blade.php'),

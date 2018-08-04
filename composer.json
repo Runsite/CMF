@@ -28,7 +28,8 @@
         "simplesoftwareio/simple-qrcode": "~2",
         "spatie/laravel-image-optimizer": "^1.1",
         "that0n3guy/transliteration": "2.0.x",
-        "abhimanyusharma003/conversion": "dev-master"
+        "abhimanyusharma003/conversion": "dev-master",
+        "sentry/sentry-laravel": "^0.9.0"
     },
     "license": "MIT",
     "authors": [
